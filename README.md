@@ -6,4 +6,4 @@ The Plutonomicon is a developer-driven guide to the Plutus smart contract langua
 Since this ecosystem is moving at a breakneck speed, we ask that ANY information posted that is not confirmed to work on chain be labelled as `🔧 work in progress`.
 
 
-For a brief introduction to the plutus language, 
+For a brief introduction to the plutus language, see [The Fundamentals of Plutus](fundamentals.md) 
