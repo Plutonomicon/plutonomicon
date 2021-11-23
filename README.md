@@ -1,4 +1,10 @@
-# Welcome to the Plutonomicon
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/H2ZZjU2.png" height=250 />
+</p>
+
+<h1 align="center">P L U T O N O M I C O N</h1>
+
 
 
 The Plutonomicon is a developer-driven guide to the Plutus smart contract language _in practice_.
