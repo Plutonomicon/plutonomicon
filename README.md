@@ -10,3 +10,4 @@ For a brief introduction to the plutus language, see [The Fundamentals of Plutus
 
 For an overview of the Plutus number typeclass stack (and additional numeric tools in `plutus-extra`) see [Plutus Numeric Hierarchy](numeric.md).
 
+For a pattern that can be used to replicate account-style maps without breaking transaction sizes, see [On-Chain Association List With Constant Time Insert-Removal](assoc.md).
