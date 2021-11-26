@@ -19,9 +19,9 @@ Define breaking: when the longest common prefix of the ByteString to be inserted
 
 Insertion involves either
 
-    Adding a ByteString to a node's leaves - this can be done if and only if the longest common prefix of the ByteString with all of the leaves and branches is exactly the prefix of the Node.
-    Breaking a leaf - this involves proving that the longest common prefix of the ByteString and some leaf is longer than the prefix of the node. The leaf is deleted, the overlap is added to the branches and a new node is created with prefix==(prefix <> overlap) that is referenced from the original node. The new node contains the broken leaf and the inserted ByteString.
-    Breaking a branch - this involves proving that the longest common prefix of the ByteString and a branch is longer than the prefix of the node and shorter than (prefix <> branch). If this is the case we can create a new node with prefix==(prefix <> overlap) and replace the broken branch with a reference to this new node. The new node contains the inserted ByteString as a single leaf and the broken branch as a singleton branch.
+- Adding a ByteString to a node's leaves - this can be done if and only if the longest common prefix of the ByteString with all of the leaves and branches is exactly the prefix of the Node.
+- Breaking a leaf - this involves proving that the longest common prefix of the ByteString and some leaf is longer than the prefix of the node. The leaf is deleted, the overlap is added to the branches and a new node is created with prefix==(prefix <> overlap) that is referenced from the original node. The new node contains the broken leaf and the inserted ByteString.
+- Breaking a branch - this involves proving that the longest common prefix of the ByteString and a branch is longer than the prefix of the node and shorter than (prefix <> branch). If this is the case we can create a new node with prefix==(prefix <> overlap) and replace the broken branch with a reference to this new node. The new node contains the inserted ByteString as a single leaf and the broken branch as a singleton branch.
 
 
 The largest Node that can be created is the one where the prefix is the empty ByteString and there is a leaf for each unique single byte prefix. For 32bit fixed length ByteStrings this should be around 8Kb plus some overhead for constructors. At this point if another Bytestring is inserted it will break a Leaf at some point and the shared prefix will become a branch - reducing the size.
