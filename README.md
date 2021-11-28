@@ -24,6 +24,8 @@ Third, a more concurrent pattern to replicate account-style maps, [On-Chain Asso
 
 two other relevant patterns are [Come and Go Proof Tokens](cngproof.md) and [State Thread Token Pattern](statethread.md)
 
+For efficient order books, [Stick-Breaking Sets](stick-breaking.md) may help you.
+
 ## Design Patterns:
 the first main design pattern in Plutus is the [Forwarding Minting Policy](forwarding1.md), also described [here](forwarding2.md).  Caution is required though, as you may not wish to directly reference a script in order to obtain a hash used to identify the two scripts.
 
