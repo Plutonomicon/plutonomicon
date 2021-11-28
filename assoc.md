@@ -1,6 +1,7 @@
+Credit: Neil Rutledge
 # Background 
 
-The excellent article [Distributed map in EUTXO model](https://mlabs.slab.com/posts/h5pymk59) from [Marcin Bugaj](https://mlabs.slab.com/users/0e59w8s0) describes the need for an on-chain, distributed data structure which can guarantee uniqueness of entries.
+The excellent article [Distributed map in EUTXO model](DistributedMap.md) from Marcin Bugaj describes the need for an on-chain, distributed data structure which can guarantee uniqueness of entries.
 
 If you want to validate that something doesn&#39;t exist on chain in the EUTXO model, you do not have access to anything aside from the transaction inputs, which are limited by transaction size limits. So checking that someone hasn&#39;t voted twice, for example, would be impossible without some sort of data structure that can guarantee uniqueness on insert.
 
@@ -94,7 +95,7 @@ An important question now is: where do the NFTs come from and how can we ensure 
 
 One way to achieve this would be to first mint the head NFT and then use its AssetClass or CurrencySymbol as a parameter for both the entry NFT minting policy and the script that locks them. This will create a unique script hash for each list as well as unique NFT CurrencySymbols for each list. The minting policy can validate that either the head NFT is spent or an entry that it minted is spent before minting any further entry NFTs. The script can also validate that each NFT added has the correct AssetClass (they will all share the same CurrencySymbol but should have a unique TokenName such as a hash of the key).
 
-Plutus also has a forwardingMintingPolicy (described here: [Forwarding Minting Policy](https://mlabs.slab.com/posts/had6gewc)) that could potentially work.
+Plutus also has a forwardingMintingPolicy (described here: [Forwarding Minting Policy](forwarding1.md)) that could potentially work.
 
 ### How About Using Datum Hashes as Pointers?
 
