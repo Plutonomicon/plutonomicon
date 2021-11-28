@@ -1,3 +1,5 @@
+Credit - Koz Ross
+
 # Introduction
 
 > &quot;God gave us the integers; all else is the work of man.&quot;
