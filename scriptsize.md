@@ -4,13 +4,13 @@ To give some reference, an **empty** script using `wrapValidator` is currently 2
 
 Scripts should optimally not be any bigger than 5 KiB, since multiple scripts may be needed in the same transaction.
 
-There are various work-arounds, which I will explain here.
+There are various workarounds, which I will explain here.
+
+See  [Plutus issue #4174](https://github.com/input-output-hk/plutus/issues/4174) for a summary of script size issues, and ideas for optimizing them at the compiler level.
 
 ## Avoid referencing code
 
 PlutusTx doesn&#39;t do any dead code elimination, which means the entire transitive closure of your script will be included on-chain.
-
-See [https://github.com/input-output-hk/plutus/issues/4174](https://github.com/input-output-hk/plutus/issues/4174)
 
 ## Avoid referencing data types
 
@@ -22,6 +22,13 @@ In addition, `newtype`s also increase code bloat, so avoid `newtype` on-chain.
 
 [Spooky](https://gitlab.com/fresheyeball/plutus-tx-spooky) is one technique that can be used to avoid referencing the ScriptContext, and avoid parsing it as well.
 careful use of `Spooky` types will allow you to only parse the fields you need, while maintaining the minimal typed footprint necessary for your smart contract. this has been observed to save 2k of the script's initial overhead (by abandoning the Typed Validator abstraction and instead using `Spooky` in the untyped validator script).
+
+## Avoid using complex functionality from Plutus
+
+Certain non-trivial functionality from Plutus general bigger scripts. In particular, avoid using these:
+
+- [StateMachine](https://github.com/input-output-hk/plutus-apps/issues/11)
+- Anything using `TxConstraints` (they are okay in offchain code)
 
 ## Use your own `FromData`
 
