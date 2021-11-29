@@ -84,7 +84,7 @@ main = _
 ### Compiling `sumOfSquares`
 
 We use the `compile` quasi-quoter from `PlutusTx.TH` for this purpose. As this
-produces a [typed splice](typed-splice), we need to
+produces a [typed splice][typed-splice], we need to
 enable several extensions. Here is our first attempt:
 
 ```haskell
@@ -109,7 +109,7 @@ compiledSumOfSquares = $$(compile [|| sumOfSquares ||])
 ```
 
 This already raises two caveats to be careful of. Firstly, the [TH staging
-restriction](limitations-of-th) means
+restriction][limitations-of-th] means
 that we cannot use `compile` on a definition in the same module. This doesn't
 trip us up here, but anything you want to `compile` _must_ be defined in a
 different module to the one you use `compile` in. The second is more subtle: we
@@ -275,8 +275,8 @@ our tests will fail, indicating the current size in the process.
 ### TH staging restriction
 
 This is a limitation of the Plutus compiler and GHC both; the former relies on
-[typed splices](typed-splice), and the latter has the [staging
-restriction](limitations-of-th). What this means in practice is that code such
+[typed splices][typed-splice], and the latter has the [staging
+restriction][limitations-of-th]. What this means in practice is that code such
 as the following will _not_ compile:
 
 ```haskell
