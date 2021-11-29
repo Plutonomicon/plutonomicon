@@ -376,6 +376,7 @@ them, while still getting the ability to test script size with confidence.
 * Mark Karpov's [Template Haskell
   tutorial](https://markkarpov.com/tutorial/th.htm)
 * [Fundamentals of Plutus](fundamentals.md)
+* [Techniques](scriptsize.md) for script size reduction
 
 [typed-splice]: https://markkarpov.com/tutorial/th.html#typed-expressions
 [limitations-of-th]: https://markkarpov.com/tutorial/th.html#limitations-of-th
