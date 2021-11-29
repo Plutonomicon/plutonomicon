@@ -133,6 +133,6 @@ If nothing helps and script is still too big think on ways to simplify the logic
 - Sometimes it helps to join two contracts into one bigger one. It does not help with script size but if they always are included in the same TX the size of two scripts that sit in separate UTXOs is a little bit bigger than if it has single UTXO dedicated to it. Beware that at the end it is the size of whole TX that matters most.
 - 
 
-##   Testing script sizes
-
-TODO: Something like [https://github.com/mlabs-haskell/liqwid-contracts/pull/429](https://github.com/mlabs-haskell/liqwid-contracts/pull/429)
+## The If-Then-Else Trick (mem/cpu optimization)
+- Since Plutus Boolean operations do not short-circuit, you can use If-Then-Else to create short-circuits.
+- this PR shows the patterns, as well as hoping to merge tools directly into plutus to help with this https://github.com/input-output-hk/plutus/pull/4191
