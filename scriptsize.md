@@ -25,7 +25,7 @@ careful use of `Spooky` types will allow you to only parse the fields you need, 
 
 ## Avoid using complex functionality from Plutus
 
-Certain non-trivial functionality from Plutus general bigger scripts. In particular, avoid using these:
+The use of non-trivial functionality from Plutus tend to generate bigger scripts. In particular, avoid using these:
 
 - [StateMachine](https://github.com/input-output-hk/plutus-apps/issues/11)
 - Anything using `TxConstraints` (they are okay in offchain code)
