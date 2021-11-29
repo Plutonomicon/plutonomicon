@@ -40,6 +40,14 @@ validatorUntyped datum redeemer ctx =
    check $ validator (unsafeFromBuiltinData datum) (unsafeFromBuiltinData redeemer) (unsafeFromBuiltinData ctx)
 ```
 
+Offchain code using `submitTxConstraints` requires a `TypedValidator`, but you can create one from the untyped validator using:
+
+```haskell
+typedValidator :: TypedValidator Any
+typedValidator =
+  unsafeMkTypedValidator validator
+```
+
 ## Use your own `FromData`
 
 `wrapValidator` essentially wraps the arguments of your validator in `unsafeFromBuiltinData`.
