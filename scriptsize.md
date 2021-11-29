@@ -30,6 +30,16 @@ The use of non-trivial functionality from Plutus tend to generate bigger scripts
 - [StateMachine](https://github.com/input-output-hk/plutus-apps/issues/11)
 - Anything using `TxConstraints` (they are okay in offchain code)
 
+## Use untyped validator
+
+Avoid `TypedValidator` and use `mkValidatorScript`. Use a "wrapping" validator that decodes the arguments before calling the actual validator with typed arguments:
+
+```haskell
+validatorUntyped :: BuiltinData -> BuiltinData -> BuiltinData -> ()
+validatorUntyped datum redeemer ctx =
+   check $ validator (unsafeFromBuiltinData datum) (unsafeFromBuiltinData redeemer) (unsafeFromBuiltinData ctx)
+```
+
 ## Use your own `FromData`
 
 `wrapValidator` essentially wraps the arguments of your validator in `unsafeFromBuiltinData`.
