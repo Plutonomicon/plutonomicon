@@ -20,6 +20,9 @@ Because of this, you want to avoid referencing unnecessary data types.
 
 In addition, `newtype`s also increase code bloat, so avoid `newtype` on-chain.
 
+[Spooky](https://gitlab.com/fresheyeball/plutus-tx-spooky) is one technique that can be used to avoid referencing the ScriptContext, and avoid parsing it as well.
+careful use of `Spooky` types will allow you to only parse the fields you need, while maintaining the minimal typed footprint necessary for your smart contract. this has been observed to save 2k of the script's initial overhead (by abandoning the Typed Validator abstraction and instead using `Spooky` in the untyped validator script).
+
 ## Use your own `FromData`
 
 `wrapValidator` essentially wraps the arguments of your validator in `unsafeFromBuiltinData`.
