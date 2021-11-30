@@ -30,7 +30,7 @@ To validate the output of transactions, we have a trick up our sleeves -
 
 Native token Minting Policies will check any transaction which _mints_ their associated token, so we can create a token which we attach to an initial Datum output at the script address.
 
-Other policies may be used, such as deferring to a &quot;parent&quot; validator (such as governance) but the simplest way to do this is with a &#39;one-shot&#39; minting policy which uses a unique TxOut to mint an _NFT_-like token which may only be minted oncce.
+Other policies may be used, such as deferring to a "parent" validator (such as governance) but the simplest way to do this is with a 'one-shot' minting policy which uses a unique TxOut to mint an _NFT_-like token which may only be minted oncce.
 
 If desired, the policy can also be used to validate the initial value of the Datum output.
 

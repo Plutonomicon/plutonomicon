@@ -2,10 +2,10 @@ Credit - Koz Ross
 
 # Introduction
 
-> &quot;God gave us the integers; all else is the work of man.&quot;
+> "God gave us the integers; all else is the work of man."
 > [Leopold Kronecker](https://en.wikiquote.org/wiki/Leopold_Kronecker)
 > 
-> &quot;Plutus gave us the `Integer`s; all else is the work of MLabs.&quot;
+> "Plutus gave us the `Integer`s; all else is the work of MLabs."
 > Anonymous
 
 Numbers are a concept that is at the same time familiar in its generalities, but aggravating in its detail. This is mostly because mathematicians typically operate in the real line, which we, as computer scientists, cannot; additionally, as Haskell developers, we are more concerned with _capabilities_ than _theorems._ Therefore, working with numbers on a computer is, in basically every language, some degree of unsatisfactory.
@@ -18,25 +18,25 @@ The goal of this document is to provide:
 
 # Basics
 
-Plutus provides two &#39;base&#39; numerical types: `Integer` and `Rational`. These correspond to `Z` and `Q` in mathematics, and in theory, all the operations reasonable to define on them.
+Plutus provides two 'base' numerical types: `Integer` and `Rational`. These correspond to `Z` and `Q` in mathematics, and in theory, all the operations reasonable to define on them.
 
-Why do mathematicians refer to the integers as `Z` and the rationals as `Q`? The former is from the German _Zahlen,_ meaning &#39;numbers&#39;; the latter from the Italian _quoziente,_ meaning &#39;quotient&#39;.
+Why do mathematicians refer to the integers as `Z` and the rationals as `Q`? The former is from the German _Zahlen,_ meaning 'numbers'; the latter from the Italian _quoziente,_ meaning 'quotient'.
 
-As MLabs extensions, we also provide `Natural` and `NatRatio`; the former corresponds to `N` in mathematics, while the latter doesn&#39;t really have an analog that&#39;s talked about much, but represents the non-negative part of `Q`. We will write this as `Q+`.
+As MLabs extensions, we also provide `Natural` and `NatRatio`; the former corresponds to `N` in mathematics, while the latter doesn't really have an analog that's talked about much, but represents the non-negative part of `Q`. We will write this as `Q+`.
 
 Part of the challenge of a numerical hierarchy is the tension between:
 
 1. The overloading of many mathematical concepts, such as addition; and
 1. The fact that the behaviour of different numerical types makes these vary in behaviour.
 
-We want to have the ability to write number-related concepts without having to have several varieties of the same operation: the natural method for this is type classes, whose original purpose was ad-hoc polymorphism. It is likely that numerical concepts were a high priority for this kind of behaviour. However, _because_ type classes allow ad-hoc polymorphism, we have to define clear expectations of what we expect a &#39;valid&#39; or &#39;correct&#39; implementation of a type class method to do. This also ties back to our problem: we want the behaviour of our numerical operators to be consistent with our intuition and reasoning, but also flexible enough to allow grouping of common behaviour.
+We want to have the ability to write number-related concepts without having to have several varieties of the same operation: the natural method for this is type classes, whose original purpose was ad-hoc polymorphism. It is likely that numerical concepts were a high priority for this kind of behaviour. However, _because_ type classes allow ad-hoc polymorphism, we have to define clear expectations of what we expect a 'valid' or 'correct' implementation of a type class method to do. This also ties back to our problem: we want the behaviour of our numerical operators to be consistent with our intuition and reasoning, but also flexible enough to allow grouping of common behaviour.
 
 ## Inadequacy of `Num`
 
 The Haskell approach to  arithmetic and numerical operations involves the `Num` type class. This approach is highly unsatisfactory as a foundation, for multiple reasons:
 
-- A lot of unrelated concepts are &#39;mashed together&#39; in this design. In particular, `fromInteger` is really a _syntactic_ construction for overloading numerical syntax, which is at odds with everything else in `Num`.
-- `Num` is &#39;too strong&#39; to serve as a foundation for a numerical hierarchy. As it demands a definition of either `negate` or `-`, it means that many types (including `Natural`) must be partial in _at least_ this method. Furthermore, demanding a definition of `fromInteger` for values that _cannot_ be negative (such as `Natural`) requires either odd behaviour or partiality.
+- A lot of unrelated concepts are 'mashed together' in this design. In particular, `fromInteger` is really a _syntactic_ construction for overloading numerical syntax, which is at odds with everything else in `Num`.
+- `Num` is 'too strong' to serve as a foundation for a numerical hierarchy. As it demands a definition of either `negate` or `-`, it means that many types (including `Natural`) must be partial in _at least_ this method. Furthermore, demanding a definition of `fromInteger` for values that _cannot_ be negative (such as `Natural`) requires either odd behaviour or partiality.
 - `Num` is not well-founded. It is similar enough to a range of concepts, but not similar enough to actually rely on.
 
 Thus, instead of this, Plutus took a different approach, which we both explain, and extend, here.
@@ -60,11 +60,11 @@ These come with two laws:
 - For any `x, y, z`, `(x <> y) <> z = x <> (y <> z)` (associativity).
 - For any `x`, `x <> mempty = mempty <> x = x` (identity of `mempty`).
 
-When we describe _laws,_ the `=` symbol refers to _substitution,_ rather than _equality_ in the sense of the `Eq` type class. Thus, in the description of a law, when we say `lhs = rhs`, we mean &#39;we can always replace `lhs` with `rhs`, and vice versa, and get the same result&#39;.
+When we describe _laws,_ the `=` symbol refers to _substitution,_ rather than _equality_ in the sense of the `Eq` type class. Thus, in the description of a law, when we say `lhs = rhs`, we mean 'we can always replace `lhs` with `rhs`, and vice versa, and get the same result'.
 
 `Semigroup` and `Monoid` have a plethora of uses, and act as a foundation of _many_ concepts, both in Haskell and outside of it. However, we need more structure than this to define sensible arithmetic.
 
-Mathematically, there is a convention to talk of _additive_ and _multiplicative_ semigroups, monoids, and indeed, other structures. This &#39;links together&#39; two _different_ structures over the same set, and provides us with additional guarantees. To this effect, Plutus defines `AdditiveSemigroup`, `AdditiveMonoid`, `MultiplicativeSemigroup` and `MultiplicativeMonoid`, as so:
+Mathematically, there is a convention to talk of _additive_ and _multiplicative_ semigroups, monoids, and indeed, other structures. This 'links together' two _different_ structures over the same set, and provides us with additional guarantees. To this effect, Plutus defines `AdditiveSemigroup`, `AdditiveMonoid`, `MultiplicativeSemigroup` and `MultiplicativeMonoid`, as so:
 
 ```haskell
 class AdditiveSemigroup (a :: Type) where
@@ -132,32 +132,32 @@ This statement hides some laws which are required for `a` to be a semiring:
 
 We thus have to ensure that we _only_ define this combination of instances for types where these laws apply.
 
-Purescript defines a `Semiring type class` of its own instead of defining the &#39;additive&#39; and &#39;multiplicative&#39; halves separately. This is better for lawfulness, but less compositional than the Plutus approach.
+Purescript defines a `Semiring type class` of its own instead of defining the 'additive' and 'multiplicative' halves separately. This is better for lawfulness, but less compositional than the Plutus approach.
 
 Distributivity in particular is a powerful concept, as it allows us much of the power of algebra over numbers. This can be applied in many contexts, possibly achieving non-trivial speedups: consider some of the examples from [_Semirings for Breakfast_](https://marcpouly.ch/pdf/internal_100712.pdf)_._
 
-While `*` for `Integer`, `Natural`, `NatRatio` and `Rational` happens to be commutative, this isn&#39;t required in general; for a semiring, only addition must commute. For a good counter-example, consider [square matrices](https://en.wikipedia.org/wiki/Square_matrix) of any of these types: all the semiring laws fit, but matrix multiplication _certainly_ does not commute.
+While `*` for `Integer`, `Natural`, `NatRatio` and `Rational` happens to be commutative, this isn't required in general; for a semiring, only addition must commute. For a good counter-example, consider [square matrices](https://en.wikipedia.org/wiki/Square_matrix) of any of these types: all the semiring laws fit, but matrix multiplication _certainly_ does not commute.
 
 # Two universes
 
 As a foundation for a numerical hierarchy (or system in general), semirings (and indeed, `Semiring`s) get us fairly far. However, they do not give us enough for a full treatment of the four basic arithmetical operations: we have a treatment of addition and multiplication, but _not_ subtraction or division.
 
-Generally, addition and subtraction are viewed as &#39;paired&#39; operations, where one &#39;undoes&#39; the other. This is a common mathematical concept, termed an [_inverse_](https://en.wikipedia.org/wiki/Inverse_function)_._ Thus, it&#39;s common to consider subtraction as &#39;inverse addition&#39; (and division as &#39;inverse multiplication&#39;). However, these statements hide some complexity; there are, in fact, _two_ ways to view subtraction (only one of which is a true inverse), while division is only a partial inverse. These are of minor note to mathematicians, but of _significant_ concern to us as Haskell developers. We want to ensure good laws and totality, but also have the behaviour of these operations line up with our intuition.
+Generally, addition and subtraction are viewed as 'paired' operations, where one 'undoes' the other. This is a common mathematical concept, termed an [_inverse_](https://en.wikipedia.org/wiki/Inverse_function)_._ Thus, it's common to consider subtraction as 'inverse addition' (and division as 'inverse multiplication'). However, these statements hide some complexity; there are, in fact, _two_ ways to view subtraction (only one of which is a true inverse), while division is only a partial inverse. These are of minor note to mathematicians, but of _significant_ concern to us as Haskell developers. We want to ensure good laws and totality, but also have the behaviour of these operations line up with our intuition.
 
-The &#39;classical&#39; treatment of subtraction involves extending the additive monoids we have seen so far to [_additive groups_](https://en.wikipedia.org/wiki/Additive_group)_,_ which contain the notion of an [_additive inverse_](https://en.wikipedia.org/wiki/Additive_inverse) __ for each element. In Plutus, we have this notion in the `AdditiveGroup` type class:
+The 'classical' treatment of subtraction involves extending the additive monoids we have seen so far to [_additive groups_](https://en.wikipedia.org/wiki/Additive_group)_,_ which contain the notion of an [_additive inverse_](https://en.wikipedia.org/wiki/Additive_inverse) __ for each element. In Plutus, we have this notion in the `AdditiveGroup` type class:
 
 ```haskell
 class (AdditiveMonoid a) => AdditiveGroup (a :: Type) where
   (-) :: a -> a -> a
 ```
 
-There is also a helper function `negate :: (AdditiveGroup a) => a -> a`, which gives the additive inverse of its argument. The only law for `AdditiveGroup`s is that for all `x`, there exists a `y` such that `x + y = zero`. Both `Integer` and `Rational` are `AdditiveGroup`s (using subtraction for `-`); however, neither `Natural` nor `NatRatio` can be, as subtraction on `N` or `Q+` is not [_closed_](https://en.wikipedia.org/wiki/Closure_(mathematics))_._ This is one reason why `Natural` is awkward to use in Haskell in particular. While we _could_ define some kind of &#39;alt-subtraction&#39; based on additive inverses for these two types, they wouldn&#39;t fit our notion of what subtraction &#39;should be like&#39;.
+There is also a helper function `negate :: (AdditiveGroup a) => a -> a`, which gives the additive inverse of its argument. The only law for `AdditiveGroup`s is that for all `x`, there exists a `y` such that `x + y = zero`. Both `Integer` and `Rational` are `AdditiveGroup`s (using subtraction for `-`); however, neither `Natural` nor `NatRatio` can be, as subtraction on `N` or `Q+` is not [_closed_](https://en.wikipedia.org/wiki/Closure_(mathematics))_._ This is one reason why `Natural` is awkward to use in Haskell in particular. While we _could_ define some kind of 'alt-subtraction' based on additive inverses for these two types, they wouldn't fit our notion of what subtraction 'should be like'.
 
 An alternative approach is proposed by [Gondran and Minoux](https://www.springer.com/gp/book/9780387754499). This is done by identifying an alternative (and mutually-incompatible) property of (some) monoids, and using it as a basis for a separate, but lawful, operation.
 
 ## A mathematical aside
 
-The next stuff leans heavily on abstract algebra and maths. You can skip past this section if this doesn&#39;t interest you - another marker of this kind will indicate the end of that section, along with a summary of the conclusions.
+The next stuff leans heavily on abstract algebra and maths. You can skip past this section if this doesn't interest you - another marker of this kind will indicate the end of that section, along with a summary of the conclusions.
 
 For any monoid, we can define two _natural orders._ Given a monoid `M = (S, *, 0)`, we define the _left natural order_ on `S` as so: for all `x, y` in `S`, `x <~= y` if and only if there exists `z` in `S` such that `y = z * x`. The _right natural order_ on `S` is defined analogously: for all `x, y` in `S`, `x <=~ y` if and only if there exists `z` in `S` such that `y = x * z`.
 
@@ -197,7 +197,7 @@ GT <~= EQ = False
 GT <~= GT = True
 ```
 
-Intuitively, the left natural ordering makes `EQ` the smallest element, and all the others are &#39;about the same&#39;. The right natural order on `Ordering` is instead this:
+Intuitively, the left natural ordering makes `EQ` the smallest element, and all the others are 'about the same'. The right natural order on `Ordering` is instead this:
 
 ```haskell
 (<=~) :: Ordering -> Ordering -> Bool
@@ -219,9 +219,9 @@ We note that:
 - Any natural order is [_reflexive_](https://en.wikipedia.org/wiki/Reflexive_relation). As `0` is a neutral element, for any `x`, `x * 0 = 0 * x = x`; from  this, it follows that both `x <~= x`  and `x <=~ x` is always the case.
 - Any natural order is [_transitive_](https://en.wikipedia.org/wiki/Transitive_relation). If we have `x, y, z` such that `x <~= y` and `y <~= z`, we have `x', y'` such that `y = x' * x` and `z = y' * y`; thus, as `*` is closed, we can see that `z = (y' * x') * x`. Furthermore, as `*` is associative, we can ignore the bracketing. While we demonstrate this on a left natural order, the case for the right natural order is symmetric.
 
-This combination of properties means that any natural order is at least a [_preorder_](https://en.wikipedia.org/wiki/Preorder)_._ We also note that the only thing setting left and right natural orders apart is the fact that `*` doesn&#39;t have to be commutative; if it is, the two are identical, and we can just talk about _the_ natural order, which we denote `<~=~`. In our case, this is convenient, as additive monoids are _always_ commutative in their operation.
+This combination of properties means that any natural order is at least a [_preorder_](https://en.wikipedia.org/wiki/Preorder)_._ We also note that the only thing setting left and right natural orders apart is the fact that `*` doesn't have to be commutative; if it is, the two are identical, and we can just talk about _the_ natural order, which we denote `<~=~`. In our case, this is convenient, as additive monoids are _always_ commutative in their operation.
 
-In order to have a natural order (that is, have left and right natural orders coincide), being a commutative monoid is _sufficient,_ but not _necessary_. More precisely, all commutative monoids have coinciding left and right natural orders (as changing the order of the arguments to their operator doesn&#39;t change the meaning); however, there are non-commutative monoids whose left and right natural orders happen to coincide anyway.
+In order to have a natural order (that is, have left and right natural orders coincide), being a commutative monoid is _sufficient,_ but not _necessary_. More precisely, all commutative monoids have coinciding left and right natural orders (as changing the order of the arguments to their operator doesn't change the meaning); however, there are non-commutative monoids whose left and right natural orders happen to coincide anyway.
 
 Consider `N` under multiplication, with 1 as the identity element. For the left natural ordering, we note the following:
 
@@ -245,11 +245,11 @@ By a theorem of Gondran and Minoux, the properties of canonical natural order an
 
 This raises the question of whether we can recover something similar to an additive inverse, but in the context of a canonical natural order. It turns out that we can.  Let `M = (S, +, 0)` be a commutative, canonically-ordered monoid with canonical natural order `<~=~`. Then, there exists an operation _monus_ (denoted `^-`), such that `x ^- y` is the unique least `z` in `S` such that `x <~=~ y + z`.
 
-We call such an `M` a _hemigroup;_ if `M` happens to be an additive monoid, that would make it an _additive hemigroup._ The term &#39;hemigroup&#39; derives from Gondran and Minoux, designed to designate a &#39;separate but parallel&#39; concept to groups.
+We call such an `M` a _hemigroup;_ if `M` happens to be an additive monoid, that would make it an _additive hemigroup._ The term 'hemigroup' derives from Gondran and Minoux, designed to designate a 'separate but parallel' concept to groups.
 
-This terminology is a little different to Gondran and Minoux&#39;s original presentation: in their work, a hemigroup must be cancellative. We take the approach described here for two reasons: firstly, having a parallel to minus (in monus) makes the &#39;symmetry&#39; with groups far clearer; secondly, our goals are  a sensible definition of arithmetic in Plutus, rather than a minimal elucidation of properties.
+This terminology is a little different to Gondran and Minoux's original presentation: in their work, a hemigroup must be cancellative. We take the approach described here for two reasons: firstly, having a parallel to minus (in monus) makes the 'symmetry' with groups far clearer; secondly, our goals are  a sensible definition of arithmetic in Plutus, rather than a minimal elucidation of properties.
 
-tl;dr of the above: we can define a mutually-incompatible notion similar to additive inverses (based on an operation called &#39;monus&#39;), which follows its own rules.
+tl;dr of the above: we can define a mutually-incompatible notion similar to additive inverses (based on an operation called 'monus'), which follows its own rules.
 
 ## A different subtraction
 
@@ -266,7 +266,7 @@ Unlike `AdditiveGroup`, the laws required for `AdditiveHemigroup` are [more exte
 - For any `x, y, z`, `(x ^- y) ^- z = x ^- (y + z)`
 - For any `x`, `x ^- x = zero ^- x = zero`
 
-Both `Natural` and `NatRatio` are valid instances of this type class; in both cases, monus corresponds to the &#39;difference-or-zero&#39; operation, which can be (informally) described as:
+Both `Natural` and `NatRatio` are valid instances of this type class; in both cases, monus corresponds to the 'difference-or-zero' operation, which can be (informally) described as:
 
 ```haskell
 x ^- y 
@@ -276,7 +276,7 @@ x ^- y
 
 ## One arithmetic, two systems
 
-Having both `AdditiveGroup` and `AdditiveHemigroup`, and their mutual incompatibility (in the sense that no type can lawfully be both) creates two &#39;universes&#39; in the numerical hierarchy, both rooted at `Semigroup`. On one hand, if we have an additive inverse available, we get a combination of additive group and multiplicative monoid, which is a [_ring_](https://en.wikipedia.org/wiki/Ring_(mathematics))_:_
+Having both `AdditiveGroup` and `AdditiveHemigroup`, and their mutual incompatibility (in the sense that no type can lawfully be both) creates two 'universes' in the numerical hierarchy, both rooted at `Semigroup`. On one hand, if we have an additive inverse available, we get a combination of additive group and multiplicative monoid, which is a [_ring_](https://en.wikipedia.org/wiki/Ring_(mathematics))_:_
 
 ```haskell
 -- Provided by Plutus
@@ -296,13 +296,13 @@ Both of these retain the laws necessary to be `Semiring`s (which they are both e
 
 Rings have a rich body of research in mathematics, as well as considerably many extensions; hemirings (and generally, work related to canonically-ordered monoids and monus) are far less studied: only [Gondran and Minoux](https://www.springer.com/gp/book/9780387754499) have done significant investigation of this universe mathematically, demonstrating that many of the capabilities and theorems around rings can, to some degree, be recovered in the alternate universe. [_Semirings for Breakfast_](https://marcpouly.ch/pdf/internal_100712.pdf) __ presents more practical results, but takes a slightly different foundation (since the basis of his work are what Gondran and Minoux call _pre-semirings_, which lack identity elements).
 
-In some respect, this distinction is similar to the inherent separation between `Integer` (which, corresponding to `Z`, is &#39;the canonical ring&#39;) and `Natural` (which, corresponding to `N`, is &#39;the canonical hemiring&#39;).
+In some respect, this distinction is similar to the inherent separation between `Integer` (which, corresponding to `Z`, is 'the canonical ring') and `Natural` (which, corresponding to `N`, is 'the canonical hemiring').
 
 ## Absolute value and signum
 
 The extended structures based on rings are not only of theoretical interest: we describe one example where they allow us to capture useful behaviour (absolute value and signum) in a law-abiding, but generalizable way.
 
-Let `R = (S, +, *, 0, 1)` be a ring. We say that `R` is an [_integral domain_](https://en.wikipedia.org/wiki/Integral_domain) __ if for any `x /= 0`  and `y, z` in `S`, `x * y = x * z` implies `y = z`. In some sense, being an integral domain implies a (partial) cancellativity for multiplication. Both `Z` and `Q` are integral domains; this serves as an important &#39;extended structure&#39; based on rings.
+Let `R = (S, +, *, 0, 1)` be a ring. We say that `R` is an [_integral domain_](https://en.wikipedia.org/wiki/Integral_domain) __ if for any `x /= 0`  and `y, z` in `S`, `x * y = x * z` implies `y = z`. In some sense, being an integral domain implies a (partial) cancellativity for multiplication. Both `Z` and `Q` are integral domains; this serves as an important 'extended structure' based on rings.
 
 We can use this as a basis for notions of [absolute value](https://en.wikipedia.org/wiki/Absolute_value) and [signum](https://en.wikipedia.org/wiki/Sign_function). First, we take an [algebraic presentation](https://en.wikipedia.org/wiki/Absolute_value_(algebra)) of absolute value; translated into Haskell, this would look as so:
 
@@ -312,7 +312,7 @@ class (Ord a, Ring a) => IntegralDomain (a :: Type) where
   abs :: a -> a
 ```
 
-In this case, `abs` acts as a measure of the &#39;magnitude&#39; of a value, irrespective of its &#39;sign&#39;. The laws in this case would be as follows:
+In this case, `abs` acts as a measure of the 'magnitude' of a value, irrespective of its 'sign'. The laws in this case would be as follows:
 
 1. For any `x /= zero` and `y, z`, `x * y = x * z` implies `y = z`. This is a rephrasing of the integral domain axiom above.
 1. For any `x`, `abs x >= 0`. This assumes an order exists on `a`; we make this explicit with an `Ord a` constraint.
@@ -320,11 +320,11 @@ In this case, `abs` acts as a measure of the &#39;magnitude&#39; of a value, irr
 1. For any `x, y`, `abs (x * y) = abs x * abs y`.
 1. For any `x, y`, `abs (x + y) <= abs x + abs y`. This is called the [_triangle inequality_](https://en.wikipedia.org/wiki/Triangle_inequality)_;_ we are subject to the same caveats regarding `Ord` as law 2 above.
 
-Technically, laws 1 and 5 are quite restrictive; they forbid, for example, [Gaussian integers](https://en.wikipedia.org/wiki/Gaussian_integer) from being an instance, even though mathematically, they are indeed integral domains. However, as it is unlikely we&#39;ll work in the complex plane any time soon, we will set this problem aside for now.
+Technically, laws 1 and 5 are quite restrictive; they forbid, for example, [Gaussian integers](https://en.wikipedia.org/wiki/Gaussian_integer) from being an instance, even though mathematically, they are indeed integral domains. However, as it is unlikely we'll work in the complex plane any time soon, we will set this problem aside for now.
 
-This definition of absolute value is &#39;blind&#39; in the sense that we have no information in the type system that the value _must_ be &#39;non-negative&#39; in some sense. We will address this later in this section.
+This definition of absolute value is 'blind' in the sense that we have no information in the type system that the value _must_ be 'non-negative' in some sense. We will address this later in this section.
 
-Having this concept, we can now define a notion of &#39;sign function&#39; on that basis. We base this on the [signum function on real numbers relative the absolute value](https://en.wikipedia.org/wiki/Sign_function#Properties); rephrased in Haskell, this states that, for any `x`, `signum x * abs x = x`. Thus, we can introduce a default definition of signum as so:
+Having this concept, we can now define a notion of 'sign function' on that basis. We base this on the [signum function on real numbers relative the absolute value](https://en.wikipedia.org/wiki/Sign_function#Properties); rephrased in Haskell, this states that, for any `x`, `signum x * abs x = x`. Thus, we can introduce a default definition of signum as so:
 
 ```haskell
 -- Version 2
@@ -338,7 +338,7 @@ class (Ord a, Ring a) => IntegralDomain (a :: Type) where
     GT -> one
 ```
 
-This is an adequate definition: both `Integer` and `Rational` can be valid instances, based on a function already provided by Plutus (but hard to find). The basis taken by Plutus for absolute value differs slightly from the treatment we&#39;ve provided; instead, they define the following:
+This is an adequate definition: both `Integer` and `Rational` can be valid instances, based on a function already provided by Plutus (but hard to find). The basis taken by Plutus for absolute value differs slightly from the treatment we've provided; instead, they define the following:
 
 ```haskell
 -- Provided by Plutus in Data.Ratio
@@ -348,16 +348,16 @@ abs x = if x < zero then negate x else x
 
 We decided for our approach above, instead of this, for several reasons:
 
-- Despite its generality, the location of this function is fairly surprising - it&#39;s not technically to do with `Ratio` only, but applies just as well (at least) to `Integer` also.
+- Despite its generality, the location of this function is fairly surprising - it's not technically to do with `Ratio` only, but applies just as well (at least) to `Integer` also.
 - A general notion of signum is impossible in this presentation, as `AdditiveGroup` does not give us a multiplicative identity (or even multiplication as such).
 - The notion being appealed to here is that of a [_linearly-ordered group_](https://en.wikipedia.org/wiki/Linearly_ordered_group)_;_ thus, the extension being done is of additive groups, not rings. This is a problem, as linearly-ordered groups must be either trivial (one element big) or infinite; we require no such restrictions.
-- The issue with &#39;blindness&#39; we described already remains here; our method has a way of resolving it (see below).
+- The issue with 'blindness' we described already remains here; our method has a way of resolving it (see below).
 
-Finally, we address the notion of &#39;blindness&#39; in our implementation of absolute value; more precisely, `abs` as defined above does not enshrine the &#39;non-negativity&#39; of its result in the type system. As in Haskell, we want to make [illegal states unrepresentable](https://buttondown.email/hillelwayne/archive/making-illegal-states-unrepresentable/) and [parse, not validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate), this feels a bit unsatisfactory. We would like to have a way to inform the compiler that after we call (possibly a different version) of our absolute value function that the result _cannot_ be &#39;negative&#39;. To do this requires a little more theoretical ground.
+Finally, we address the notion of 'blindness' in our implementation of absolute value; more precisely, `abs` as defined above does not enshrine the 'non-negativity' of its result in the type system. As in Haskell, we want to make [illegal states unrepresentable](https://buttondown.email/hillelwayne/archive/making-illegal-states-unrepresentable/) and [parse, not validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate), this feels a bit unsatisfactory. We would like to have a way to inform the compiler that after we call (possibly a different version) of our absolute value function that the result _cannot_ be 'negative'. To do this requires a little more theoretical ground.
 
-Rings (and indeed, `Ring`s) are characterized by the existence of additive inverses; likewise, non-rings (and non-`Ring`s) are characterized by their inability to have such. The two-universe presentation we have given here demonstrates this in one way: we essentially claim these inhabit different universes. However, a more &#39;baseline&#39; mathematical view of this is to state that non-rings are _incomplete_ - for example, `N`is an incomplete version of `Z`, and `Q+` is an incomplete version of `Q`. In this sense, we can see `Z` as &#39;completing&#39; `N` by introducing additive inverses; analogously, we can view `Q` as &#39;completing&#39; `Q+` by introducing additive inverses.
+Rings (and indeed, `Ring`s) are characterized by the existence of additive inverses; likewise, non-rings (and non-`Ring`s) are characterized by their inability to have such. The two-universe presentation we have given here demonstrates this in one way: we essentially claim these inhabit different universes. However, a more 'baseline' mathematical view of this is to state that non-rings are _incomplete_ - for example, `N`is an incomplete version of `Z`, and `Q+` is an incomplete version of `Q`. In this sense, we can see `Z` as 'completing' `N` by introducing additive inverses; analogously, we can view `Q` as 'completing' `Q+` by introducing additive inverses.
 
-Based on this view, we can extend `IntegralDomain` into a multi-parameter type class, which, in addition to specifying an abstract notion of absolute value, also relates together a type and its &#39;additive completion&#39; (or an &#39;additive restriction&#39; and its extension):
+Based on this view, we can extend `IntegralDomain` into a multi-parameter type class, which, in addition to specifying an abstract notion of absolute value, also relates together a type and its 'additive completion' (or an 'additive restriction' and its extension):
 
 ```haskell
 -- Version 3
@@ -373,12 +373,12 @@ class (Ring a, Ord a) => IntegralDomain a r | a -> r, r -> a where
   addExtend :: r -> a
 ```
 
-`projectAbs` is an &#39;absolute value projection&#39;: it takes us from a &#39;larger&#39; type `a` into a &#39;smaller&#39; type `r` by &#39;squashing together&#39; values whose absolute value would be the same. `addExtend` on the other hand is an &#39;additive extension&#39;, which &#39;extends&#39; the &#39;smaller&#39; type `r` into the &#39;larger&#39; type `a`. These are governed by the following laws:
+`projectAbs` is an 'absolute value projection': it takes us from a 'larger' type `a` into a 'smaller' type `r` by 'squashing together' values whose absolute value would be the same. `addExtend` on the other hand is an 'additive extension', which 'extends' the 'smaller' type `r` into the 'larger' type `a`. These are governed by the following laws:
 
 1. `projectAbs . addExtend = id`
 1. For any `x`, if `abs x = x`, then `addExtend . projectAbs $ x = x`
 
-These laws provide necessary consistency with `abs`, as well as demonstrating that the operations form a (partial) inverse. Our use of functional dependencies in the definition is to ensure good type inference. They&#39;re arguably a little _too_ strict, as they insist on a bijective relationship between `a` and `r` - for now, this is not an issue, at least not for arithmetic.
+These laws provide necessary consistency with `abs`, as well as demonstrating that the operations form a (partial) inverse. Our use of functional dependencies in the definition is to ensure good type inference. They're arguably a little _too_ strict, as they insist on a bijective relationship between `a` and `r` - for now, this is not an issue, at least not for arithmetic.
 
 Lastly, to round out our observations, we note that `a` and `r` are partially isomorphic: in fact, you can form a `Prism` between them. Thus, for completeness, we also provide the `preview` direction of this `Prism`, finally yielding the definition of `IntegralDomain` which we provide:
 
@@ -405,7 +405,7 @@ Purescript instead treats `abs` and `signum` as concepts of `Ring`, with the add
 
 # The problem of division
 
-The operation of division is the most complex of all the arithmetic operations, for a variety of reasons. Firstly, for two of our types of interest (namely, `Natural` and `Integer`), the operation is not even _defined;_ secondly, even where it _is_ defined, it&#39;s inherently partial, as [division by zero is problematic](https://en.wikipedia.org/wiki/Division_by_zero#Division_as_the_inverse_of_multiplication). While there do exist systems that [can define division by zero](https://en.wikipedia.org/wiki/Projectively_extended_real_line), these do not behave the way we expect algebraically, both in terms of division and also other operations, and come with complications of their own. Resolving these problems in a satisfactory way is complex: we decided for a two-pronged approach. Roughly, we define an analogy of &#39;division-with-remainder&#39; which can be closed, and use this for `Integer` and `Natural`; additionally, we attempt a more &#39;mathematical&#39; treatment of division for what remains, with the acceptance of partiality in the narrowest possible scope.
+The operation of division is the most complex of all the arithmetic operations, for a variety of reasons. Firstly, for two of our types of interest (namely, `Natural` and `Integer`), the operation is not even _defined;_ secondly, even where it _is_ defined, it's inherently partial, as [division by zero is problematic](https://en.wikipedia.org/wiki/Division_by_zero#Division_as_the_inverse_of_multiplication). While there do exist systems that [can define division by zero](https://en.wikipedia.org/wiki/Projectively_extended_real_line), these do not behave the way we expect algebraically, both in terms of division and also other operations, and come with complications of their own. Resolving these problems in a satisfactory way is complex: we decided for a two-pronged approach. Roughly, we define an analogy of 'division-with-remainder' which can be closed, and use this for `Integer` and `Natural`; additionally, we attempt a more 'mathematical' treatment of division for what remains, with the acceptance of partiality in the narrowest possible scope.
 
 ## Division with remainder
 
@@ -422,14 +422,14 @@ class (IntegralDomain a) => Euclidean (a :: Type) where
   divMod :: a -> a -> (a, a)
 ```
 
-Here, `divMod` is &#39;division with remainder&#39;, producing both the quotient and remainder. This would require the following law: for all `x`and `y /= zero`, if `divMod x y = (q, r)`, then `q * y + r = x` and `0 <= r < abs y`.
+Here, `divMod` is 'division with remainder', producing both the quotient and remainder. This would require the following law: for all `x`and `y /= zero`, if `divMod x y = (q, r)`, then `q * y + r = x` and `0 <= r < abs y`.
 
 However, this design is unsatisfying for two reasons:
 
-- Due to the `IntegralDomain` requirement, only `Integer` could be an instance. This seems strange, as the concept of division-with-remainder doesn&#39;t intuitively require a notion of signedness.
+- Due to the `IntegralDomain` requirement, only `Integer` could be an instance. This seems strange, as the concept of division-with-remainder doesn't intuitively require a notion of signedness.
 - The Euclidean division axioms exclude `y = zero`, making `/` inherently partial.
 
-The main reason these are required mathematically are due to a requirement that division be an &#39;inverse&#39; to multiplication inherently - Euclidean division is designed as a stepping stone to &#39;actual&#39; division, which is viewed as a partial inverse to multiplication generally, and the two _cannot_ disagree. There is no _inherent_ reason why we have to be bound by this as Haskell developers: the two concepts can be viewed as orthogonal. While this approach is somewhat [Procrustean](https://www.schoolofhaskell.com/user/edwardk/editorial/procrustean-mathematics) in nature, we are interested in lawful and useful behaviours that fit within the intuition we have, and the operators we can provide, rather than mathematical theorems in and of themselves.
+The main reason these are required mathematically are due to a requirement that division be an 'inverse' to multiplication inherently - Euclidean division is designed as a stepping stone to 'actual' division, which is viewed as a partial inverse to multiplication generally, and the two _cannot_ disagree. There is no _inherent_ reason why we have to be bound by this as Haskell developers: the two concepts can be viewed as orthogonal. While this approach is somewhat [Procrustean](https://www.schoolofhaskell.com/user/edwardk/editorial/procrustean-mathematics) in nature, we are interested in lawful and useful behaviours that fit within the intuition we have, and the operators we can provide, rather than mathematical theorems in and of themselves.
 
 Thus, we solve this issue by instead defining the following:
 
@@ -461,7 +461,7 @@ rem x = snd . divMod x
 
 This resolves both issues: we now have closure, and both `Natural` and `Integer` can be lawful instances. For `Natural`, the behaviour is clear; for `Integer`, this acts as a combination of `quotient` and `remainder`.
 
-Purescript instead uses the concept of a [_Euclidean domain_](https://en.wikipedia.org/wiki/Euclidean_domain), and defines a `EuclideanRing type class` to embody it. Our solution is both more general and more total: more general as it does not require `a` to be a commutative ring (or even a ring as such); more total as we define division and remainder by zero. While less &#39;mathematically-grounded&#39;, we consider the increased generality and totality worth the somewhat narrower concept.
+Purescript instead uses the concept of a [_Euclidean domain_](https://en.wikipedia.org/wiki/Euclidean_domain), and defines a `EuclideanRing type class` to embody it. Our solution is both more general and more total: more general as it does not require `a` to be a commutative ring (or even a ring as such); more total as we define division and remainder by zero. While less 'mathematically-grounded', we consider the increased generality and totality worth the somewhat narrower concept.
 
 ## Multiplicative inverses and groups
 

@@ -2,7 +2,7 @@
 
 
 
-Native currencies on the cardano blockchain are &#39;minted&#39; or &#39;forged&#39; according to a special type of smart contract called a &#39;Minting Policy&#39; which determines the conditions in which currencies can be created or destroyed.
+Native currencies on the cardano blockchain are 'minted' or 'forged' according to a special type of smart contract called a 'Minting Policy' which determines the conditions in which currencies can be created or destroyed.
 
 Currencies are defined and identified by the hash of the Minting Policy script.
 
@@ -27,13 +27,13 @@ In the Plutus Haskell API, Minting Policies are defined by scripts such as the f
 >    symbol = ownCurrencySymbol ctx
 ```
 
-## &#39;Forwarding&#39; Minting Policies in Plutus
+## 'Forwarding' Minting Policies in Plutus
 
 
 
-Often, tokens play a more complex role in a smart-contract application, so it&#39;s convenient for a validator  script to handle the validation of forging operations.
+Often, tokens play a more complex role in a smart-contract application, so it's convenient for a validator  script to handle the validation of forging operations.
 
-The Plutus API provides some conveniences for creating &#39;forwarding&#39; minting policies, which simply check that a particular validator script has been run for any of the inputs to the transaction.
+The Plutus API provides some conveniences for creating 'forwarding' minting policies, which simply check that a particular validator script has been run for any of the inputs to the transaction.
 
 From `Ledger.Typed.Scripts.MonetaryPolicies` (formatting modified) :
 
@@ -100,6 +100,6 @@ On-Chain Access to the Forwarding Minting Policy of the Current Validator
 
 
 
-Since plutus-core doesn&#39;t support any primitives computing hashes, all the usual needed hashes are somehow provided via the `ValidatorCtx` or `PolicyCtx` inputs - except for any hashes which are dependent on others.
+Since plutus-core doesn't support any primitives computing hashes, all the usual needed hashes are somehow provided via the `ValidatorCtx` or `PolicyCtx` inputs - except for any hashes which are dependent on others.
 
 To work around this, we have to provide the hash of the forwarding policy as part of a Datum input.  In our case, we have to add an extra field containing the  `CurrencySymbol` of the `tvForwardingMPS` to the `MarketState` datum.
