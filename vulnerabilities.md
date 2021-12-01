@@ -8,7 +8,7 @@ there are many attacks that might be used to break all or part of a Validator in
 
 ### UTXO Value size spam AKA Token Dust attack
 
-_the UTXO of too many tokens_  (or a single AssetClass with a large amount of tokens) - where a single utxo carries hundreds of unique tokens with different CurrencySymbols and/or TokenNames until it&#39;s representation approaches the 16kb limit,  this is then placed in a Validator in such a way that one or more Redeemers will need to consume this utxo,   blocking transactions on that Redeemer/Validator.
+_the UTXO of too many tokens_  (or a single AssetClass with a large amount of tokens) - where a single utxo carries hundreds of unique tokens with different CurrencySymbols and/or TokenNames until it's representation approaches the 16kb limit,  this is then placed in a Validator in such a way that one or more Redeemers will need to consume this utxo,   blocking transactions on that Redeemer/Validator.
 
 Also see: [Min-Ada-Value Requirement](https://cardano-ledger.readthedocs.io/en/latest/explanations/min-utxo.html) - a minimum ada value is required on all UTXOs, which scales with UTXO size. This may mitigate protocol tx sizes somewhat. A similar calculation could be used on-chain to produce a size heuristic.
 
@@ -25,9 +25,9 @@ Blocking EUTXOs could be repeatedly spent with a trivial transaction, potentiall
 Mitigations:
 
 - Extra fees/other disincentives to discourage attacks/make them disproportionately expensive/make them benefit the protocol
-- &#39;freezing&#39; periods to allow protocol functions (keepers) to execute
-    - Validators can check Tx time range to have &#39;cold&#39; periods in which only keeper functions can execute, or whole protocol can prevent progress until a keeper action is allowed to progress and update a timestamp. i.e. every x seconds, there are n seconds where only keeper transactions will validate. Or, every x seconds, the protocol cannot progress until a keeper function has been run.
-    - (can only be done if there&#39;s a server — and won&#39;t work for custom transactions. Probably needs to be implemented on the Cardano side)
+- 'freezing' periods to allow protocol functions (keepers) to execute
+    - Validators can check Tx time range to have 'cold' periods in which only keeper functions can execute, or whole protocol can prevent progress until a keeper action is allowed to progress and update a timestamp. i.e. every x seconds, there are n seconds where only keeper transactions will validate. Or, every x seconds, the protocol cannot progress until a keeper function has been run.
+    - (can only be done if there's a server — and won't work for custom transactions. Probably needs to be implemented on the Cardano side)
 
 ## PAB denial of service
 
@@ -75,6 +75,6 @@ This is an attack vector where an attacker finds unexpected ways to mint all kin
 
 1) we have a forwarding minting policy which requires `MyState` datum/token from the `MyValidator` Validator in order to perform a mint. this policy mints `$TOK` - this can be any fungible token/ token with a consistent currencysymbol.
 
-2) we _Intend_ for users to mint using the `MintTOK` Redeemer in `MyValidator`, however, for other integrations we have a `WitnessMyState` Redeemer, which lets you consume `MyState` for any arbitrary purpose so long as you don&#39;t change it.
+2) we _Intend_ for users to mint using the `MintTOK` Redeemer in `MyValidator`, however, for other integrations we have a `WitnessMyState` Redeemer, which lets you consume `MyState` for any arbitrary purpose so long as you don't change it.
 
-3) if `WitnessMyState` does not check for minting actions, then we can mint infinite `$TOK`, inflating it&#39;s value and potentially other catastrophic ruin-your-day kinds of exploits.
+3) if `WitnessMyState` does not check for minting actions, then we can mint infinite `$TOK`, inflating it's value and potentially other catastrophic ruin-your-day kinds of exploits.

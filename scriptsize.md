@@ -10,7 +10,7 @@ See  [Plutus issue #4174](https://github.com/input-output-hk/plutus/issues/4174)
 
 ## Avoid referencing code
 
-PlutusTx doesn&#39;t do any dead code elimination, which means the entire transitive closure of your script will be included on-chain.
+PlutusTx doesn't do any dead code elimination, which means the entire transitive closure of your script will be included on-chain.
 
 ## Avoid referencing data types
 
@@ -67,7 +67,7 @@ myWrapValidator
 myWrapValidator f d r p = check (f (unsafeFromBuiltinData d) (unsafeFromBuiltinData r) (unsafeFromBuiltinData p))
 ```
 
-A general trick that can save you 2 KiB, is using your own alternative to `ScriptContext`. `ScriptContext` is a complex data type, that references many other data types. Since you often won&#39;t access most of it, replacing it with a data type that decodes in the same way can save you a lot of space. This trick can also be applied to your datums and redeemers, although to a lesser extent.
+A general trick that can save you 2 KiB, is using your own alternative to `ScriptContext`. `ScriptContext` is a complex data type, that references many other data types. Since you often won't access most of it, replacing it with a data type that decodes in the same way can save you a lot of space. This trick can also be applied to your datums and redeemers, although to a lesser extent.
 
 The trick is to do something like this:
 
@@ -86,7 +86,7 @@ PlutusTx.makeIsDataIndexed ''AScriptContext [('AScriptContext,0)]
 
 Care must be taken in order to make sure that the call to `makeIsDataIndexed` matches the one for the original data type.
 
-## Don&#39;t mint multiple tokens of different minting policies in the same transaction
+## Don't mint multiple tokens of different minting policies in the same transaction
 
 Each minting policy will increase the size of your transaction considerably. If possible, do it in multiple transactions.
 
@@ -102,7 +102,7 @@ use partial functions as much as possible. This means using `error` to handle ba
 
 ## Use conditional traceIfFalse
 
-It&#39;s nice to have readable messages to be able to trace the cause of the problem in the script. But messages also occupy space in script. To resolve that we can define custom function to report errors and switch it to identity in production code:
+It's nice to have readable messages to be able to trace the cause of the problem in the script. But messages also occupy space in script. To resolve that we can define custom function to report errors and switch it to identity in production code:
 
 ```haskell
 {-# INLINEABLE debug #-}

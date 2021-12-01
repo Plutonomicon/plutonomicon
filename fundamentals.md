@@ -1,4 +1,4 @@
-_Our goal is to write &quot;decentralized apps&quot; (dapps) that work on Cardano, but what is such an app in the first place?_
+_Our goal is to write "decentralized apps" (dapps) that work on Cardano, but what is such an app in the first place?_
 
 There are two big parts to Cardano: The consensus algorithm and ledger model. When we are writing dapps, we do not care about the consensus algorithm, we only assume it to be perfect, i.e. that there is a global ledger which everybody agrees on.
 
@@ -50,7 +50,7 @@ A script can always access its own hash at execution time.
 
 ### Boolean return
 
-While scripts may be &quot;boolean&quot; in nature, they do not actually return a Scott-encoded boolean. Scripts wrapped with `wrapValidator` and similar, are simply wrapped with a function `check` that calls `error` is the returned value is `False`.
+While scripts may be "boolean" in nature, they do not actually return a Scott-encoded boolean. Scripts wrapped with `wrapValidator` and similar, are simply wrapped with a function `check` that calls `error` is the returned value is `False`.
 
 ### Available built-ins
 
@@ -62,7 +62,7 @@ There are rules for whether a transaction can consume a UTXO.
 
 Each UTXO is associated with either a script (validator) or a public key hash.
 
-If it&#39;s a public key hash, then a transaction can only consume the UTXO if it contains a signature by the public key in question.
+If it's a public key hash, then a transaction can only consume the UTXO if it contains a signature by the public key in question.
 
 If it is a validator, then the validator will be run with three arguments, in the following order:
 
@@ -72,7 +72,7 @@ If it is a validator, then the validator will be run with three arguments, in th
 
 Through this functionality, you can simulate a state machine, where each transaction corresponds to one transition of the state machine from one state to another.
 
-This is done by checking the consuming transaction&#39;s outputs, and asserting that there is exactly one output **locked** with the same validator (referenced by its hash), and that its associated datum and value is correct.
+This is done by checking the consuming transaction's outputs, and asserting that there is exactly one output **locked** with the same validator (referenced by its hash), and that its associated datum and value is correct.
 
 ### Minimum Ada limit
 
@@ -105,7 +105,7 @@ The fees necessary for a transaction are known **ahead of time**. Fees will be c
 
 ### Transaction failure
 
-You might be wondering what happens if a transaction fails. It is after all very common for a transaction to fail. If we model some global state on the ledger through a global &quot;state machine&quot;, then there can not be two transactions that consume this UTXO in the same block. In such a case, one of the transactions will be rejected and fail.
+You might be wondering what happens if a transaction fails. It is after all very common for a transaction to fail. If we model some global state on the ledger through a global "state machine", then there can not be two transactions that consume this UTXO in the same block. In such a case, one of the transactions will be rejected and fail.
 
 Transaction failure in Cardano is split up into 2 parts, general failure and script failure.
 
@@ -119,7 +119,7 @@ If the transaction fails due to other reasons, for example input unavailability,
 
 UTXOs do **not** contain the datum itself. They only contain the hash. This distinction is very important, as a transaction may not actually contain the datum that corresponds to that hash. A transaction can contain arbitrary extra data in `txInfoData`, which is a mapping from the datas (yes, double plural) to data hashes.
 
-The datums for the inputs are always contained in `txInfoData`. Anything else may not be present. If you in your script depend on the datum for an output being available, you must make sure when submitting the transaction that you include the datum in `txInfoData`. If it isn&#39;t included, the worst thing that can happen is that the transaction fails, so it is not a huge worry.
+The datums for the inputs are always contained in `txInfoData`. Anything else may not be present. If you in your script depend on the datum for an output being available, you must make sure when submitting the transaction that you include the datum in `txInfoData`. If it isn't included, the worst thing that can happen is that the transaction fails, so it is not a huge worry.
 
 ### Calculating hashes on-chain
 
