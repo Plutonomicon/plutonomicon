@@ -31,6 +31,7 @@ the first main design pattern in Plutus is the [Forwarding Minting Policy](forwa
 
 ### Script Optimization Techniques:
 - [Reducing Plutus Script Sizes](scriptsize.md)
+- [Optimizations to reduce CPU and Mem consumption](scriptmem.md)
 
 ## Plutus Vulnerabilities:
 - [Common Plutus Vulnerabilities](vulnerabilities.md)
