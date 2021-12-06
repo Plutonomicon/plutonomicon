@@ -4,13 +4,13 @@ To give some reference, an **empty** script using `wrapValidator` is currently 2
 
 Scripts should optimally not be any bigger than 5 KiB, since multiple scripts may be needed in the same transaction.
 
-There are various work-arounds, which I will explain here.
+There are various workarounds, which I will explain here.
+
+See  [Plutus issue #4174](https://github.com/input-output-hk/plutus/issues/4174) for a summary of script size issues, and ideas for optimizing them at the compiler level.
 
 ## Avoid referencing code
 
-PlutusTx doesn&#39;t do any dead code elimination, which means the entire transitive closure of your script will be included on-chain.
-
-See [https://github.com/input-output-hk/plutus/issues/4174](https://github.com/input-output-hk/plutus/issues/4174)
+PlutusTx doesn't do any dead code elimination, which means the entire transitive closure of your script will be included on-chain.
 
 ## Avoid referencing data types
 
@@ -19,6 +19,34 @@ Referenced data types cause PlutusTx to generate constructors and destructors fo
 Because of this, you want to avoid referencing unnecessary data types.
 
 In addition, `newtype`s also increase code bloat, so avoid `newtype` on-chain.
+
+[Spooky](https://gitlab.com/fresheyeball/plutus-tx-spooky) is one technique that can be used to avoid referencing the ScriptContext, and avoid parsing it as well.
+careful use of `Spooky` types will allow you to only parse the fields you need, while maintaining the minimal typed footprint necessary for your smart contract. this has been observed to save 2k of the script's initial overhead (by abandoning the Typed Validator abstraction and instead using `Spooky` in the untyped validator script).
+
+## Avoid using complex functionality from Plutus
+
+The use of non-trivial functionality from Plutus tend to generate bigger scripts. In particular, avoid using these:
+
+- [StateMachine](https://github.com/input-output-hk/plutus-apps/issues/11)
+- Anything using `TxConstraints` (they are okay in offchain code)
+
+## Use untyped validator
+
+Avoid `TypedValidator` and use `mkValidatorScript`. Use a "wrapping" validator that decodes the arguments before calling the actual validator with typed arguments:
+
+```haskell
+validatorUntyped :: BuiltinData -> BuiltinData -> BuiltinData -> ()
+validatorUntyped datum redeemer ctx =
+   check $ validator (unsafeFromBuiltinData datum) (unsafeFromBuiltinData redeemer) (unsafeFromBuiltinData ctx)
+```
+
+Offchain code using `submitTxConstraints` requires a `TypedValidator`, but you can create one from the untyped validator using:
+
+```haskell
+typedValidator :: TypedValidator Any
+typedValidator =
+  unsafeMkTypedValidator validator
+```
 
 ## Use your own `FromData`
 
@@ -39,7 +67,7 @@ myWrapValidator
 myWrapValidator f d r p = check (f (unsafeFromBuiltinData d) (unsafeFromBuiltinData r) (unsafeFromBuiltinData p))
 ```
 
-A general trick that can save you 2 KiB, is using your own alternative to `ScriptContext`. `ScriptContext` is a complex data type, that references many other data types. Since you often won&#39;t access most of it, replacing it with a data type that decodes in the same way can save you a lot of space. This trick can also be applied to your datums and redeemers, although to a lesser extent.
+A general trick that can save you 2 KiB, is using your own alternative to `ScriptContext`. `ScriptContext` is a complex data type, that references many other data types. Since you often won't access most of it, replacing it with a data type that decodes in the same way can save you a lot of space. This trick can also be applied to your datums and redeemers, although to a lesser extent.
 
 The trick is to do something like this:
 
@@ -58,7 +86,7 @@ PlutusTx.makeIsDataIndexed ''AScriptContext [('AScriptContext,0)]
 
 Care must be taken in order to make sure that the call to `makeIsDataIndexed` matches the one for the original data type.
 
-## Don&#39;t mint multiple tokens of different minting policies in the same transaction
+## Don't mint multiple tokens of different minting policies in the same transaction
 
 Each minting policy will increase the size of your transaction considerably. If possible, do it in multiple transactions.
 
@@ -74,7 +102,7 @@ use partial functions as much as possible. This means using `error` to handle ba
 
 ## Use conditional traceIfFalse
 
-It&#39;s nice to have readable messages to be able to trace the cause of the problem in the script. But messages also occupy space in script. To resolve that we can define custom function to report errors and switch it to identity in production code:
+It's nice to have readable messages to be able to trace the cause of the problem in the script. But messages also occupy space in script. To resolve that we can define custom function to report errors and switch it to identity in production code:
 
 ```haskell
 {-# INLINEABLE debug #-}
@@ -133,6 +161,6 @@ If nothing helps and script is still too big think on ways to simplify the logic
 - Sometimes it helps to join two contracts into one bigger one. It does not help with script size but if they always are included in the same TX the size of two scripts that sit in separate UTXOs is a little bit bigger than if it has single UTXO dedicated to it. Beware that at the end it is the size of whole TX that matters most.
 - 
 
-##   Testing script sizes
-
-TODO: Something like [https://github.com/mlabs-haskell/liqwid-contracts/pull/429](https://github.com/mlabs-haskell/liqwid-contracts/pull/429)
+## The If-Then-Else Trick (mem/cpu optimization)
+- Since Plutus Boolean operations do not short-circuit, you can use If-Then-Else to create short-circuits.
+- this PR shows the patterns, as well as hoping to merge tools directly into plutus to help with this https://github.com/input-output-hk/plutus/pull/4191

@@ -3,7 +3,7 @@ Credit: Neil Rutledge
 
 The excellent article [Distributed map in EUTXO model](DistributedMap.md) from Marcin Bugaj describes the need for an on-chain, distributed data structure which can guarantee uniqueness of entries.
 
-If you want to validate that something doesn&#39;t exist on chain in the EUTXO model, you do not have access to anything aside from the transaction inputs, which are limited by transaction size limits. So checking that someone hasn&#39;t voted twice, for example, would be impossible without some sort of data structure that can guarantee uniqueness on insert.
+If you want to validate that something doesn't exist on chain in the EUTXO model, you do not have access to anything aside from the transaction inputs, which are limited by transaction size limits. So checking that someone hasn't voted twice, for example, would be impossible without some sort of data structure that can guarantee uniqueness on insert.
 
 A potential solution, heavily inspired by the distributed map idea, is described below that shares the following properties with the distributed map:
 
@@ -37,7 +37,7 @@ The transaction outputs would be:
 
 To ensure uniqueness, the script will validate that the following conditions are true:
 
-- **a &lt; b &lt; c**
+- **a < b < c**
 - input **a** points to input **c**
 - output **a** points to output **b**
 - output **b** points to output **c**
@@ -46,9 +46,9 @@ Where **a** = lowest input key,  **b** = new key and **c** = highest input key.
 
 As you can see, it is extremely simple to prove/validate whether or not a given key exists by inspecting two adjacent keys and checking if the new key fits between those according to the ordering.
 
-An empty head entry can be used for validating inserts at the start of the list (i.e., the head and first entry must be inputs and the new entry must have a key lower than the first entry&#39;s key).
+An empty head entry can be used for validating inserts at the start of the list (i.e., the head and first entry must be inputs and the new entry must have a key lower than the first entry's key).
 
-For inserting at the end of the list, the script can simply validate that the input entry points to nothing and that the new entry key is higher than the input entry&#39;s key.
+For inserting at the end of the list, the script can simply validate that the input entry points to nothing and that the new entry key is higher than the input entry's key.
 
 ### Removing an Entry
 
@@ -62,7 +62,7 @@ The removed entry NFT could be burned and the output would be the previous entry
 
 ### Wait, looking up entries would be horribly inefficient!
 
-Yes, it is true that a linked list is a very inefficient data structure for performing lookups. But since lookups will be done off-chain, it doesn&#39;t really matter. A more efficient data structure could be maintained off-chain for lookups if that&#39;s required. The key here is that the operations on chain only take a single transaction and as few inputs/outputs as possible.
+Yes, it is true that a linked list is a very inefficient data structure for performing lookups. But since lookups will be done off-chain, it doesn't really matter. A more efficient data structure could be maintained off-chain for lookups if that's required. The key here is that the operations on chain only take a single transaction and as few inputs/outputs as possible.
 
 # Datums and Redeemers
 
@@ -99,7 +99,7 @@ Plutus also has a forwardingMintingPolicy (described here: [Forwarding Minting P
 
 ### How About Using Datum Hashes as Pointers?
 
-Using the the DatumHash sounds very convenient as a pointer, but there is a problem in that updating one entry will change its hash, thus requiring the parent&#39;s pointer to be updated, as well as its parent, and so on all the way up to the head entry.
+Using the the DatumHash sounds very convenient as a pointer, but there is a problem in that updating one entry will change its hash, thus requiring the parent's pointer to be updated, as well as its parent, and so on all the way up to the head entry.
 
 It may then be tempting to use a hash of all fields, excluding the `next` field, but this has another problem: someone could easily create a malicious EntryDatum that hashes the same as another but points to some sublist of malicious entries.
 
@@ -107,9 +107,9 @@ So it seems using datum hashes is out of the question as a standalone option (th
 
 # Folding/Traversing Over the List
 
-Since the data structure forms a linked list, folding/traversing is extremely straight forward. However, if you need to verify that the entire list has been traversed on chain, you&#39;ll need some way of building up a proof from several transactions.
+Since the data structure forms a linked list, folding/traversing is extremely straight forward. However, if you need to verify that the entire list has been traversed on chain, you'll need some way of building up a proof from several transactions.
 
-Let&#39;s look at how we would prove that the entire list has been folded over using a new datum.
+Let's look at how we would prove that the entire list has been folded over using a new datum.
 
 ```haskell
 data FoldingDatum a = FoldingDatum
@@ -122,8 +122,8 @@ data FoldingDatum a = FoldingDatum
 
 To create this FoldingDatum, you would spend one or more list entry UTXOs in a transaction. A validation rule would check that the spent entry UTXOs form a valid linked list and that the output FoldingDatum contains:
 
-- **start** = the first input entry&#39;s `nft` field
-- **next** = the last input entry&#39;s `next` field
+- **start** = the first input entry's `nft` field
+- **next** = the last input entry's `next` field
 - **nft** = a reference to a new NFT identifying the FoldingDatum and providing proof that it is valid
 - **accum** = whatever value you want to accumulate
 
@@ -156,9 +156,9 @@ Since this whole process was controlled by validation rules that confirm the val
 - Constant time creation of FoldingDatums (parallel transactions in one block)
 - Logarithmic time merging of FoldingDatums
 
-The off-chain logic will have to traverse the list in **O(n)** time in order to create the transactions involved but, again, we aren&#39;t really concerned with the off-chain efficiency.
+The off-chain logic will have to traverse the list in **O(n)** time in order to create the transactions involved but, again, we aren't really concerned with the off-chain efficiency.
 
-_Note: For really big lists, you&#39;ll be bumping up against the fundamental TPS limits of the blockchain, so some of these operations will take additional blocks._
+_Note: For really big lists, you'll be bumping up against the fundamental TPS limits of the blockchain, so some of these operations will take additional blocks._
 
 ### Handling Contention / Race Conditions
 
@@ -169,7 +169,7 @@ A few potential options:
 1. Require that the head token is spent during each insert/update/removal and put a lock field in the datum to allow locking the list in a read-only mode. (Need to consider when the list is allowed to be unlocked, whether there should be a timeout, etc.)
 1. Similar to the first option, require the head token to be spent for each insert/update/removal, but instead of using a lock field, maintain an incrementing version number in the head datum as well as the version of each entry. This way, a version number can be declared in the FoldingDatum, which would allow skipping over entries with higher version numbers. Deleted entries would need to be kept around with some sort of deleted status.
 1. `(h v5) -> (apple v3) -> (banana v1) -> (kiwi v2 deletedInV4) -> (kiwi v5)`
-1. Don&#39;t lock the list or require spending of the head entry (which will have contention on it making it difficult to even set the lock) and instead include approximate timestamps on each entry. With a few modifications (such as including the ability to have entries branch off to different versions) this could be turned into an immutable data structure that maintains the full version history.
+1. Don't lock the list or require spending of the head entry (which will have contention on it making it difficult to even set the lock) and instead include approximate timestamps on each entry. With a few modifications (such as including the ability to have entries branch off to different versions) this could be turned into an immutable data structure that maintains the full version history.
 
 _Note: If there is a need for shared state that is limiting throughput, things like queuing and batching can be introduced as well._
 
