@@ -117,7 +117,7 @@ If the transaction fails due to other reasons, for example input unavailability,
 
 ## Datums and datum hashes
 
-UTXOs do **not** contain the datum itself. They only contain the hash. This distinction is very important, as a transaction may not actually contain the datum that corresponds to that hash. A transaction can contain arbitrary extra data in `txInfoData`, which is a mapping from the datas (yes, double plural) to data hashes.
+UTXOs do **not** contain the datum itself. They only contain the hash. This distinction is very important, as a transaction may not actually contain the datum that corresponds to that hash. A transaction contains a mapping from input and output datum hashes to datums in `txInfoData`. Though the name says "data", AFAIK, it is restricted to the hashes of the datums in the inputs and outputs of a transaction unfortunately.
 
 The datums for the inputs are always contained in `txInfoData`. Anything else may not be present. If you in your script depend on the datum for an output being available, you must make sure when submitting the transaction that you include the datum in `txInfoData`. If it isn't included, the worst thing that can happen is that the transaction fails, so it is not a huge worry.
 
