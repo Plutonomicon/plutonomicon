@@ -56,6 +56,26 @@ While scripts may be "boolean" in nature, they do not actually return a Scott-en
 
 A list of built-in functions is available in resource 9.
 
+### `BuiltinData`
+
+Any data that scripts read from the outside world, e.g. datums and redeemers, is represented as `BuiltinData` within the script.
+This is essentially a sum type of the various available built-in types in UPLC (except e.g. functions and unicode strings).
+
+(NB: `Data` is the off-chain equivalent to `BuiltinData`. They are morally the same thing.)
+
+The Plutus Haskell libraries make use of the `UnsafeFromData` typeclass for converting on-chain data to "PlutusTx-native"
+data types.
+PlutusTx represents data types using Scott encoding, meaning that a value of a data type is transformed into a function
+with n parameters for n constructors, and calls the m'th argument with the arguments given to the m'th constructor.
+This is also true of `ScriptContext`, and the type you use to represent your datum and redeemer.
+`unsafeFromBuiltinData :: UnsafeFromData a => BuiltinData -> a` will convert a value encoded as a `BuiltinData` into its
+Scott encoding. In the case of failure, `error` will be called, and the transaction will fail.
+
+As for how data types as encoded as `BuiltinData`, each constructor is represented as the `Constr` case of `Data`.
+You can use `unsafeDataAsConstr :: BuiltinData -> BuiltinPair BuiltinInteger (BuiltinList BuiltinData)` to manually
+decode it. The integer will generally correspond to the index of the constructor, defined in the call to
+`PlutusTx.IsData.makeIsDataIndexed`. The arguments passed to the constructor are contained in the list.
+
 ## UTXOs (unconsumed transaction outputs)
 
 There are rules for whether a transaction can consume a UTXO.
@@ -117,7 +137,7 @@ If the transaction fails due to other reasons, for example input unavailability,
 
 ## Datums and datum hashes
 
-UTXOs do **not** contain the datum itself. They only contain the hash. This distinction is very important, as a transaction may not actually contain the datum that corresponds to that hash. A transaction can contain arbitrary extra data in `txInfoData`, which is a mapping from the datas (yes, double plural) to data hashes.
+UTXOs do **not** contain the datum itself. They only contain the hash. This distinction is very important, as a transaction may not actually contain the datum that corresponds to that hash. A transaction contains a mapping from input and output datum hashes to datums in `txInfoData`. Though the name says "data", AFAIK, it is restricted to the hashes of the datums in the inputs and outputs of a transaction unfortunately.
 
 The datums for the inputs are always contained in `txInfoData`. Anything else may not be present. If you in your script depend on the datum for an output being available, you must make sure when submitting the transaction that you include the datum in `txInfoData`. If it isn't included, the worst thing that can happen is that the transaction fails, so it is not a huge worry.
 
