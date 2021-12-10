@@ -23,7 +23,7 @@ We currently provide the following resources, broadly organized by topic.
 
 ## Design patterns
 
-* [Forward Minting Policy](fowarding1.md). Also described [in another  writeup](forwarding2.md). Some caution is required, as you may not wish to directly reference a script to obtain a hash used to identify the two scripts, as this method details.
+* [Forward Minting Policy](forwarding1.md). Also described [in another  writeup](forwarding2.md). Some caution is required, as you may not wish to directly reference a script to obtain a hash used to identify the two scripts, as this method details.
 * [Come and Go Proof Tokens](cngproof.md)
 * [State Thread Token Pattern](statethread.md)
 * [DistributedMap](DistributedMap.md), describing an on-chain implementation of key-value mappings. This is naive, and mostly designed for conceptual illustration.
