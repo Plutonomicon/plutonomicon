@@ -19,7 +19,7 @@ Program
 As you might have noticed it is not practical to write UPLC by hand. [Pluto](https://github.com/Plutonomicon/pluto) is a simple programming language that assembles directly to UPLC; that is to say, it 'maps' directly (more or less) to the AST of UPLC. Understanding Pluto facilitates an understanding of UPLC. Here's the equivalent Pluto program for the above UPLC example:
 
 ```haskell
-(\× -> x)
+(\x -> x)
 ```
 
 Pluto retains the structure of UPLC, and enables you to write UPLC "by hand" (as it were) but in a more ergonomic way.
