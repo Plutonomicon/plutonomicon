@@ -1,0 +1,12 @@
+# For documentation and available settings, see
+# https://github.com/srid/emanote/blob/master/default/index.yaml
+
+page:
+  siteTitle: Plutonomicon
+
+template:
+  theme: blue
+  iconUrl: logo.png
+  sidebar:
+    collapsed: false
+  urlStrategy: pretty
