@@ -1,6 +1,6 @@
 Credit - Koz Ross
 
-# Introduction
+## Introduction
 
 > "God gave us the integers; all else is the work of man."
 > [Leopold Kronecker](https://en.wikiquote.org/wiki/Leopold_Kronecker)
@@ -23,7 +23,7 @@ The goal of this document is to provide:
 1. A clarification of the algebraic laws and principles underlying everything, 
    to aid you in their use and extension.
 
-# Basics
+## Basics
 
 Plutus provides two 'base' numerical types: `Integer` and `Rational`. These 
 correspond to `Z` and `Q`[^1] in mathematics, and in theory, all the operations 
@@ -50,7 +50,7 @@ a type class method to do. This also ties back to our problem: we want the
 behaviour of our numerical operators to be consistent with our intuition and 
 reasoning, but also flexible enough to allow grouping of common behaviour.
 
-## Inadequacy of `Num`
+### Inadequacy of `Num`
 
 The Haskell approach to  arithmetic and numerical operations involves the 
 `Num` type class. This approach is highly unsatisfactory as a foundation, for 
@@ -71,7 +71,7 @@ multiple reasons:
 Thus, instead of this, Plutus took a different approach, which we both 
 explain, and extend, here[^2].
 
-## Semigroups and Monoids
+### Semigroups and Monoids
 
 Everything must begin with a foundation; in the case of the Plutus numerical 
 hierarchy, it is the familiar `Semigroup` and `Monoid`:
@@ -153,7 +153,7 @@ instance MultiplicativeMonoid NatRatio
 These are defined in the expected way, using addition, multiplication, zero 
 and one for `Z`, `Q`, `N` and `Q+` respectively.
 
-## Semiring: the foundation of the universe
+### Semiring: the foundation of the universe
 
 The combination of additive and multiplicative monoids on the same set (type 
 in Haskell) has special treatment, and capabilities, as well as a name: a 
@@ -185,7 +185,7 @@ achieving non-trivial speedups: consider some of the examples from
 [_Semirings for Breakfast_](https://marcpouly.ch/pdf/internal_100712.pdf) as a
 demonstration.
 
-# Two universes
+## Two universes
 
 As a foundation for a numerical hierarchy (or system in general), semirings 
 (and indeed, `Semiring`s) get us fairly far. However, they do not give us 
@@ -231,7 +231,7 @@ An alternative approach is proposed by
 done by identifying an alternative (and mutually-incompatible) property of 
 (some) monoids, and using it as a basis for a separate, but lawful, operation.
 
-## A mathematical aside
+### A mathematical aside
 
 What's next leans heavily on abstract algebra and maths. You can skip this
 section if it doesn't interest you.
@@ -391,7 +391,7 @@ that would make it an _additive hemigroup_[^7]. The term 'hemigroup' derives
 from Gondran and Minoux, designed to designate a 'separate but parallel' 
 concept to groups.
 
-## A different subtraction
+### A different subtraction
 
 Based on the principles described above, we can define a parallel concept to 
 `AdditiveGroup` in Plutus. We provide this as so:
@@ -418,7 +418,7 @@ x ^- y
   | otherwise = x - y
 ```
 
-## One arithmetic, two systems
+### One arithmetic, two systems
 
 Having both `AdditiveGroup` and `AdditiveHemigroup`, and their mutual 
 incompatibility (in the sense that no type can lawfully be both) creates two 
@@ -461,7 +461,7 @@ In some respect, this distinction is similar to the inherent separation
 between `Integer` (which, corresponding to `Z`, is 'the canonical ring') and 
 `Natural` (which, corresponding to `N`, is 'the canonical hemiring').
 
-## Absolute value and signum
+### Absolute value and signum
 
 The extended structures based on rings are not only of theoretical interest: 
 we describe one example where they allow us to capture useful behaviour 
@@ -623,7 +623,7 @@ class (Ring a, Ord a) => IntegralDomain a r | a -> r, r -> a where
 Naturally, the behaviour of `restrictMay` is governed by a law: for any `x`, 
 `restrictMay x = Just y` if and only if `abs x = x`.
 
-# The problem of division
+## The problem of division
 
 The operation of division is the most complex of all the arithmetic operations, 
 for a variety of reasons. Firstly, for two of our types of interest (`Natural` 
@@ -640,7 +640,7 @@ be closed, and use this for `Integer` and `Natural`; additionally, we attempt a
 more 'mathematical' treatment of division for what remains, with the acceptance 
 of partiality in the narrowest possible scope.
 
-## Division with remainder
+### Division with remainder
 
 One basis for division we can consider is 
 [_Euclidean division_](https://en.wikipedia.org/wiki/Euclidean_division#Division_theorem). 
@@ -720,7 +720,7 @@ This resolves both issues: we now have closure, and both `Natural` and
 for `Integer`, this acts as a combination of `quotient` and `remainder` from
 Plutus.
 
-## Multiplicative inverses and groups
+### Multiplicative inverses and groups
 
 Mathematically-speaking, the notion of 
 [multiplicative inverse](https://en.wikipedia.org/wiki/Multiplicative_inverse) 
@@ -770,7 +770,7 @@ type Hemifield (a :: Type) = (AdditiveHemigroup a, MultiplicativeGroup a)
 These require no additional laws beyond the ones required by their respective 
 component instances.
 
-# Exponentiation
+## Exponentiation
 
 In some sense, we can view multiplication as repeated addition:
 
