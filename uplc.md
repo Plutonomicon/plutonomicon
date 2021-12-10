@@ -33,7 +33,7 @@ data Program name uni fun ann =
   Program ann (TPLC.Version ann) (Term name uni fun ann)
 ```
 
-The part we are interested in is `Term name uni fun ann`. A UPLC is just a `Term` defined recursively in terms of itself, similar to languages like Lisp. The `Term` type is defined as follows:
+The part we are interested in is `Term name uni fun ann`. A UPLC program is just a `Term` defined recursively in terms of itself, similar to languages like Lisp. The `Term` type is defined as follows:
 
 ```haskell
 data Term name uni fun ann
