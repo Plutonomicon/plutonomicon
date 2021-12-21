@@ -40,3 +40,7 @@ We currently provide the following resources, broadly organized by topic.
 
 ### Plutus Vulnerabilities:
 * [Common Plutus Vulnerabilities](vulnerabilities.md)
+
+## Discussion 
+
+To discuss the projects and content under the Plutonomicon umbrella, join our Discord: https://discord.gg/7rzrymdN
