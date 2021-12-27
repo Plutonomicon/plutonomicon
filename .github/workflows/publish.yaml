@@ -1,0 +1,23 @@
+name: "Publish"
+on:
+  # Run only when pushing to master branch
+  push:
+    branches:
+      - master
+jobs:
+  emanote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build emanote site 🔧
+        run: |
+          mkdir -p output.docker 
+          docker run -e LANG=C.UTF-8 -e LC_ALL=C.UTF-8 -v $PWD:/data sridca/emanote emanote --layers "/data;/data/.deploy/github" gen /data/output.docker
+          cp -r output.docker output  # Ditch docker created root-owned files
+          bash output/_emanote-bin/compile-css
+      - name: Deploy to gh-pages 🚀
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output/
+          # cname: yoursite.com (if setting this, adjust .deploy/github/index.yaml accordingly; see README.md)

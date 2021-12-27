@@ -1,3 +1,5 @@
+# Consistency
+
 Read this first: [Distributed map in EUTXO model](https://mlabs.slab.com/posts/h5pymk59)
 
 Often there is a need to traverse a distributed map. While traversal is in progress the values associated with the keys may be changed. The problem is analogue to accessing a complex data structure in multi threaded environment. Presence of multiple writers and readers results in inconsistent view on a data structure. There are multiple approaches to the problem. Let's discover solutions to the problem of traversing a distributed map.

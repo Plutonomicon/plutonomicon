@@ -1,5 +1,6 @@
-Credit: Neil Rutledge
-# Background 
+## Background 
+
+*Credit: Neil Rutledge*
 
 The excellent article [Distributed map in EUTXO model](DistributedMap.md) from Marcin Bugaj describes the need for an on-chain, distributed data structure which can guarantee uniqueness of entries.
 
@@ -15,7 +16,7 @@ However, it has a couple key advantages:
 - Constant time (single transaction) insert/removal with low contention
 - Sorted entries
 
-# Overview
+## Overview
 
 The solution consists of an on-chain, sorted, linked list of key/value entries.
 
@@ -64,7 +65,7 @@ The removed entry NFT could be burned and the output would be the previous entry
 
 Yes, it is true that a linked list is a very inefficient data structure for performing lookups. But since lookups will be done off-chain, it doesn't really matter. A more efficient data structure could be maintained off-chain for lookups if that's required. The key here is that the operations on chain only take a single transaction and as few inputs/outputs as possible.
 
-# Datums and Redeemers
+## Datums and Redeemers
 
 The following are examples of what the datum and redeemer types could look like.
 
@@ -89,7 +90,7 @@ The EntryDatum holds the key/value pair for each entry. In the case of the head 
 
 Each EntryDatum could also hold the key of the next entry, thus eliminating the need to pass in the second entry when performing an insert (since only the key is required for validation and nothing changes for that entry).
 
-# NFTs as Pointers
+## NFTs as Pointers
 
 An important question now is: where do the NFTs come from and how can we ensure they are unique?
 
@@ -105,7 +106,7 @@ It may then be tempting to use a hash of all fields, excluding the `next` field,
 
 So it seems using datum hashes is out of the question as a standalone option (though this could work in combination with NFTs).
 
-# Folding/Traversing Over the List
+## Folding/Traversing Over the List
 
 Since the data structure forms a linked list, folding/traversing is extremely straight forward. However, if you need to verify that the entire list has been traversed on chain, you'll need some way of building up a proof from several transactions.
 
@@ -173,6 +174,6 @@ A few potential options:
 
 _Note: If there is a need for shared state that is limiting throughput, things like queuing and batching can be introduced as well._
 
-# Summary
+## Summary
 
 This document glossed over some details for the sake of brevity but it has outlined what I feel is an elegant approach to working with on chain data that has uniqueness guarantees and is also extremely efficient to maintain on-chain.
