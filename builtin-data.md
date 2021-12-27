@@ -209,7 +209,7 @@ There we go! `[I 1]` - We'll discuss the  `I` constructor in its own section bel
 
 ## Building `Constr` data
 ### Pluto
-You can create `Constr` data values using [`sigma` literals](#sigma).
+You can create `Constr` data values using [`sigma` literals](TODO: LINK).
 
 You can also use the `ConstrData` builtin function to create `Constr` data values. It takes 2 arguments - the constructor id, and its fields as a list of `Data` elements.
 ```hs
@@ -260,7 +260,7 @@ pasMap = punsafeBuiltin PLC.UnMapData
 
 ## Building `Map` data
 ### Pluto
-You can build `Map` data values using [map literals](#map-of-data-literal-keys-to-data-literal-values----1--0x42-0xfe--42-).
+You can build `Map` data values using [map literals](TODO: LINK).
 
 You can also use the `MapData` builtin function to create `Map` data values. It takes in a builtin list of builtin pairs of `Data`.
 ```hs
@@ -298,7 +298,7 @@ pasList = punsafeBuiltin PLC.UnListData
 
 ## Building `List` data
 ### Pluto
-You can build `List` data values using [list literals](#list-of-data-literals---1-2-3).
+You can build `List` data values using [list literals](TODO: LINK).
 
 You can also use the `ListData` builtin function to create `List` data values. It takes in a builtin list of `Data` elements.
 ```hs
@@ -334,7 +334,7 @@ pasInt = punsafeBuiltin PLC.UnIData
 
 ## Building `I` data
 ### Pluto
-You can build `I` data values using [integer literals preceded by `data`](#integer-constant---42).
+You can build `I` data values using [integer literals preceded by `data`](TODO: LINK).
 
 You can also use the `IData` builtin function to create `I` data values. It takes in a builtin integer.
 ```hs
@@ -370,7 +370,7 @@ pasByteStr = punsafeBuiltin PLC.UnBData
 
 ## Building `B` data
 ### Pluto
-You can build `B` data values using [integer literals preceded by `data`](#integer-constant---42).
+You can build `B` data values using [integer literals preceded by `data`](TODO: LINK).
 
 You can also use the `BData` builtin function to create `B` data values. It takes in a builtin integer.
 ```hs
@@ -393,7 +393,7 @@ What happens when you don't know what kind of `Data` you have? In many cases, yo
 $ pluto run test.pluto
 Constant () (Some (ValueOf integer 3))
 ```
-Each argument corresponds to a branch. Details are discussed at [Plutus Core builtin functions reference](#extra-builtin-function-reference).
+Each argument corresponds to a branch. Details are discussed at [Plutus Core builtin functions reference](./builtin-functions.md).
 
 In this case, the `Data` value had an `I` constructor (`data 42` creates an `I` data). That corresponds to the 5th argument, which was `3`.
 
