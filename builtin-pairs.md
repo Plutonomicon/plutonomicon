@@ -94,7 +94,7 @@ Where `x` and `y` are both of type `PData`.
 ## Extra stuff
 Wondering how to make pairs of elements other than `Data`. Well, you won't *really* need to do that most of the time. But you can! You just need to build a constant directly.
 
-This is not currently possible in Pluto. But if you're using Plutarch, read [Plutus Core constants](TODO: LINK).
+This is not currently possible in Pluto. But if you're using Plutarch, read [Plutus Core constants](TODO: LINK - Plutarch).
 
 Here's how to make the pair of integer and bytestring in Plutarch-
 ```hs
@@ -108,8 +108,8 @@ pf =
 * [Builtin lists](./builtin-lists.md)
 * [Builtin data](./builtin-data.md)
 * [Builtin functions](./builtin-functions.md)
-* [Pluto guide](TODO: LINK)
-* [Plutarch guide](TODO: LINK)
+* [Pluto guide](TODO: LINK - Pluto)
+* [Plutarch guide](TODO: LINK - Plutarch)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
 * [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)

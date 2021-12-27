@@ -187,7 +187,7 @@ Let's test those functions!
 Right (Program () (Version () 1 0 0) (Constant () (Some (ValueOf integer 1))))
 ```
 
-> Aside: You can find the definition of `evalWithArgsT` above - [Compiling and Running](TODO: LINK).
+> Aside: You can find the definition of `evalWithArgsT` above - [Compiling and Running](TODO: LINK - Plutarch).
 
 That's a roundabout way of saying "1". But you get the idea. In this case, the constructor id of `Nothing`, is indeed 1.
 
@@ -209,7 +209,7 @@ There we go! `[I 1]` - We'll discuss the  `I` constructor in its own section bel
 
 ## Building `Constr` data
 ### Pluto
-You can create `Constr` data values using [`sigma` literals](TODO: LINK).
+You can create `Constr` data values using [`sigma` literals](TODO: LINK - Pluto).
 
 You can also use the `ConstrData` builtin function to create `Constr` data values. It takes 2 arguments - the constructor id, and its fields as a list of `Data` elements.
 ```hs
@@ -260,7 +260,7 @@ pasMap = punsafeBuiltin PLC.UnMapData
 
 ## Building `Map` data
 ### Pluto
-You can build `Map` data values using [map literals](TODO: LINK).
+You can build `Map` data values using [map literals](TODO: LINK - Pluto).
 
 You can also use the `MapData` builtin function to create `Map` data values. It takes in a builtin list of builtin pairs of `Data`.
 ```hs
@@ -298,7 +298,7 @@ pasList = punsafeBuiltin PLC.UnListData
 
 ## Building `List` data
 ### Pluto
-You can build `List` data values using [list literals](TODO: LINK).
+You can build `List` data values using [list literals](TODO: LINK - Pluto).
 
 You can also use the `ListData` builtin function to create `List` data values. It takes in a builtin list of `Data` elements.
 ```hs
@@ -334,7 +334,7 @@ pasInt = punsafeBuiltin PLC.UnIData
 
 ## Building `I` data
 ### Pluto
-You can build `I` data values using [integer literals preceded by `data`](TODO: LINK).
+You can build `I` data values using [integer literals preceded by `data`](TODO: LINK - Pluto).
 
 You can also use the `IData` builtin function to create `I` data values. It takes in a builtin integer.
 ```hs
@@ -370,7 +370,7 @@ pasByteStr = punsafeBuiltin PLC.UnBData
 
 ## Building `B` data
 ### Pluto
-You can build `B` data values using [integer literals preceded by `data`](TODO: LINK).
+You can build `B` data values using [integer literals preceded by `data`](TODO: LINK - Pluto).
 
 You can also use the `BData` builtin function to create `B` data values. It takes in a builtin integer.
 ```hs
@@ -411,8 +411,8 @@ It works all the same as above!
 * [Builtin lists](./builtin-lists.md)
 * [Builtin pairs](./builtin-pairs.md)
 * [Builtin functions](./builtin-functions.md)
-* [Pluto guide](TODO: LINK)
-* [Plutarch guide](TODO: LINK)
+* [Pluto guide](TODO: LINK - Pluto)
+* [Plutarch guide](TODO: LINK - Plutarch)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
 * [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)

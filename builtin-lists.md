@@ -223,7 +223,7 @@ I went ahead and applied the `()` (unit) onto the function. So it's just a `nil`
 ## Extra stuff
 Let me read your mind. You're thinking, "Wait, you didn't tell me how to build a list of integers/bytestrings/strings/other pairs/lists!". The truth is that you won't *really* need to build them most of the time. But you can! You just need to build a constant directly.
 
-This is not currently possible in Pluto. But if you're using Plutarch, read [Plutus Core constants](TODO: LINK).
+This is not currently possible in Pluto. But if you're using Plutarch, read [Plutus Core constants](TODO: LINK - Plutarch).
 
 Here's how to make the nil for builtin lists of integers in Plutarch-
 ```hs
@@ -237,8 +237,8 @@ pnilIntBuiltin =
 * [Builtin pairs](./builtin-pairs.md)
 * [Builtin data](./builtin-data.md)
 * [Builtin functions](./builtin-functions.md)
-* [Pluto guide](TODO: LINK)
-* [Plutarch guide](TODO: LINK)
+* [Pluto guide](TODO: LINK - Pluto)
+* [Plutarch guide](TODO: LINK - Plutarch)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
 * [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)
