@@ -104,11 +104,13 @@ pf =
     PLC.ValueOf (PLC.DefaultUniPair PLC.DefaultUniInteger PLC.DefaultUniByteString)
 ```
 
+Of course, this is a Haskell level function, operating on Haskell data types - to build Plutarch term. So this still won't work if you want to apply it to dynamic Plutarch terms.
+
 # Useful Links
 * [Builtin lists](./builtin-lists.md)
 * [Builtin data](./builtin-data.md)
 * [Builtin functions](./builtin-functions.md)
-* [Pluto guide](TODO: LINK - Pluto)
+* [Pluto guide](./pluto.md)
 * [Plutarch guide](TODO: LINK - Plutarch)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
