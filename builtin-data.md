@@ -209,7 +209,7 @@ There we go! `[I 1]` - We'll discuss the  `I` constructor in its own section bel
 
 ## Building `Constr` data
 ### Pluto
-You can create `Constr` data values using [`sigma` literals](TODO: LINK - Pluto).
+You can create `Constr` data values using [`sigma` literals](./pluto#sigma).
 
 You can also use the `ConstrData` builtin function to create `Constr` data values. It takes 2 arguments - the constructor id, and its fields as a list of `Data` elements.
 ```hs
@@ -260,7 +260,7 @@ pasMap = punsafeBuiltin PLC.UnMapData
 
 ## Building `Map` data
 ### Pluto
-You can build `Map` data values using [map literals](TODO: LINK - Pluto).
+You can build `Map` data values using [map literals](./pluto.md#map-of-data-literal-keys-to-data-literal-values----1--0x42-0xfe--42-).
 
 You can also use the `MapData` builtin function to create `Map` data values. It takes in a builtin list of builtin pairs of `Data`.
 ```hs
@@ -272,9 +272,20 @@ This is the same as `data {}`.
 
 ### Plutarch
 Much like above, and in the case of `Constr`, you can use the `MapData` builtin. Or you can use `pdataLiteral`.
+```hs
+import PlutusTx (Data (Map, I, B))
+
+> pdataLiteral (Map [(I 1, B "x")])
+```
 
 ## What is `List`?
 The List constructor is a wrapper around a builtin list of `Data`. Notice that it is specifically a monomorphic list. Its elements are of type `Data`. `PlutusTx.toData [1, 2, 3]` translates to `List [I 1, I 2, I 3]`. Those elements are `I` data values.
+
+One interesting thing to note here is that when you convert a Haskell list to a `Data` value, and it ends up as a `List` data value, all the elements within the builtin list will be *the same species of `Data`*. What does that mean? Well, Haskell lists are homogenous, e.g- `[Int]`, turning `[Int]` into a `Data` consists of two steps-
+* Map `PlutusTx.toData` over all elements of the list.
+* Wrap the list into a `List` data value.
+
+`PlutusTx.toData` on an `Int` value will just yield an `I` data value. Due to the fact that lists are homogenous, *all* of those `Int` elements will just be `I` data value, so in the end - the `Data` representation of `[1, 2, 3]` looks like - `List [I 1, I 2, I 3]`. The data values have the same "species"! It is totally and completely valid to create a `List [I 1, B "f", Constr 0 []]` in Plutus Core - but you're not going to get that botched version from a Haskell list (and therefore, most of your data types)!
 
 ## Working with `List`
 You can unwrap the `List` data value to obtain the inner builtin list using the `UnListData` builtin function. Then, you can use the resultant builtin list with the builtin functions that work on lists. See [Working with Builtin Lists](./builtin-lists.md).
@@ -298,7 +309,7 @@ pasList = punsafeBuiltin PLC.UnListData
 
 ## Building `List` data
 ### Pluto
-You can build `List` data values using [list literals](TODO: LINK - Pluto).
+You can build `List` data values using [list literals](./pluto#list-of-data-literals---1-2-3).
 
 You can also use the `ListData` builtin function to create `List` data values. It takes in a builtin list of `Data` elements.
 ```hs
@@ -308,6 +319,11 @@ This is the same as `data []`.
 
 ### Plutarch
 Much like before, you can use the `ListData` builtin. Or you can use `pdataLiteral`.
+```hs
+import PlutusTx (Data (List, I))
+
+> pdataLiteral (List [I 1, I 2])
+```
 
 ## What is `I`?
 The `I` constructor wraps a builtin integer to create a `Data` value. When you do `PlutusTx.toData 123` - you obtain an `I` data.
@@ -334,7 +350,7 @@ pasInt = punsafeBuiltin PLC.UnIData
 
 ## Building `I` data
 ### Pluto
-You can build `I` data values using [integer literals preceded by `data`](TODO: LINK - Pluto).
+You can build `I` data values using [integer literals preceded by `data`](./pluto#integer-constant---42).
 
 You can also use the `IData` builtin function to create `I` data values. It takes in a builtin integer.
 ```hs
@@ -344,6 +360,11 @@ This is the same as `data 42`.
 
 ### Plutarch
 Much like before, you can use the `IData` builtin. Or you can use `pdataLiteral`.
+```hs
+import PlutusTx (Data (I))
+
+> pdataLiteral (I 42)
+```
 
 ## What is `B`?
 Similar to `I`, the `B` constructor wraps a builtin bytestring to create a `Data` value.
@@ -370,7 +391,7 @@ pasByteStr = punsafeBuiltin PLC.UnBData
 
 ## Building `B` data
 ### Pluto
-You can build `B` data values using [integer literals preceded by `data`](TODO: LINK - Pluto).
+You can build `B` data values using [integer literals preceded by `data`](./pluto#bytestring-constant---0x41).
 
 You can also use the `BData` builtin function to create `B` data values. It takes in a builtin integer.
 ```hs
@@ -380,6 +401,11 @@ This is the same as `data 0x42`.
 
 ### Plutarch
 Much like before, you can use the `BData` builtin. Or you can use `pdataLiteral`.
+```hs
+import PlutusTx (Data (B))
+
+> pdataLiteral (B 42)
+```
 
 ## Wild Card!
 What happens when you don't know what kind of `Data` you have? In many cases, you know the exact structure of the `Data` you receive (e.g `ScriptContext` structure is known). But if you have no way to know whether the `Data` is a `Constr`, or `Map`, or `List`, and so on - you can use the `ChooseData` builtin function. It takes *one* force!
@@ -403,7 +429,7 @@ In this case, the `Data` value had an `I` constructor (`data 42` creates an `I` 
 Here's how you could implement a `chooseData` synonym-
 ```hs
 pchooseData :: Term s (PBuiltinData -> a -> a -> a -> a -> a -> a)
-pchooseData = phoistAcyclic pforce $ punsafeBuiltin PLC.ChooseData
+pchooseData = phoistAcyclic $ pforce $ punsafeBuiltin PLC.ChooseData
 ```
 It works all the same as above!
 
