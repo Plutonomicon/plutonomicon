@@ -61,7 +61,7 @@ We discuss each of these constructors, and how to work with them, in the followi
 > Common Plutarch imports: `Plutarch`, `Plutarch.Builtin`, `qualified PlutusCore as PLC`
 
 ## What is `Constr`?
-`Constr` is responsible for representing most Haskell ADTs. It's a sum of products representation. `Constr 0 []` - designates the 0th constructor with no fields.
+`Constr` is responsible for representing most Haskell ADTs. It's a sum of products representation. `Constr 0 []` - designates the 0th constructor with no fields. Each field is represented as a `Data` value.
 
 For example, when you implement `IsData` for your Haskell ADT using-
 ```hs
@@ -77,7 +77,7 @@ PlutusTx.makeIsDataIndexed
 ```
 It essentially means that `PlutusTx.toData (Bar 42)` translates to `Constr 0 [PlutusTx.toData 42]`. Whereas `PlutusTx.toData (Baz "A")` translates to `Constr 1 [PlutusTx.toData "A"]`.
 
-> Aside: The integer literal, list literal, and (byte-)string literals you see here are the Plutus core primitives - aka builtin types.
+> Aside: The integer literal, list literal, and (byte-)string literals you see in that Haskell code are the Plutus Tx builtin types.
 
 Let's look at the `IsData` implementation for the `Maybe` type-
 ```hs
@@ -128,7 +128,7 @@ in ! ! SndPair x
 > pluto run test.pluto
 Constant () (Some (ValueOf list (data) [I 1,B "M"]))
 ```
-You can use the resultant builtin list as you would any other builtin list. See [Working with Builtin Lists](./builtin-lists.md).
+It results in a builtin list of `Data` elements. See [Working with Builtin Lists](./builtin-lists.md).
 
 How about we load it up in Haskell? Let's make a Pluto function that returns the constructor id of the given ADT!
 ```hs
@@ -234,7 +234,7 @@ import PlutusTx (Data (Constr))
 ```
 
 ## What is `Map`?
-The `Map` constructor is for """Haskell maps""". In the Plutus world, maps are apparently just assoc lists. You've seen assoc lists already; they're just a list of pairs. In this case, each pair consist of two `Data` values.
+The `Map` constructor is for """Haskell maps""". In the Plutus world, maps are apparently just assoc lists. You've seen assoc lists already; they're just a list of pairs. These pairs consist of two `Data` values.
 
 The common example of this is [`Value`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-ledger-api/html/Plutus-V1-Ledger-Value.html#t:Value). But anytime you see [Plutus Assoc Maps](https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-AssocMap.html#t:Map) - you can be sure that it's actually going to end up as a `Map` data.
 
@@ -281,7 +281,7 @@ import PlutusTx (Data (Map, I, B))
 ## What is `List`?
 The List constructor is a wrapper around a builtin list of `Data`. Notice that it is specifically a monomorphic list. Its elements are of type `Data`. `PlutusTx.toData [1, 2, 3]` translates to `List [I 1, I 2, I 3]`. Those elements are `I` data values.
 
-One interesting thing to note here is that when you convert a Haskell list to a `Data` value, and it ends up as a `List` data value, all the elements within the builtin list will be *the same species of `Data`*. What does that mean? Well, Haskell lists are homogenous, e.g- `[Int]`, turning `[Int]` into a `Data` consists of two steps-
+One interesting thing to note here is that when you convert a Haskell list to a `Data` value, and it ends up as a `List` data value, all the elements within the builtin list will be *the same "species" of `Data`*. What does that mean? Well, Haskell lists are homogenous, e.g- `[Int]`, turning `[Int]` into a `Data` consists of two steps-
 * Map `PlutusTx.toData` over all elements of the list.
 * Wrap the list into a `List` data value.
 
