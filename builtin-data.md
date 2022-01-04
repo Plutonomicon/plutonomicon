@@ -209,7 +209,7 @@ There we go! `[I 1]` - We'll discuss the  `I` constructor in its own section bel
 
 ## Building `Constr` data
 ### Pluto
-You can create `Constr` data values using [`sigma` literals](./pluto#sigma).
+You can create `Constr` data values using [`sigma` literals](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md#sigma).
 
 You can also use the `ConstrData` builtin function to create `Constr` data values. It takes 2 arguments - the constructor id, and its fields as a list of `Data` elements.
 ```hs
@@ -309,7 +309,7 @@ pasList = punsafeBuiltin PLC.UnListData
 
 ## Building `List` data
 ### Pluto
-You can build `List` data values using [list literals](./pluto#list-of-data-literals---1-2-3).
+You can build `List` data values using [list literals](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md#list-of-data-literals---1-2-3).
 
 You can also use the `ListData` builtin function to create `List` data values. It takes in a builtin list of `Data` elements.
 ```hs
@@ -350,7 +350,7 @@ pasInt = punsafeBuiltin PLC.UnIData
 
 ## Building `I` data
 ### Pluto
-You can build `I` data values using [integer literals preceded by `data`](./pluto#integer-constant---42).
+You can build `I` data values using [integer literals preceded by `data`](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md#integer-constant---42).
 
 You can also use the `IData` builtin function to create `I` data values. It takes in a builtin integer.
 ```hs
@@ -391,7 +391,7 @@ pasByteStr = punsafeBuiltin PLC.UnBData
 
 ## Building `B` data
 ### Pluto
-You can build `B` data values using [integer literals preceded by `data`](./pluto#bytestring-constant---0x41).
+You can build `B` data values using [integer literals preceded by `data`](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md#bytestring-constant---0x41).
 
 You can also use the `BData` builtin function to create `B` data values. It takes in a builtin integer.
 ```hs
