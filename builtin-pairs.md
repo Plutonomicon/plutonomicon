@@ -110,7 +110,7 @@ Of course, this is a Haskell level function, operating on Haskell data types - t
 * [Builtin lists](./builtin-lists.md)
 * [Builtin data](./builtin-data.md)
 * [Builtin functions](./builtin-functions.md)
-* [Pluto guide](./pluto.md)
+* [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 * [Plutarch guide](TODO: LINK - Plutarch)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)

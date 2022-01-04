@@ -260,7 +260,7 @@ pasMap = punsafeBuiltin PLC.UnMapData
 
 ## Building `Map` data
 ### Pluto
-You can build `Map` data values using [map literals](./pluto.md#map-of-data-literal-keys-to-data-literal-values----1--0x42-0xfe--42-).
+You can build `Map` data values using [map literals](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md#map-of-data-literal-keys-to-data-literal-values----1--0x42-0xfe--42-).
 
 You can also use the `MapData` builtin function to create `Map` data values. It takes in a builtin list of builtin pairs of `Data`.
 ```hs
@@ -437,7 +437,7 @@ It works all the same as above!
 * [Builtin lists](./builtin-lists.md)
 * [Builtin pairs](./builtin-pairs.md)
 * [Builtin functions](./builtin-functions.md)
-* [Pluto guide](./pluto.md)
+* [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 * [Plutarch guide](TODO: LINK - Plutarch)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)

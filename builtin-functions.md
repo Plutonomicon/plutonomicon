@@ -73,7 +73,7 @@ This document serves as a reference to the Plutus Core builtin functions, aka [`
 * [Builtin data](./builtin-data.md)
 * [Builtin functions](./builtin-lists.md)
 * [Builtin pairs](./builtin-pairs.md)
-* [Pluto guide](./pluto.md)
+* [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 * [Plutarch guide](TODO: LINK - Plutarch)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
