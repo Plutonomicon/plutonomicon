@@ -45,6 +45,8 @@ tool for the job. We need a way of precisely specifying the code that goes on-ch
 
 There are essentially two solutions to this:
 - [Pluto](https://github.com/Plutonomicon/pluto): An assembler for raw UPLC.
+
+  [Guide on Pluto](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 - [Plutarch](https://github.com/Plutonomicon/plutarch): A typed eDSL for generating UPLC.
 
 I (@L-as) would personally recommend that you go for Plutarch, as it is much more ergonomic
