@@ -246,7 +246,7 @@ There is no truly polymorphic `nil` in Plutus Core. When you create a `nil` cons
 * [Builtin data](./builtin-data.md)
 * [Builtin functions](./builtin-functions.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
-* [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#compiling-and-running)
+* [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
 * [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)
