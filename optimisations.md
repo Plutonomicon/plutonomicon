@@ -49,6 +49,8 @@ There are essentially two solutions to this:
   [Guide on Pluto](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 - [Plutarch](https://github.com/Plutonomicon/plutarch): A typed eDSL for generating UPLC.
 
+  [Guide on Plutarch](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
+
 I (@L-as) would personally recommend that you go for Plutarch, as it is much more ergonomic
 in my opinion, but I am biased as I am the author of Plutarch.
 
