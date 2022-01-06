@@ -1,6 +1,8 @@
 # What is Data/BuiltinData?
 This document serves as a guide for understanding and working with [`BuiltinData`/`Data`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx.html#t:Data). It's primarily meant for Pluto users and Plutarch developers/contributors.
 
+> Note: If you spot any mistakes/have any related questions that this guide lacks the answer to, please don't hesitate to raise an issue. The goal is to have high quality documentation for Pluto and Plutarch users!
+
 - [What is Data/BuiltinData?](#what-is-databuiltindata)
   - [What is `Constr`?](#what-is-constr)
   - [Working with `Constr`](#working-with-constr)

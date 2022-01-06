@@ -1,6 +1,8 @@
 # Working with Builtin Lists
 This document serves as a guide for working with Plutus Core builtin lists. It's primarily meant for Pluto and Plutarch developers.
 
+> Note: If you spot any mistakes/have any related questions that this guide lacks the answer to, please don't hesitate to raise an issue. The goal is to have high quality documentation for Pluto and Plutarch users!
+
 - [Working with Builtin Lists](#working-with-builtin-lists)
   - [`HeadList`](#headlist)
     - [Pluto Usage](#pluto-usage)
