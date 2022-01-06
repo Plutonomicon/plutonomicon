@@ -1,6 +1,8 @@
 # Working with Builtin Pairs
 This document serves as a guide for working with Plutus Core builtin pairs. It's primarily meant for Pluto and Plutarch developers.
 
+> Note: If you spot any mistakes/have any related questions that this guide lacks the answer to, please don't hesitate to raise an issue. The goal is to have high quality documentation for Pluto and Plutarch users!
+
 - [Working with Builtin Pairs](#working-with-builtin-pairs)
   - [`FstPair`](#fstpair)
     - [Pluto Usage](#pluto-usage)
@@ -94,14 +96,12 @@ Where `x` and `y` are both of type `PData`.
 ## Extra stuff
 Wondering how to make pairs of elements other than `Data`. Well, you won't *really* need to do that most of the time. But you can! You just need to build a constant directly.
 
-This is not currently possible in Pluto. But if you're using Plutarch, read [Plutus Core constants](TODO: LINK - Plutarch).
+This is not currently possible in Pluto. But if you're using Plutarch, read [constant building](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#constants) and [`PLift`](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#plift).
 
 Here's how to make the pair of integer and bytestring in Plutarch-
 ```hs
-pf :: Integer -> ByteString -> Term s (PBuiltinPair PInteger PByteString)
-pf =
-  punsafeConstant . PLC.Some .
-    PLC.ValueOf (PLC.DefaultUniPair PLC.DefaultUniInteger PLC.DefaultUniByteString)
+pf :: (Integer, ByteString) -> Term s (PBuiltinPair PInteger PByteString)
+pf = pconstant
 ```
 
 Of course, this is a Haskell level function, operating on Haskell data types - to build Plutarch term. So this still won't work if you want to apply it to dynamic Plutarch terms.
@@ -111,7 +111,7 @@ Of course, this is a Haskell level function, operating on Haskell data types - t
 * [Builtin data](./builtin-data.md)
 * [Builtin functions](./builtin-functions.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
-* [Plutarch guide](TODO: LINK - Plutarch)
+* [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
 * [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)

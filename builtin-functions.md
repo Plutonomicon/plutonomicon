@@ -1,13 +1,15 @@
 # Plutus Core Builtin Functions Reference
 This document serves as a reference to the Plutus Core builtin functions, aka [`DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun). It is primarily meant for Pluto users and Plutarch developers/contributors. As such, it contains information about *forcing*. That is, how many times each of these builtins need to be forced to actually use them.
 
+> Note: If you spot any mistakes/have any related questions that this guide lacks the answer to, please don't hesitate to raise an issue. The goal is to have high quality documentation for Pluto and Plutarch users!
+
 [Cross Reference](https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-Builtins-Internal.html)
 
 > Note: The "Type" column of the table below is primarily for documentation reasons. After all, it's all *Untyped* Plutus Core. However, most of these types *do* need to be adhered to. There are a few cases where some flexibility allowed. These cases will be noted on the table itself.
 
 > Note: For brevity, `BuiltinType` is referred to just `Type` in the table. So `Integer` actually refers to `BuiltinInteger`. `BuiltinUnit` is written as `()`.
 
-> Note: Plutarch either provides direct synonyms to these builtin functions, or provides a safer wrapper around them. Consult the [Plutarch guide](TODO: LINK - Plutarch). However, if you *must* to use the builtins directly in Plutarch, see [Plutus Core Builtins](TODO: LINK - Plutarch) section on the Plutarch guide.
+> Note: Plutarch either provides direct synonyms to these builtin functions, or provides a safer wrapper around them. Consult the [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#compiling-and-running). However, if you *must* to use the builtins directly in Plutarch, see [Plutus Core Builtins](https://github.com/Plutonomicon/plutarch/blob/master/docs/DEVGUIDE.md#plutus-core-builtin-functions) section on the Plutarch guide.
 
 | `DefaultFun`                         | Type                                                    | Forces | Description                                                                                                                                                                                                                                                                        | Pluto Usage                                                              |
 | ------------------------------------ | ------------------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
@@ -74,7 +76,7 @@ This document serves as a reference to the Plutus Core builtin functions, aka [`
 * [Builtin functions](./builtin-lists.md)
 * [Builtin pairs](./builtin-pairs.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
-* [Plutarch guide](TODO: LINK - Plutarch)
+* [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
 * [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)
