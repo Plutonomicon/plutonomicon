@@ -44,4 +44,4 @@ We currently provide the following resources, broadly organized by topic.
 
 ## Discussion 
 
-To discuss the projects and content under the Plutonomicon umbrella, join our Discord: https://discord.gg/7rzrymdN
+To discuss the projects and the content under the Plutonomicon umbrella, join our Discord: https://discord.gg/7rzrymdN
