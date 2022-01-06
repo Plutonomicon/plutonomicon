@@ -42,7 +42,7 @@ This document serves as a guide for understanding and working with [`BuiltinData
     - [Plutarch Usage](#plutarch-usage-5)
 - [Useful Links](#useful-links)
 
-> Friendly Reminder: For general Plutarch usage, you won't *need* to use **ANY** of the methods here. There are safer interfaces provided to do that (see: `PDataRepr`, `PAsData`).
+> Friendly Reminder: For general Plutarch usage, you won't *need* to use **ANY** of the methods here. There are safer interfaces provided to do that (see: [`PIsDataRepr`](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#pisdatarepr--pdatalist), [`PAsData`](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#pasdata)).
 
 This is what BuiltinData looks like-
 ```hs
@@ -54,7 +54,7 @@ data Data
   | B ByteString
 ```
 
-> Aside: The Plutarch synonym to `BuiltinData`/`Data` is `PData`. The functions you need to manually work with it are exported from `Plutarch.Builtin`.
+> Aside: The *direct* Plutarch synonym to `BuiltinData`/`Data` is `PData`. However, you should prefer `PAsData` as it also preserves type information. The functions you need to manually work with these are exported from `Plutarch.Builtin`.
 
 We discuss each of these constructors, and how to work with them, in the following sections.
 
@@ -187,7 +187,7 @@ Let's test those functions!
 Right (Program () (Version () 1 0 0) (Constant () (Some (ValueOf integer 1))))
 ```
 
-> Aside: You can find the definition of `evalWithArgsT` above - [Compiling and Running](TODO: LINK - Plutarch).
+> Aside: You can find the definition of `evalWithArgsT` above - [Compiling and Running](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#compiling-and-running).
 
 That's a roundabout way of saying "1". But you get the idea. In this case, the constructor id of `Nothing`, is indeed 1.
 
@@ -226,11 +226,11 @@ pconstrData :: Term s (PInteger :--> PBuiltinList PData :--> PData)
 pconstrData = punsafeBuiltin PLC.ConstrData
 ```
 
-Or, you can avoid a builtin function call and build the `PData` directly using `pdataLiteral :: Data -> Term s PData`-
+Or, you can avoid a builtin function call and build the `PData` directly using `pconstant`-
 ```hs
 import PlutusTx (Data (Constr))
 
-> pdataLiteral (Constr 0 [])
+> pconstant @PData (Constr 0 [])
 ```
 
 ## What is `Map`?
@@ -271,11 +271,11 @@ This is the same as `data {}`.
 > Aside: What's that `MkNilPairData ()`? Similar to `MkNilData`. This one is for creating a `nil` list of `Data` pairs. You can add more `Data` pairs to it using `MkCons`. See [Working with Builtin Lists](./builtin-lists.md).
 
 ### Plutarch
-Much like above, and in the case of `Constr`, you can use the `MapData` builtin. Or you can use `pdataLiteral`.
+Much like above, and in the case of `Constr`, you can use the `MapData` builtin. Or you can use `pconstant`.
 ```hs
 import PlutusTx (Data (Map, I, B))
 
-> pdataLiteral (Map [(I 1, B "x")])
+> pconstant @PData (Map [(I 1, B "x")])
 ```
 
 ## What is `List`?
@@ -318,11 +318,11 @@ ListData (MkNilData ())
 This is the same as `data []`.
 
 ### Plutarch
-Much like before, you can use the `ListData` builtin. Or you can use `pdataLiteral`.
+Much like before, you can use the `ListData` builtin. Or you can use `pconstant`.
 ```hs
 import PlutusTx (Data (List, I))
 
-> pdataLiteral (List [I 1, I 2])
+> pconstant @PData (List [I 1, I 2])
 ```
 
 ## What is `I`?
@@ -359,11 +359,11 @@ IData 42
 This is the same as `data 42`.
 
 ### Plutarch
-Much like before, you can use the `IData` builtin. Or you can use `pdataLiteral`.
+Much like before, you can use the `IData` builtin. Or you can use `pconstant`.
 ```hs
 import PlutusTx (Data (I))
 
-> pdataLiteral (I 42)
+> pconstant @PData (I 42)
 ```
 
 ## What is `B`?
@@ -400,11 +400,11 @@ BData 0x42
 This is the same as `data 0x42`.
 
 ### Plutarch
-Much like before, you can use the `BData` builtin. Or you can use `pdataLiteral`.
+Much like before, you can use the `BData` builtin. Or you can use `pconstant`.
 ```hs
 import PlutusTx (Data (B))
 
-> pdataLiteral (B 42)
+> pconstant @PData (B 42)
 ```
 
 ## Wild Card!
@@ -438,7 +438,7 @@ It works all the same as above!
 * [Builtin pairs](./builtin-pairs.md)
 * [Builtin functions](./builtin-functions.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
-* [Plutarch guide](TODO: LINK - Plutarch)
+* [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
 * [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)

@@ -23,7 +23,8 @@ This document serves as a guide for working with Plutus Core builtin lists. It's
   - [`MkNilPairData`](#mknilpairdata)
     - [Pluto Usage](#pluto-usage-6)
     - [Plutarch Usage](#plutarch-usage-6)
-  - [Extra stuff](#extra-stuff)
+  - [Extra stuff - Building `nil`s](#extra-stuff---building-nils)
+- [Important note on Plutus Core `nil`](#important-note-on-plutus-core-nil)
 - [Useful Links](#useful-links)
 
 For using and operating on builtin lists, all you need are a few builtin functions. These are discussed below.
@@ -220,25 +221,32 @@ pnilPairDataBuiltin = punsafeBuiltin PLC.MkNilPairData # pcon PUnit
 
 I went ahead and applied the `()` (unit) onto the function. So it's just a `nil` (of `BuiltinPair Data Data` elements) now. Instead of a function that returns `nil` (of `BuiltinPair Data Data` elements).
 
-## Extra stuff
+## Extra stuff - Building `nil`s
 Let me read your mind. You're thinking, "Wait, you didn't tell me how to build a list of integers/bytestrings/strings/other pairs/lists!". The truth is that you won't *really* need to build them most of the time. But you can! You just need to build a constant directly.
 
-This is not currently possible in Pluto. But if you're using Plutarch, read [Plutus Core constants](TODO: LINK - Plutarch).
+This is not currently possible in Pluto. But if you're using Plutarch, read [constant building](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#constants) and [`PLift`](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#plift).
 
 Here's how to make the nil for builtin lists of integers in Plutarch-
 ```hs
 pnilIntBuiltin :: Term s (PBuiltinList PInteger)
-pnilIntBuiltin =
-  punsafeConstant . PLC.Some $
-    PLC.ValueOf (PLC.DefaultUniList PLC.DefaultUniInteger) []
+pnilIntBuiltin = pconstant []
 ```
+You can also build a *somewhat* polymorphic `nil`-
+```hs
+pnilIntBuiltin :: PLC.Contains DefaultUni (PHaskellType a) => Term s (PBuiltinList a)
+pnilIntBuiltin = pconstant []
+```
+It only works for `DefaultUni` element types, however (i.e built in).
+
+# Important note on Plutus Core `nil`
+There is no truly polymorphic `nil` in Plutus Core. When you create a `nil` constant - you **always** explicitly choose the element type (when using `punsafeConstant` - `pconstant` does this under the hood as well). A `nil` of `DefaultUniData` element type (built using `Some $ ValueOf (DefaultUniList DefaultUniData) []`) **WILL NOT** work with builtin lists of other element types. Don't ignore that `DefaultUniList DefaultUniData` - it is preserved in the runtime!
 
 # Useful Links
 * [Builtin pairs](./builtin-pairs.md)
 * [Builtin data](./builtin-data.md)
 * [Builtin functions](./builtin-functions.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
-* [Plutarch guide](TODO: LINK - Plutarch)
+* [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#compiling-and-running)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
 * [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
 * [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)
