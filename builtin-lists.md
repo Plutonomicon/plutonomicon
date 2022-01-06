@@ -235,7 +235,7 @@ pnilIntBuiltin = pconstant []
 ```
 You can also build a *somewhat* polymorphic `nil`-
 ```hs
-pnilIntBuiltin :: PLC.Contains DefaultUni (PHaskellType a) => Term s (PBuiltinList a)
+pnilIntBuiltin :: PLC.Contains PLC.DefaultUni (PHaskellType a) => Term s (PBuiltinList a)
 pnilIntBuiltin = pconstant []
 ```
 It only works for `DefaultUni` element types, however (i.e built in).
