@@ -14,6 +14,8 @@ Program
      (Var () (DeBruijn {dbnIndex = 1})))
 ```
 
+(See further below for an explanation of this syntax.)
+
 ## Pluto
 
 As you might have noticed it is not practical to write UPLC by hand. [Pluto](https://github.com/Plutonomicon/pluto) is a simple programming language that assembles directly to UPLC; that is to say, it 'maps' directly (more or less) to the AST of UPLC. Understanding Pluto facilitates an understanding of UPLC. Here's the equivalent Pluto program for the above UPLC example:
@@ -75,6 +77,8 @@ data DefaultFun
 
 Bear in mind that UPLC is untyped, therefore these builtin functions will fail to evaluate if their types don't match what they expect.
 
+See [[builtin-functions]] for full list of builtins.
+
 ## UPLC values
 
 The *values* supported by UPLC are specified by the `DefaultUni` type.
@@ -92,7 +96,9 @@ data DefaultUni a where
     DefaultUniData       :: DefaultUni (Esc Data)
 ```
 
-A primitive value is one of integer, bytestring, string, unit (`()`), boolean, or a pair of values. Or they can be a list of values. Lambdas are first-class values, and therefore a lambda application is represented as a value as well. 
+A primitive value is one of integer, bytestring, string, unit (`()`), boolean, or a pair[^pat] of values. Or they can be a list[^pat] of values. Lambdas are first-class values, and therefore a lambda application is represented as a value as well. 
+
+[^pat]: A couple of pattern synonyms -- [`DefaultUniList` and `DefaultUniPair`](https://github.com/input-output-hk/plutus/blob/e995df9a339b69523e34bad35816ee1e4ddd9669/plutus-core/plutus-core/src/PlutusCore/Default/Universe.hs#L91-L94) -- are provided for convenience to deal with the parameterized types of pairs and lists.
 
 Finally, Plutus provides a special value called `Data` - which acts as an intermediate representation for Haskell values, allowing easy encoding and decoding of them. To access and build values of type `Data` you would be using Plutus-provided builtins.
 
@@ -108,6 +114,8 @@ data Data =
     | I Integer
     | B BS.ByteString
 ```
+
+See [[builtin-data]] for further details.
 
 ### `List` of `Data` 
 
@@ -182,24 +190,25 @@ Program
         () (Some (ValueOf data (List [I 1, I 2, I 3])))))
 ```
 
-### `Constr` 
+For further details, see [[builtin-lists]], as well as [[builtin-pairs]].
 
-TODO
+## Interlude: Untyped Lambda Calculus
 
-## Force & Delay
+UPLC is based on Untyped Lambda Calculus. In the UPLC example above, the "term" in `(Program () (Version ..) term)` is a lambda term, which can be one[^also] of the following:
 
-TODO
+[^also]: There are also `Constant`, `Builtin`, `Force` and `Delay` in UPLC.
 
-## De Bruijn index
+| Term | Repr | UPLC syntax |
+| -- | -- | -- |
+| Variable | `x` | `(Var () (DeBruijn {dbnIndex = ?}))` |
+| Abstraction | `λx. M` | `(LamAbs () (DeBruijn {dbnIndex = ?} ...M...))` |
+| Application | `M N` | `(Apply () ...M... ...N...)` |
 
-TODO
+Essentially, any program can be reduced to a lambda term. The UPLC above can be interpreted in a rather straightforward manner if you understand what DeBruijn indices here stand for (a DeBruijn representation eliminates named variables like `x`). Specifically `(Var () (DeBruijn {dbnIndex = n}))` refers to the bound variable in the nth ancestor lambda. See [this blog post](http://www.tomharding.me/2018/01/09/dependable-types/) for an informal introduction to these concepts.
 
 ## Script Validator
 
-TODO (A `Script` is a `Program` that evalutes to a lambda that takes three arguments -- datum, redeemer, scriptcontext, and returns `()` or fails).
+A smart contract `Script` is a `Program` that evalutes to a lambda that taking three arguments -- datum, redeemer, scriptcontext, and returns `()` or fails.
 
-## Evaluating UPLC in Haskell
-
-TODO
 
 [^il]: In fact, the Plutus compiler goes through two intermediate languages (Plutus IR and Typed Plutus Core) before compiling to UPLC. See [this Michael Peyton Jones's blog post](https://iohk.io/en/blog/posts/2021/02/02/plutus-tx-compiling-haskell-into-plutus-core/) for details.
