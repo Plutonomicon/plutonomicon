@@ -76,14 +76,9 @@ MkPairData x y
 Where `x` and `y` are both `data` values.
 
 ### Plutarch Usage
-Plutarch does not have a `MkPairData` synonym yet, here's how you would implement it-
+Plutarch has a synonym to `MkPairData`, `ppairDataBuiltin` (`Plutarch.Builtin`)-
 ```hs
-import Plutarch (punsafeBuiltin)
-import Plutarch.Builtin (PBuiltinList)
-import Plutarch.Prelude
-import qualified PlutusCore as PLC
-
-ppairDataBuiltin :: Term s (PData :--> PData :--> PBuiltinPair PData PData)
+ppairDataBuiltin :: Term s (PAsData a :--> PAsData b :--> PBuiltinPair (PAsData a) (PAsData b))
 ppairDataBuiltin = punsafeBuiltin PLC.MkCons
 ```
 
@@ -91,7 +86,7 @@ You would use it like any other Plutarch level function.
 ```hs
 ppairDataBuiltin # x # y
 ```
-Where `x` and `y` are both of type `PData`.
+Where `x` and `y` are of type `PAsData a` and `PAsData b` respectively.
 
 ## Extra stuff
 Wondering how to make pairs of elements other than `Data`. Well, you won't *really* need to do that most of the time. But you can! You just need to build a constant directly.

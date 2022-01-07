@@ -1,5 +1,7 @@
 # Working with Builtin Lists
-This document serves as a guide for working with Plutus Core builtin lists. It's primarily meant for Pluto and Plutarch developers.
+This document serves as a guide for working with Plutus Core builtin lists. It's primarily meant for Pluto users.
+
+Plutarch **users** no longer need to know the information discussed here. Prefer [`PListLike` class methods](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#plistlike) instead - which is implemented by [`PBuiltinList`](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#pbuiltinlist). The information may, however, benefit Plutarch developers/contributors.
 
 > Note: If you spot any mistakes/have any related questions that this guide lacks the answer to, please don't hesitate to raise an issue. The goal is to have high quality documentation for Pluto and Plutarch users!
 
@@ -45,7 +47,7 @@ You can call `HeadList` as you would any other function, just make sure you forc
 Where `xs` is a builtin list.
 
 ### Plutarch Usage
-Plutarch has a synonym to `HeadList`, `pheadBuiltin` (`Plutarch.Builtin`)-
+Create a Plutarch a synonym to `HeadList` using `punsafeBuiltin`-
 ```hs
 pheadBuiltin :: Term s (PBuiltinList a :--> a)
 pheadBuiltin = phoistAcyclic $ pforce $ punsafeBuiltin PLC.HeadList
@@ -68,7 +70,7 @@ You can call `TailList` as you would any other function, just make sure you forc
 Where `xs` is a builtin list.
 
 ### Plutarch Usage
-Plutarch has a synonym to `TailList`, `ptailBuiltin` (`Plutarch.Builtin`)-
+Create a Plutarch a synonym to `TailList` using `punsafeBuiltin`-
 ```hs
 ptailBuiltin :: Term s (PBuiltinList a :--> PBuiltinList a)
 ptailBuiltin = phoistAcyclic $ pforce $ punsafeBuiltin PLC.TailList
@@ -91,7 +93,7 @@ You can call `NullList` as you would any other function, just make sure you forc
 Where `xs` is a builtin list.
 
 ### Plutarch Usage
-Plutarch has a synonym to `NullList`, `pnullBuiltin` (`Plutarch.Builtin`)-
+Create a Plutarch a synonym to `NullList` using `punsafeBuiltin`-
 ```hs
 pnullBuiltin :: Term s (PBuiltinList a :--> PBool)
 pnullBuiltin = phoistAcyclic $ pforce $ punsafeBuiltin PLC.NullList
@@ -116,13 +118,8 @@ You can call `MkCons` as you would any other function, just make sure you force 
 Where `x` is of type `a`, and `xs` is a builtin list of elements of type `a`.
 
 ### Plutarch Usage
-Plutarch does not have a `MkCons` synonym yet, here's how you would implement it-
+Create a Plutarch a synonym to `MkCons` using `punsafeBuiltin`-
 ```hs
-import Plutarch (punsafeBuiltin)
-import Plutarch.Builtin (PBuiltinList)
-import Plutarch.Prelude
-import qualified PlutusCore as PLC
-
 pconsBuiltin :: Term s (a -> PBuiltinList a :--> PBuiltinList a)
 pconsBuiltin = phoistAcyclic $ pforce $ punsafeBuiltin PLC.MkCons
 ```
@@ -152,13 +149,8 @@ You can call `ChooseList` as you would any other function, just make sure you fo
 Where `xs` is a builtin list, and `a` and `b` are the two branches.
 
 ### Plutarch Usage
-Plutarch does not have a `ChooseList` synonym yet, here's how you would implement it-
+Create a Plutarch a synonym to `ChooseList` using `punsafeBuiltin`-
 ```hs
-import Plutarch (punsafeBuiltin)
-import Plutarch.Builtin (PBuiltinList)
-import Plutarch.Prelude
-import qualified PlutusCore as PLC
-
 pchooseListBuiltin :: Term s (PBuiltinList a :--> b :--> b :--> b)
 pchooseListBuiltin = phoistAcyclic $ pforce $ pforce $ punsafeBuiltin PLC.ChooseList
 ```
@@ -184,14 +176,8 @@ MkNilData ()
 It will give you a `nil` list of `Data` elements.
 
 ### Plutarch Usage
-Plutarch does not have a `MkNilData` synonym yet, here's how you would implement it-
+Create a Plutarch a synonym to `MkNilData` using `punsafeBuiltin`-
 ```hs
-import Plutarch (punsafeBuiltin)
-import Plutarch.Builtin (PBuiltinList)
-import Plutarch.Unit (PUnit (PUnit))
-import Plutarch.Prelude
-import qualified PlutusCore as PLC
-
 pnilDataBuiltin :: Term s (PBuiltinList PData)
 pnilDataBuiltin = punsafeBuiltin PLC.MkNilData # pcon PUnit
 ```
@@ -209,14 +195,8 @@ MkNilPairData ()
 It will give you a `nil` list of `BuiltinPair Data Data` elements.
 
 ### Plutarch Usage
-Plutarch does not have a `MkNilPairData` synonym yet, here's how you would implement it-
+Create a Plutarch a synonym to `MkNilPairData` using `punsafeBuiltin`-
 ```hs
-import Plutarch (punsafeBuiltin)
-import Plutarch.Builtin (PBuiltinList)
-import Plutarch.Unit (PUnit (PUnit))
-import Plutarch.Prelude
-import qualified PlutusCore as PLC
-
 pnilPairDataBuiltin :: Term s (PBuiltinList (BuiltinPair PData PData))
 pnilPairDataBuiltin = punsafeBuiltin PLC.MkNilPairData # pcon PUnit
 ```
