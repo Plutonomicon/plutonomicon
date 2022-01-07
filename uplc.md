@@ -77,7 +77,7 @@ data DefaultFun
 
 Bear in mind that UPLC is untyped, therefore these builtin functions will fail to evaluate if their types don't match what they expect.
 
-See [[builtin-functions]] for full list of builtins.
+See [builtin-functions](builtin-functions.md) for full list of builtins.
 
 ## UPLC values
 
@@ -115,7 +115,7 @@ data Data =
     | B BS.ByteString
 ```
 
-See [[builtin-data]] for further details.
+See [builtin-data](builtin-data.md) for further details.
 
 ### `List` of `Data` 
 
@@ -190,7 +190,7 @@ Program
         () (Some (ValueOf data (List [I 1, I 2, I 3])))))
 ```
 
-For further details, see [[builtin-lists]], as well as [[builtin-pairs]].
+For further details, see [builtin-lists](builtin-lists.md), as well as [builtin-pairs](builtin-pairs.md).
 
 ## Interlude: Untyped Lambda Calculus
 
