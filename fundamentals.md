@@ -1,3 +1,5 @@
+# Fundamentals of Plutus
+
 _Our goal is to write "decentralized apps" (dapps) that work on Cardano, but what is such an app in the first place?_
 
 There are two big parts to Cardano: The consensus algorithm and ledger model. When we are writing dapps, we do not care about the consensus algorithm, we only assume it to be perfect, i.e. that there is a global ledger which everybody agrees on.

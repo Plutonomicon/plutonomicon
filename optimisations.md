@@ -172,6 +172,8 @@ The actual token is of no use, since only its minting and burning has any signif
 
 ## CPU and memory optimisations
 
+*Main article*: [[scriptmem]]
+
 In addition to tight size limits, there are also tight per-block and
 per-transaction CPU and memory limits. If you're not doing batching,
 you want to optimise this to make sure you can get in as many transactions

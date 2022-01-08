@@ -130,7 +130,7 @@ in ! ! SndPair x
 > pluto run test.pluto
 Constant () (Some (ValueOf list (data) [I 1,B "M"]))
 ```
-It results in a builtin list of `Data` elements. See [Working with Builtin Lists](./builtin-lists.md).
+It results in a builtin list of `Data` elements. See [Working with Builtin Lists](builtin-lists.md).
 
 How about we load it up in Haskell? Let's make a Pluto function that returns the constructor id of the given ADT!
 ```hs
@@ -219,7 +219,7 @@ ConstrData 0 (MkNilData ())
 ```
 is the same as `data sigma0.[]`.
 
-> Aside: What's that `MkNilData ()`? That's how you create a `nil` list of `Data` elements! `MkNilData` takes in a unit and returns a `nil` list of `Data`. You can add more `Data` elements to it using `MkCons`. See [Working with Builtin Lists](./builtin-lists.md).
+> Aside: What's that `MkNilData ()`? That's how you create a `nil` list of `Data` elements! `MkNilData` takes in a unit and returns a `nil` list of `Data`. You can add more `Data` elements to it using `MkCons`. See [Working with Builtin Lists](builtin-lists.md).
 
 ### Plutarch
 You can manually build `Constr` data values using the `ConstrData` builtin like above-
@@ -241,7 +241,7 @@ The `Map` constructor is for """Haskell maps""". In the Plutus world, maps are a
 The common example of this is [`Value`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-ledger-api/html/Plutus-V1-Ledger-Value.html#t:Value). But anytime you see [Plutus Assoc Maps](https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-AssocMap.html#t:Map) - you can be sure that it's actually going to end up as a `Map` data.
 
 ## Working with `Map`
-You can unwrap the `Map` data value to obtain the inner builtin list of builtin pairs with the `UnMapData` builtin function. You can then work with the resulting builtin lists. It contains pairs of `Data`. See [Working with Builtin Lists](./builtin-lists.md).
+You can unwrap the `Map` data value to obtain the inner builtin list of builtin pairs with the `UnMapData` builtin function. You can then work with the resulting builtin lists. It contains pairs of `Data`. See [Working with Builtin Lists](builtin-lists.md).
 
 ### Pluto Usage
 ```hs
@@ -270,7 +270,7 @@ MapData (MkNilPairData ())
 ```
 This is the same as `data {}`.
 
-> Aside: What's that `MkNilPairData ()`? Similar to `MkNilData`. This one is for creating a `nil` list of `Data` pairs. You can add more `Data` pairs to it using `MkCons`. See [Working with Builtin Lists](./builtin-lists.md).
+> Aside: What's that `MkNilPairData ()`? Similar to `MkNilData`. This one is for creating a `nil` list of `Data` pairs. You can add more `Data` pairs to it using `MkCons`. See [Working with Builtin Lists](builtin-lists.md).
 
 ### Plutarch
 Much like above, and in the case of `Constr`, you can use the `MapData` builtin. Or you can use `pconstant`.
@@ -290,7 +290,7 @@ One interesting thing to note here is that when you convert a Haskell list to a 
 `PlutusTx.toData` on an `Int` value will just yield an `I` data value. Due to the fact that lists are homogenous, *all* of those `Int` elements will just be `I` data value, so in the end - the `Data` representation of `[1, 2, 3]` looks like - `List [I 1, I 2, I 3]`. The data values have the same "species"! It is totally and completely valid to create a `List [I 1, B "f", Constr 0 []]` in Plutus Core - but you're not going to get that botched version from a Haskell list (and therefore, most of your data types)!
 
 ## Working with `List`
-You can unwrap the `List` data value to obtain the inner builtin list using the `UnListData` builtin function. Then, you can use the resultant builtin list with the builtin functions that work on lists. See [Working with Builtin Lists](./builtin-lists.md).
+You can unwrap the `List` data value to obtain the inner builtin list using the `UnListData` builtin function. Then, you can use the resultant builtin list with the builtin functions that work on lists. See [Working with Builtin Lists](builtin-lists.md).
 
 ### Pluto Usage
 ```hs
@@ -421,7 +421,7 @@ What happens when you don't know what kind of `Data` you have? In many cases, yo
 $ pluto run test.pluto
 Constant () (Some (ValueOf integer 3))
 ```
-Each argument corresponds to a branch. Details are discussed at [Plutus Core builtin functions reference](./builtin-functions.md).
+Each argument corresponds to a branch. Details are discussed at [Plutus Core builtin functions reference](builtin-functions.md).
 
 In this case, the `Data` value had an `I` constructor (`data 42` creates an `I` data). That corresponds to the 5th argument, which was `3`.
 
@@ -436,9 +436,9 @@ pchooseData = phoistAcyclic $ pforce $ punsafeBuiltin PLC.ChooseData
 It works all the same as above!
 
 # Useful Links
-* [Builtin lists](./builtin-lists.md)
-* [Builtin pairs](./builtin-pairs.md)
-* [Builtin functions](./builtin-functions.md)
+* [Builtin lists](builtin-lists.md)
+* [Builtin pairs](builtin-pairs.md)
+* [Builtin functions](builtin-functions.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 * [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)

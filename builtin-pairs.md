@@ -18,7 +18,7 @@ This document serves as a guide for working with Plutus Core builtin pairs. It's
 
 For using and operating on builtin pairs, all you need are a few builtin functions. These are discussed below.
 ## `FstPair`
-Here's the synonym to Haskell's `fst`! Its type looks like- `FstPair :: forall a b. BuiltinPair a b -> a`. It takes *two* forces, which you may already have known from [Builtin Function Reference](./builtin-functions.md). You force it twice, and pass in a builtin pair, and you get the first element of the pair.
+Here's the synonym to Haskell's `fst`! Its type looks like- `FstPair :: forall a b. BuiltinPair a b -> a`. It takes *two* forces, which you may already have known from [Builtin Function Reference](builtin-functions.md). You force it twice, and pass in a builtin pair, and you get the first element of the pair.
 
 ### Pluto Usage
 You can call `FstPair` as you would any other function, just make sure you force it!
@@ -102,9 +102,9 @@ pf = pconstant
 Of course, this is a Haskell level function, operating on Haskell data types - to build Plutarch term. So this still won't work if you want to apply it to dynamic Plutarch terms.
 
 # Useful Links
-* [Builtin lists](./builtin-lists.md)
-* [Builtin data](./builtin-data.md)
-* [Builtin functions](./builtin-functions.md)
+* [Builtin lists](builtin-lists.md)
+* [Builtin data](builtin-data.md)
+* [Builtin functions](builtin-functions.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 * [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
