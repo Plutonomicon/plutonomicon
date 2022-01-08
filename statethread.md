@@ -1,3 +1,5 @@
+# State Thread Token Pattern
+
 In the EUTXO model as in Plutus, validator scripts carry the role of validating transactions which spend _inputs_ locked to a script address.
 
 ## A simple example

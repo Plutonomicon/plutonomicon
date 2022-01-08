@@ -1,3 +1,5 @@
+# Common Plutus Vulnerabilities
+
 This is a space to add/discuss known vulnerabilities in Plutus that can lead to various kinds of attacks AND their mitigations (if known)
 
 

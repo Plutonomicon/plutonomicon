@@ -37,7 +37,7 @@ Love it or hate it, here's the well known `head` synonym. A "synonym" in the sen
 
 (I'm trying to hint at the fact that `HeadList` is indeed a partial function)
 
-Its type looks like- `HeadList :: forall a. BuiltinList a -> a`. See that type variable? That means it takes *one* force. But [you already knew that](./builtin-functions.md). You force it once, and pass in a builtin list, and you get the first element of the list (or a scary error if the list is empty). Simple!
+Its type looks like- `HeadList :: forall a. BuiltinList a -> a`. See that type variable? That means it takes *one* force. But [you already knew that](builtin-functions.md). You force it once, and pass in a builtin list, and you get the first element of the list (or a scary error if the list is empty). Simple!
 
 ### Pluto Usage
 You can call `HeadList` as you would any other function, just make sure you force it!
@@ -224,9 +224,9 @@ It only works for `DefaultUni` element types, however (i.e built in).
 There is no truly polymorphic `nil` in Plutus Core. When you create a `nil` constant - you **always** explicitly choose the element type (when using `punsafeConstant` - `pconstant` does this under the hood as well). A `nil` of `DefaultUniData` element type (built using `Some $ ValueOf (DefaultUniList DefaultUniData) []`) **WILL NOT** work with builtin lists of other element types. Don't ignore that `DefaultUniList DefaultUniData` - it is preserved in the runtime!
 
 # Useful Links
-* [Builtin pairs](./builtin-pairs.md)
-* [Builtin data](./builtin-data.md)
-* [Builtin functions](./builtin-functions.md)
+* [Builtin pairs](builtin-pairs.md)
+* [Builtin data](builtin-data.md)
+* [Builtin functions](builtin-functions.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 * [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)

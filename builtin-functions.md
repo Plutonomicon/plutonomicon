@@ -72,9 +72,9 @@ This document serves as a reference to the Plutus Core builtin functions, aka [`
 3: This can actually take in different types for its branches. The type of one branch could be `Integer`, whereas the other could be `Data`, and so on.
 
 # Useful Links
-* [Builtin data](./builtin-data.md)
-* [Builtin functions](./builtin-lists.md)
-* [Builtin pairs](./builtin-pairs.md)
+* [Builtin data](builtin-data.md)
+* [Builtin lists](builtin-lists.md)
+* [Builtin pairs](builtin-pairs.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 * [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
 * [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)

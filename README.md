@@ -35,7 +35,7 @@ We currently provide the following resources, broadly organized by topic.
 * [Staying In Bounds](size-test.md), which describes the testing interface for Plutus on-chain size provided by [`plutus-size-check`](https://github.com/Liqwid-Labs/plutus-extra/tree/master/plutus-size-check).
 
 #### Script Optimization Techniques:
-* [Reducing Plutus Script Sizes](scriptsize.md)
+* [Reducing Plutus Script Sizes](optimisations.md)
 * [Optimizations to reduce CPU and Mem consumption](scriptmem.md)
 * [Shrinker](https://github.com/Plutonomicon/Shrinker)
 
@@ -45,3 +45,21 @@ We currently provide the following resources, broadly organized by topic.
 ## Discussion 
 
 To discuss the projects and the content under the Plutonomicon umbrella, join our Discord: https://discord.gg/7rzrymdN
+
+## Building the website
+
+If you'd like run a live version of the website locally:
+
+```
+nix run github:srid/emanote
+```
+
+As you edit[^ed] and save the Markdown files, the browser view should update instantly without requiring a manual refresh. Run `nix build .#website` to build the statically generated website. See [Emanote guide](https://emanote.srid.ca/guide) for further information.
+
+Please note the Markdown writing conventions:
+
+- There must be zero or one level 1 heading (`# A heading`) as the first line.
+- All other headings must be level 2 or greater.
+- When writing links, use `[foo](foo.md)`, or `[[foo]]`.
+
+[^ed]: Try [Obsidian](https://obsidian.md) or VSCode with [vscode-memo](https://github.com/svsool/vscode-memo) for editing.
