@@ -1,4 +1,5 @@
 # Plutus Numeric Hierarchy
+
 Credit - Koz Ross
 
 ## Introduction
@@ -794,7 +795,7 @@ case, the exponent is a _count_, and the only required operation is
 multiplication, we can define a form of exponentiation for any 
 `MultiplicativeMonoid`:
 
-```
+```haskell
 -- We define this operation, but not in this way, as it's inefficient.
 powNat :: forall (a :: Type) . 
   (MultiplicativeMonoid a) => 

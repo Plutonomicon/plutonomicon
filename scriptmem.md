@@ -7,7 +7,7 @@ The various workarounds and optimizations that can help in reducing the plutus s
 ## Avoiding higher-order functions and closures
 The use of higher-order functions is a common programming paradigm to facilitate code reuse. Higher-order functions are widely used in the plutus library but may have a significant impact on cpu and memory consumption especially when functions passed as arguments contain closures. It is therefore recommended to rewrite specialized versions to avoid closures as far as possible. For instance, the plutus function `findOwnInput` makes use of the higher order function `find`  to search for the current script input.
 
-```
+```haskell
 findOwnInput :: ScriptContext -> Maybe TxInInfo
 findOwnInput ScriptContext{scriptContextTxInfo=TxInfo{txInfoInputs},                   
                            scriptContextPurpose=Spending txOutRef} =
@@ -17,7 +17,7 @@ findOwnInput _ = Nothing
 
 As can be seen, the reference to `txOutRef`, within the function’s body passed as argument to find, introduces a closure. This can increase cpu and memory consumption especially when list `txInfoInputs` contains several elements. If only the `TxOut` script input is required, `findOwnInput` can be rewritten as follows to avoid closures and to save on `Maybe` constructs.
 
-```
+```haskell
 {-# inlinable ownInput #-}
 ownInput :: ScriptContext -> TxOut
 ownInput (ScriptContext t_info (Spending o_ref)) = getScriptInput (txInfoInputs t_info) o_ref
@@ -34,7 +34,7 @@ getScriptInput ((TxInInfo tref ot) : tl) o_ref
 ## Adding strictness on accumulators in recursive functions
 When the definition of recursive functions is necessary (e.g., to avoid closures in higher-order functions or for computation), a tail recursive style should be favoured as far as possible with the use of accumulators (whenever required). Strictness should also be specified for accumulators passed as parameters. For instance, the `length` function on list can be defined as follows:
 
-```
+```haskell
 length :: [a] -> Integer
 length l = go 0 l
   where
@@ -45,7 +45,7 @@ length l = go 0 l
 ## Common expression elimination
 When several instances of identical expressions exist within a function’s body, it’s worth replacing them with a single strict variable to hold the computed value. In the following code excerpt,
 
-```
+```haskell
 let a’ = a `divide` n * c
     b’ = b * (n * c)
     C’ = c + (n * c)
@@ -55,7 +55,7 @@ in
 
 the cost of storing and retrieving n * c in a single variable is significantly less than recomputing it several times.
  
-```
+```haskell
 let !t_mul = n * c
     a’ = a `divide` t_mul
     b’ = b * t_mul

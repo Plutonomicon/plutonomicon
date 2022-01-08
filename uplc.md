@@ -4,7 +4,7 @@ Plutus smart contracts are written in Haskell, and are ultimately[^il] compiled 
 
 Here is a simple example of a UPLC program that is equivalent to the Haskell `id` function:
 
-```lisp
+```scheme
 Program
   ()
   (Version () 1 0 0)
@@ -142,7 +142,7 @@ in
 
 Running this program will produce `1` as the result:
 
-```bash
+```sh
 $ pluto run lists.pluto
 Constant () (Some (ValueOf data (I 1)))
 ```
@@ -160,14 +160,14 @@ in
 
 Running:
 
-```bash
+```sh
 $ pluto run lists.pluto
 Constant () (Some (ValueOf integer 1))
 ```
 
 This value, an "integer", maps to the `DefaultUniInteger` type above. Incidentally, the above Pluto program compiles to the following UPLC program:
 
-```lisp
+```scheme
 Program
   ()
   (Version () 1 0 0)
