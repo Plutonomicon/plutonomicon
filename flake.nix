@@ -58,7 +58,7 @@
               git init -b gh-pages
               git remote add origin git@github.com:Plutonomicon/plutonomicon.git
               cp -r ${self.website}/* .
-              git add .
+              git add . .nojekyll
               git commit -m "Deploy to gh-pages"
               git push -f origin gh-pages:gh-pages
             '';
