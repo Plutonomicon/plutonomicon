@@ -17,6 +17,17 @@
       hci-effects = hercules-ci-effects.lib.withPkgs pkgs;
     in
     {
+      apps."${system}" = {
+        live = rec {
+          type = "app";
+          script = pkgs.writers.writeBash "emanotePlutonomiconLiveReload.sh" ''
+            set -xe
+            export PORT=7071
+            ${emanote.defaultPackage.${system}}/bin/emanote -L ./content
+          '';
+          program = builtins.toString script;
+        };
+      };
       website =
         let
           configFile = (pkgs.formats.yaml {}).generate "plutonomicon-configFile" {
