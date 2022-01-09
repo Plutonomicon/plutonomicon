@@ -1,3 +1,0 @@
-# Plutonomicon
-
-See [[README]]
