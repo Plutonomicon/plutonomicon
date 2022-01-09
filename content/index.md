@@ -50,12 +50,12 @@ We currently provide the following resources, broadly organized by topic.
 
 To discuss the projects and the content under the Plutonomicon umbrella, join our Discord: https://discord.gg/7rzrymdN
 
-## Building the website
+## Running the website
 
 If you'd like run a live version of the website locally:
 
 ```bash
-nix run .
+nix run
 ```
 
 As you edit[^ed] and save the Markdown files, the browser view should update instantly without requiring a manual refresh. Run `nix build .#website` to build the statically generated website. See [Emanote guide](https://emanote.srid.ca/guide) for further information.
