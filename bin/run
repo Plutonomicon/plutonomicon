@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -xe
-export PORT=7071
-nix run github:srid/emanote -- -L ./content
