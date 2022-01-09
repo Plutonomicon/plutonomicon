@@ -18,6 +18,7 @@
     in
     {
       defaultApp.${system} = self.apps.${system}.live;
+      defaultPackage.${system} = self.website;
       apps."${system}" = {
         live = rec {
           type = "app";
