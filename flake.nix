@@ -17,6 +17,7 @@
       hci-effects = hercules-ci-effects.lib.withPkgs pkgs;
     in
     {
+      defaultApp.${system} = self.apps.${system}.live;
       apps."${system}" = {
         live = rec {
           type = "app";
