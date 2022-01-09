@@ -45,7 +45,7 @@
         ''
           mkdir $out
           ${emanote.defaultPackage.${system}}/bin/emanote \
-            --layers "${self}/content;${configDir}" \
+            --layers "${self};${configDir}" \
             gen $out
         '';
       effects = { src }: {
