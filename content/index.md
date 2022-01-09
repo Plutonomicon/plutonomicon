@@ -58,7 +58,7 @@ If you'd like run a live version of the website locally:
 nix run
 ```
 
-As you edit[^ed] and save the Markdown files, the browser view should update instantly without requiring a manual refresh. Run `nix build .#website` to build the statically generated website. See [Emanote guide](https://emanote.srid.ca/guide) for further information.
+As you edit[^ed] and save the Markdown files, the browser view should update instantly without requiring a manual refresh. Run `nix build` to build the statically generated website. See [Emanote guide](https://emanote.srid.ca/guide) for further information.
 
 Please note the Markdown writing conventions:
 
