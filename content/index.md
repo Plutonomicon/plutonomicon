@@ -50,8 +50,9 @@ To discuss the projects and the content under the Plutonomicon umbrella, join ou
 
 If you'd like run a live version of the website locally:
 
-```
-nix run github:srid/emanote -- -L ./content
+```bash
+# This runs: nix run github:srid/emanote -- -L ./content
+bin/run
 ```
 
 As you edit[^ed] and save the Markdown files, the browser view should update instantly without requiring a manual refresh. Run `nix build .#website` to build the statically generated website. See [Emanote guide](https://emanote.srid.ca/guide) for further information.
