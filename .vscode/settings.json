@@ -1,0 +1,16 @@
+{
+    // Avoid having to explicitly save notes
+    "files.autoSave": "afterDelay",
+    // Minimap is not useful for Markdown notes
+    "editor.minimap.enabled": false,
+    // Generally note files are not opened in duplicate tabs.
+    // This also enables you to navigate to already open note in other split pane
+    "workbench.editor.revealIfOpen": true,
+    // "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
+    "files.autoSaveDelay": 500,
+    "pasteImage.insertPattern": "![[${imageFilePath}]]"
+    // If use Git, these might be interesting:
+    // "git.autofetch": true,
+    // "git.postCommitCommand": "push"
+}
