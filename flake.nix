@@ -54,14 +54,14 @@
               export GIT_COMMITTER_NAME="Hercules-CI Effects"
               export EMAIL="github@croughan.sh"
 
-              git clone -b gh-pages git@github.com:Plutonomicon/plutonomicon.git gh-pages
-              cd gh-pages
-              git rm -rf ./*
+              mkdir gh-pages && cd gh-pages
+              git init -b gh-pages
+              git remote add origin git@github.com:Plutonomicon/plutonomicon.git
               cp -r ${self.website}/* .
               cp -r ${self.website}/.nojekyll .
               git add . .nojekyll
-              git commit -m "Update"
-              git push origin gh-pages:gh-pages
+              git commit -m "Deploy to gh-pages"
+              git push -f origin gh-pages:gh-pages
             '';
           }
         );
