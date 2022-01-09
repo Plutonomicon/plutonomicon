@@ -103,8 +103,8 @@ The builtin function used to take apart a `Constr` data value, is `UnConstrData`
 UnConstrData (data sigma0.[1, 0x4d])
 ```
 This will yield a pair, the first member of which, is an integer representing the constructor id. The second member is a list of fields associated with the constructor.
-```sh
-> pluto run test.pluto
+```sh-session
+$ pluto run test.pluto
 Constant () (Some (ValueOf pair (integer) (list (data)) (0,[I 1,B "M"])))
 ```
 You can extract the constructor id using `FstPair`, you must force it *twice* first-
@@ -114,8 +114,8 @@ let
   x = UnConstrData (data sigma0.[1, 0x4d])
 in ! ! FstPair x
 ```
-```sh
-> pluto run test.pluto
+```sh-session
+$ pluto run test.pluto
 Constant () (Some (ValueOf integer 0))
 ```
 
@@ -126,8 +126,8 @@ let
   x = UnConstrData (data sigma0.[1, 0x4d])
 in ! ! SndPair x
 ```
-```sh
-> pluto run test.pluto
+```sh-session
+$ pluto run test.pluto
 Constant () (Some (ValueOf list (data) [I 1,B "M"]))
 ```
 It results in a builtin list of `Data` elements. See [Working with Builtin Lists](builtin-lists.md).
@@ -248,8 +248,8 @@ You can unwrap the `Map` data value to obtain the inner builtin list of builtin 
 -- test.pluto
 UnMapData (data { 1 = 0xfe })
 ```
-```sh
-> pluto run test.pluto
+```sh-session
+$ pluto run test.pluto
 Constant () (Some (ValueOf list (pair (data) (data)) [(I 1,B "\254")]))
 ```
 
@@ -297,7 +297,7 @@ You can unwrap the `List` data value to obtain the inner builtin list using the 
 -- test.pluto
 UnListData (data [1, 0xab, { 42 = [1, 2] }])
 ```
-```sh
+```sh-session
 $ pluto run test.pluto
 Constant () (Some (ValueOf list (data) [I 1,B "\171",Map [(I 42,List [I 1,I 2])]]))
 ```
@@ -338,7 +338,7 @@ You can unwrap an `I` data value to obtain the inner builtin integer using the `
 -- test.pluto
 UnIData (data 42)
 ```
-```sh
+```sh-session
 $ pluto run test.pluto
 Constant () (Some (ValueOf integer 1))
 ```
@@ -379,7 +379,7 @@ You can unwrap a `B` data value to obtain the inner builtin bytestring using the
 -- test.pluto
 UnBData (data 0x4f)
 ```
-```sh
+```sh-session
 $ pluto run test.pluto
 Constant () (Some (ValueOf bytestring "O"))
 ```
@@ -417,7 +417,7 @@ What happens when you don't know what kind of `Data` you have? In many cases, yo
 -- test.pluto
 ! ChooseData (data 42) 0 1 2 3 4
 ```
-```sh
+```sh-session
 $ pluto run test.pluto
 Constant () (Some (ValueOf integer 3))
 ```
