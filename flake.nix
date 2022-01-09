@@ -20,9 +20,10 @@
       apps."${system}" = {
         live = rec {
           type = "app";
+          # '' is required for escaping ${} in nix
           script = pkgs.writers.writeBash "emanotePlutonomiconLiveReload.sh" ''
             set -xe
-            export PORT=7071
+            export PORT="''${EMANOTE_PORT:-7071}"
             ${emanote.defaultPackage.${system}}/bin/emanote -L ./content
           '';
           program = builtins.toString script;
