@@ -1,3 +1,7 @@
+---
+title: Plutonomicon
+---
+
 <p align="center">
 <br/>
 <img src="https://i.imgur.com/H2ZZjU2.png" height=250 />
