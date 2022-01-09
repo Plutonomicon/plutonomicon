@@ -26,7 +26,7 @@
           script = pkgs.writers.writeBash "emanotePlutonomiconLiveReload.sh" ''
             set -xe
             export PORT="''${EMANOTE_PORT:-7071}"
-            ${emanote.defaultPackage.${system}}/bin/emanote -L ./content
+            ${emanote.defaultPackage.${system}}/bin/emanote 
           '';
           program = builtins.toString script;
         };
