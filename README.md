@@ -50,7 +50,7 @@ To discuss the projects and the content under the Plutonomicon umbrella, join ou
 
 If you'd like to run a live version of the website locally:
 
-```bash
+```sh-session
 nix run
 ```
 

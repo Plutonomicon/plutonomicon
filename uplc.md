@@ -142,7 +142,7 @@ in
 
 Running this program will produce `1` as the result:
 
-```sh
+```sh-session
 $ pluto run lists.pluto
 Constant () (Some (ValueOf data (I 1)))
 ```
@@ -160,7 +160,7 @@ in
 
 Running:
 
-```sh
+```sh-session
 $ pluto run lists.pluto
 Constant () (Some (ValueOf integer 1))
 ```
