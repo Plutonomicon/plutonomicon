@@ -268,21 +268,6 @@ Stake Validators allow a DAO to define:
 - How staking rewards must be spent, via `Rewarding ...`
   - Simply withdrawing rewards to the DAO treasury
 
-### On-chain ISPOs
-
-Initial Stake Pool Offerings could be managed by Stake Validators -
-
-- Participants stake UTXOs within their wallet to a StakeValidator parameterized by their **PubKeyHash** (or any **Credential**)
-- **DCertRegKey** produces the **StakingPtr** as usual, but it should also enforce that the user credential is included in the tx.
-  - A trusted off-chain process can produce an on-chain witness of the parameterized stake validator, ensuring that it is a valid parameterization of the script.
-  - Sadly, this part is required, as we cannot otherwise have a stake validator controlled by a particular credential, that the protocol can also know about... 
-- The registered **StakingPtr** of the user's 
-- **DCertDelegDelegate** can allow delegation to to be controlled by the user credential, and optionally restricting the delegatee to a whitelisted pool (i.e. an ISPO partner pool)
-- **Rewarding** can determine a portion of the withdrawal to be sent to a specific address vs the user's address.
-  - An interesting improvement this allows is to remove the use of 99% fee ISPO pools, and allow users to freely choose between regular pools - better for pool decentralization
-  - The token can be exchanged at a set amount based on the amount of the withdrawal, or the withdrawal can be observed in order to mint a token which can be exchanged for the rewards later, based on a proportional split later.
-
-
 ### Other Use-Cases
 
 There's a lot of potentially use-cases, really any protocol which locks any significant amount of ADA ought to make use of stake validators in some capacity.
