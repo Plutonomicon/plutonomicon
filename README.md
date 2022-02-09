@@ -31,6 +31,11 @@ We currently provide the following resources, broadly organized by topic.
 * [Consistency of a Distributed Map](consistency.md), which explains some ways  of operating on a [distributed map](DistributedMap.md).
 * [Stick Breaking Set](stick-breaking-set.md), describing an on-chain method of proving presence or absence in a set.
 * [On-Chain Association List With Constant Time Insert-Removal](assoc.md), describing a pattern that can be used to replicate account-style maps without breaking transaction size limits. This is the optimized version of [the naive   version of that data structure](DistributedMap.md).
+* _Transaction Tokens_ provide an method of deferring validation to minting policies for the purpose of validating entire transactions rather than the unlocking of individual UTxOs.
+  * The [Transaction Token Pattern](./transaction-token-pattern.md) document introduces the pattern.
+  * The [Transaction Token Protocol Architecture](./transaction-token-protocol.md) document introduces a conceptual and practical framework leveraging the pattern for specifying and implementing protocols.
+  * The [Protocol Category Sketch](./protocol-category.md) document sketches a formalism to establish a formalism that places protocols described according the the Architecture into the language of symmetric monoidal categories, and works through some examples of how wiring diagrams and aid specification and implementation.
+  
 
 ### Testing and optimization
 * [Staying In Bounds](size-test.md), which describes the testing interface for Plutus on-chain size provided by [`plutus-size-check`](https://github.com/Liqwid-Labs/plutus-extra/tree/master/plutus-size-check).
