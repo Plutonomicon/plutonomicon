@@ -43,7 +43,7 @@ We currently provide the following resources, broadly organized by topic.
 #### Script Optimization Techniques:
 * [Reducing Plutus Script Sizes](optimisations.md)
 * [Optimizations to reduce CPU and Mem consumption](scriptmem.md)
-* [Shrinker](https://github.com/Plutonomicon/Shrinker)
+* [Shrinker](https://github.com/Plutonomicon/Shrinker) (shrinker is currently unmaintained)
 
 ### Plutus Vulnerabilities:
 * [Common Plutus Vulnerabilities](vulnerabilities.md)
