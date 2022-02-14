@@ -9,9 +9,9 @@
 [![Cachix Cache][Cachix badge]][Cachix link]
 
 [Herc badge]: https://img.shields.io/badge/ci--by--hercules-green.svg
-[Herc link]: https://hercules-ci.com/github/Orbis-Tertius/plutonomicon
+[Herc link]: https://hercules-ci.com/github/Plutonomicon/plutonomicon
 [Cachix badge]: https://img.shields.io/badge/cachix-public_plutonomicon-blue.svg
-[Cachix link]: https://private-plutonomicon.cachix.org
+[Cachix link]: https://public-plutonomicon.cachix.org
 
 ## Introduction
 
