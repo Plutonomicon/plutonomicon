@@ -1,39 +1,29 @@
 # Forwarding Minting Policy
 
-(credit to [Tilde Rose](https://mlabs.slab.com/users/ayej0o73)  )
-
-
+(credit to [Tilde Rose](https://github.com/t1lde))
 
 Native currencies on the cardano blockchain are 'minted' or 'forged' according to a special type of smart contract called a 'Minting Policy' which determines the conditions in which currencies can be created or destroyed.
 
 Currencies are defined and identified by the hash of the Minting Policy script.
 
+# Plutus `MintingPolicy` type
 
-
-# Plutus  `MintingPolicy` type
-
-
-
-In the Plutus Haskell API, Minting Policies are defined by scripts such as the following minting policy,  which allows anybody to mint or destroy exactly one token at a time:
-
-
+In the Plutus Haskell API, Minting Policies are defined by scripts such as the following minting policy, which allows anybody to mint or destroy exactly one token at a time:
 
 ```haskell
 > mintingPolicy :: TokenName -> ScriptContext -> Bool
-> mintingPolicy tName ctx = 
+> mintingPolicy tName ctx =
 >   txInfoForge (scriptContextTxInfo ctx) `elem`
 >     [ Value.singleton symbol tName 1
 >     , Value.singleton symbol tName -1
 >     ]
->   where 
+>   where
 >    symbol = ownCurrencySymbol ctx
 ```
 
 ## 'Forwarding' Minting Policies in Plutus
 
-
-
-Often, tokens play a more complex role in a smart-contract application, so it's convenient for a validator  script to handle the validation of forging operations.
+Often, tokens play a more complex role in a smart-contract application, so it's convenient for a validator script to handle the validation of forging operations.
 
 The Plutus API provides some conveniences for creating 'forwarding' minting policies, which simply check that a particular validator script has been run for any of the inputs to the transaction.
 
@@ -42,13 +32,13 @@ From `Ledger.Typed.Scripts.MonetaryPolicies` (formatting modified) :
 ```haskell
 > {-# INLINABLE forwardToValidator #-}
 > forwardToValidator :: ValidatorHash -> () -> ScriptContext -> Bool
-> forwardToValidator 
+> forwardToValidator
 >   h
 >   _
 >   ScriptContext
 >     { scriptContextTxInfo=TxInfo{ txInfoInputs }
 >     , scriptContextPurpose=Minting _ }  =
->      let checkHash TxOut 
+>      let checkHash TxOut
 >           { txOutAddress=Address
 >              { addressCredential=ScriptCredential vh } } = vh == h
 >          checkHash _                                     = False
@@ -64,12 +54,12 @@ Using this script, there are some functions to easily work with forwarding minti
 > mkForwardingMintingPolicy :: ValidatorHash -> MintingPolicy
 ```
 
-Interestingly, the function we use to wrap and initialize the compiled validator script  adds a `mkForwardingMintingPolicy` to the `tvForwardingMPS` field of the `TypedValidator`, just in  case we might need it.
+Interestingly, the function we use to wrap and initialize the compiled validator script adds a `mkForwardingMintingPolicy` to the `tvForwardingMPS` field of the `TypedValidator`, just in case we might need it.
 
 From `Ledger.Typed.Scripts.Validators` :
 
 ```haskell
-> -- | Make a 'TypedValidator' from the 'CompiledCode' of a validator script 
+> -- | Make a 'TypedValidator' from the 'CompiledCode' of a validator script
 > -- | and its wrapper.
 > mkTypedValidator ::
 >    CompiledCode (ValidatorType a)
@@ -100,8 +90,6 @@ The `typedValidatorLookups`, which itself is called by `submitTxConstraints`, wi
 
 On-Chain Access to the Forwarding Minting Policy of the Current Validator
 
-
-
 Since plutus-core doesn't support any primitives computing hashes, all the usual needed hashes are somehow provided via the `ValidatorCtx` or `PolicyCtx` inputs - except for any hashes which are dependent on others.
 
-To work around this, we have to provide the hash of the forwarding policy as part of a Datum input.  In our case, we have to add an extra field containing the  `CurrencySymbol` of the `tvForwardingMPS` to the `MarketState` datum.
+To work around this, we have to provide the hash of the forwarding policy as part of a Datum input. In our case, we have to add an extra field containing the `CurrencySymbol` of the `tvForwardingMPS` to the `MarketState` datum.
