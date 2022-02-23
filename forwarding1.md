@@ -2,18 +2,18 @@
 
 (credit to [Tilde Rose](https://github.com/t1lde))
 
-Native currencies on the cardano blockchain are 'minted' or 'forged' according to a special type of smart contract called a 'Minting Policy' which determines the conditions in which currencies can be created or destroyed.
+Native currencies on the cardano blockchain are 'minted' (formally also called 'forged') according to a special type of script called a 'Minting Policy' which determines the conditions in which currencies can be created or destroyed.
 
-Currencies are defined and identified by the hash of the Minting Policy script.
+Currencies are identified by the hash of the Minting Policy script together with their token name.
 
-# Plutus `MintingPolicy` type
+## Plutus `MintingPolicy` Example
 
 In the Plutus Haskell API, Minting Policies are defined by scripts such as the following minting policy, which allows anybody to mint or destroy exactly one token at a time:
 
 ```haskell
 > mintingPolicy :: TokenName -> ScriptContext -> Bool
 > mintingPolicy tName ctx =
->   txInfoForge (scriptContextTxInfo ctx) `elem`
+>   txInfoMint (scriptContextTxInfo ctx) `elem`
 >     [ Value.singleton symbol tName 1
 >     , Value.singleton symbol tName -1
 >     ]
@@ -88,7 +88,7 @@ The `typedValidatorLookups`, which itself is called by `submitTxConstraints`, wi
 > typedValidatorLookups :: TypedValidator a -> ScriptLookups a
 ```
 
-On-Chain Access to the Forwarding Minting Policy of the Current Validator
+## On-Chain Access to the Forwarding Minting Policy of the Current Validator
 
 Since plutus-core doesn't support any primitives computing hashes, all the usual needed hashes are somehow provided via the `ValidatorCtx` or `PolicyCtx` inputs - except for any hashes which are dependent on others.
 
