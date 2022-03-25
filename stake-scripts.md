@@ -48,7 +48,7 @@ When we look at delegations and withdrawals, let's try to keep this in mind.
 In the same sense that we can guard spending of a UTXO behind a PubKeyHash or a ValidatorHash, we can also guard actions involving a StakingCredential.
 
 This gives us a number of ways to construct an Address.
-The [specs](Shelly) helpfully give names to the variants.
+The [specs][Shelly] helpfully give names to the variants.
 
 - **Base** -` addressStakingCredential = (Just (StakingHash _))`
   - Basically two `Credentials` glued together
@@ -278,13 +278,13 @@ There's a lot of potentially use-cases, really any protocol which locks any sign
 - Additional yield for LP providers in ADA pairs
 - Additional incentive component for *any* kind of yield, so long as the protocol locks ADA.
 
-[Shelly]:(https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec)
+[Shelly]: https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec
 
-[Plutus.V1.Ledger.DCert]:(https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/DCert.hs)
-[Plutus.V1.Ledger.Address]:(https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Address.hs)
-[Plutus.V1.Ledger.Credential]:(https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Credential.hs)
-[Plutus.V1.Ledger.Contexts]:(https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Contexts.hs)
-[Ledger.Typed.Scripts.StakeValidators]:(https://github.com/input-output-hk/plutus-apps/blob/e4d852ffcf6622e0c8359b73170a28b6e5cefc46/plutus-ledger/src/Ledger/Typed/Scripts/StakeValidators.hs)
+[Plutus.V1.Ledger.DCert]: https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/DCert.hs
+[Plutus.V1.Ledger.Address]: https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Address.hs
+[Plutus.V1.Ledger.Credential]: https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Credential.hs
+[Plutus.V1.Ledger.Contexts]: https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Contexts.hs
+[Ledger.Typed.Scripts.StakeValidators]: https://github.com/input-output-hk/plutus-apps/blob/e4d852ffcf6622e0c8359b73170a28b6e5cefc46/plutus-ledger/src/Ledger/Typed/Scripts/StakeValidators.hs
 
 <hr />
 
