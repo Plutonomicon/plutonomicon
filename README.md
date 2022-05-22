@@ -73,7 +73,7 @@ As you edit[^ed] and save the Markdown files, the browser view should update ins
 Please note the Markdown writing conventions:
 
 - There must be zero or one level 1 heading (`# A heading`) as the first line.
+  - If a level 1 heading is not specified, title will be derived from the filename.
 - All other headings must be level 2 or greater.
-- When writing links, use `[foo](foo.md)`, or `[[foo]]`.
 
 [^ed]: Try [Obsidian](https://obsidian.md) or VSCode with [vscode-memo](https://github.com/svsool/vscode-memo) for editing.
