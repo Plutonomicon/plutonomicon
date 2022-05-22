@@ -52,7 +52,3 @@ stateThreadPolicy spend _ ctx@ScriptContext {scriptContextTxInfo = txInfo@TxInfo
 
 
 Now, the validator ensures that the state-thread token remains attached to a valid datum at the script address.
-
-
-
-![](https://static.slab.com/prod/uploads/pigzq8jp/posts/images/uv6R7nvu479ruFzPjVHNxYsj.svg)
