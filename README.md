@@ -26,6 +26,7 @@ We currently provide the following resources, broadly organized by topic.
 ### Fundamentals and explanations
 
 * [The Fundamentals of Plutus](fundamentals.md), which gives a brief introduction to the Plutus language.
+* [Plutus from a Transaction Perspective](transaction-perspective.md), which gives another perspective to the environment Plutus runs in.
 * [Plutus Numeric Hierarchy](numeric.md), which gives an overview of the Plutus numerical type class stack, as well as the extensions to it provided by [`plutus-numeric`](https://github.com/Liqwid-Labs/plutus-extra/tree/master/plutus-numeric).
 * [User guide to `plutus-numeric`](user-guide-numeric.md), which gives a more 'example-driven' explanation for how to do certain common tasks using `plutus-numeric`.
 * [How Stake Validators Actually Work](stake-scripts.md), which gives an explanation of 'Stake Validators'.
