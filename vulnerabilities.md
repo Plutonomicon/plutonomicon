@@ -4,23 +4,33 @@ This is a space to add/discuss known vulnerabilities in Plutus that can lead to 
 
 
 
-## Denial of Service
-
-there are many attacks that might be used to break all or part of a Validator in Plutus:=
-
-### UTXO Value size spam AKA Token Dust attack
+## UTXO Value size spam AKA Token Dust attack
 
 _the UTXO of too many tokens_  (or a single AssetClass with a large amount of tokens) - where a single utxo carries hundreds of unique tokens with different CurrencySymbols and/or TokenNames until it's representation approaches the 16kb limit,  this is then placed in a Validator in such a way that one or more Redeemers will need to consume this utxo,   blocking transactions on that Redeemer/Validator.
 
 Also see: [Min-Ada-Value Requirement](https://cardano-ledger.readthedocs.io/en/latest/explanations/min-utxo.html) - a minimum ada value is required on all UTXOs, which scales with UTXO size. This may mitigate protocol tx sizes somewhat. A similar calculation could be used on-chain to produce a size heuristic.
 
+### Solution
 
+Don't allow arbitrary value to be put in trusted places.
 
-### Large Datum size
+## Large Datum size
 
 _the Datum of too much size_ - similarly, Datum on a UTXO which is of an inappropriately large size which _needs_ to be consumed for a transaction on a critical redeemer to succeed.
 
-### EUTXO Concurrency DoS
+### Solution
+
+Make sure not to use infinitely sized data types,
+or take and infinitely sized one and limit it in some way.
+
+## Lack of staking control
+
+Protocols must ensure that staking is determined by the protocol for
+funds held by the protocol.
+For example, a Uniswap-style DEX must not allow users to arbitrarily
+change the staking address of the pool.
+
+## EUTXO Concurrency DoS
 
 Blocking EUTXOs could be repeatedly spent with a trivial transaction, potentially locking out a whole protocol. Even scalable solutions could be vulnerable to this in a distributed manner.
 
@@ -80,3 +90,20 @@ This is an attack vector where an attacker finds unexpected ways to mint all kin
 2) we _Intend_ for users to mint using the `MintTOK` Redeemer in `MyValidator`, however, for other integrations we have a `WitnessMyState` Redeemer, which lets you consume `MyState` for any arbitrary purpose so long as you don't change it.
 
 3) if `WitnessMyState` does not check for minting actions, then we can mint infinite `$TOK`, inflating it's value and potentially other catastrophic ruin-your-day kinds of exploits.
+
+## Parameterization
+
+This isn't a vulnerability, but is more so an oversight that can lead to vulnerabilities that *should* be obvious.
+On-chain, it is **highly non-trivial** (module crypto magic) to check that a script is an instantiation of some
+parameterized script.
+Off-chain, this is less true, but even then, you have to be careful that you instantiate the script manually
+using the `Apply` constructor of UPLC.
+That way, you can off-chain match on that, and check that the LHS is the parameterized script,
+then the RHS is the parameter itself.
+
+### Solution
+
+Use technique described above (i.e. manually constructing the term) for off-chain purposes.
+If you need to witness it on-chain, use a ZKP or don't parameterize your script.
+
+In egnera
