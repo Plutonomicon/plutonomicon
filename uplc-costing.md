@@ -294,6 +294,18 @@ Recall that you pay execution cost for evaluating each UPLC term (also known as 
 
 This one will be brief. There is a small, constant startup cost associated with each script. This will be added to each script execution no matter what - so it is important you&#39;re aware of it before doing reverse engineering calculations on the execution cost. For the example cost model we&#39;re using here, it is simply 100 CPU and 100 Memory units.
 
+# Unevaluated bodies of Lambdas don’t add to CPU/Memory costs
+
+This is to clarify that script size does not contribute to Memory costs (or CPU costs), as some outdated comments in the Plutus repo suggest. See discussion [on github](https://github.com/input-output-hk/plutus/issues/4737).
+
+As a result, when you have a script like:
+
+```haskell
+LamAbs () (DeBruijn 0) (<huge body with loads of terms>)
+```
+
+Evaluating it (without applying any arguments) will simply cost you: the CEK startup cost + cost of a singular LamAbs term.
+
 # You only pay for what you look at
 
 You may have realized that due to how the cost model works, due to the fact that `Memory`  _isn&#39;t really_ a measure of memory, costing for script arguments (script context, datum, redeemer) is very much ad-hoc.
