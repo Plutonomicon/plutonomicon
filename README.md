@@ -44,10 +44,11 @@ We currently provide the following resources, broadly organized by topic.
   * The [Transaction Token Pattern](./transaction-token-pattern.md) document introduces the pattern.
   * The [Transaction Token Protocol Architecture](./transaction-token-protocol.md) document introduces a conceptual and practical framework leveraging the pattern for specifying and implementing protocols.
   * The [Protocol Category Sketch](./protocol-category.md) document sketches a formalism to establish a formalism that places protocols described according the the Architecture into the language of symmetric monoidal categories, and works through some examples of how wiring diagrams and aid specification and implementation.
-  
+
 
 ### Testing and optimization
 * [Staying In Bounds](size-test.md), which describes the testing interface for Plutus on-chain size provided by [`plutus-size-check`](https://github.com/Liqwid-Labs/plutus-extra/tree/master/plutus-size-check).
+* [Costing model of Onchain scripts](uplc-costing.md), which describes how the cost for your onchain scripts are actually calculated. Spoilers: It's nothing like what you'd expect from a traditional VM.
 
 #### Script Optimization Techniques:
 * [Reducing Plutus Script Sizes](optimisations.md)
@@ -57,7 +58,7 @@ We currently provide the following resources, broadly organized by topic.
 ### Plutus Vulnerabilities:
 * [Common Plutus Vulnerabilities](vulnerabilities.md)
 
-## Discussion 
+## Discussion
 
 To discuss the projects and the content under the Plutonomicon umbrella, join our Discord: https://discord.gg/722KnTC8jF
 

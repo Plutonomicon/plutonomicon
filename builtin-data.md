@@ -1,5 +1,5 @@
 # What is Data/BuiltinData?
-This document serves as a guide for understanding and working with [`BuiltinData`/`Data`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx.html#t:Data). It's primarily meant for Pluto users and Plutarch developers/contributors.
+This document serves as a guide for understanding and working with [`BuiltinData`/`Data`](https://playground.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx.html#t:Data). It's primarily meant for Pluto users and Plutarch developers/contributors.
 
 > Note: If you spot any mistakes/have any related questions that this guide lacks the answer to, please don't hesitate to raise an issue. The goal is to have high quality documentation for Pluto and Plutarch users!
 
@@ -238,7 +238,7 @@ import PlutusTx (Data (Constr))
 ## What is `Map`?
 The `Map` constructor is for """Haskell maps""". In the Plutus world, maps are apparently just assoc lists. You've seen assoc lists already; they're just a list of pairs. These pairs consist of two `Data` values.
 
-The common example of this is [`Value`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-ledger-api/html/Plutus-V1-Ledger-Value.html#t:Value). But anytime you see [Plutus Assoc Maps](https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-AssocMap.html#t:Map) - you can be sure that it's actually going to end up as a `Map` data.
+The common example of this is [`Value`](https://playground.plutus.iohkdev.io/doc/haddock/plutus-ledger-api/html/Plutus-V1-Ledger-Value.html#t:Value). But anytime you see [Plutus Assoc Maps](https://playground.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-AssocMap.html#t:Map) - you can be sure that it's actually going to end up as a `Map` data.
 
 ## Working with `Map`
 You can unwrap the `Map` data value to obtain the inner builtin list of builtin pairs with the `UnMapData` builtin function. You can then work with the resulting builtin lists. It contains pairs of `Data`. See [Working with Builtin Lists](builtin-lists.md).
@@ -441,6 +441,6 @@ It works all the same as above!
 * [Builtin functions](builtin-functions.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 * [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
-* [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
-* [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
-* [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)
+* [Plutus builtin functions and types](https://playground.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
+* [Plutus Core builtin function identifiers, aka `DefaultFun`](https://playground.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
+* [Plutus Core types, aka `DefaultUni`](https://playground.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)
