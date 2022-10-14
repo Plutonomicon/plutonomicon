@@ -1,0 +1,1922 @@
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Distributed Map – Plutonomicon
+  </title>
+  
+    
+      <meta property='og:description' content />
+      <meta property='og:site_name' content='Plutonomicon' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Distributed Map' />
+    
+    
+      <base href='/plutonomicon/' />
+      <link href='logo.png' rel='icon' />
+    
+    <!-- Prism.js --><link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/themes/prism-tomorrow.min.css' rel='stylesheet' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/prism.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/autoloader/prism-autoloader.min.js'></script>
+
+<script>
+  window.MathJax = {
+    startup: {
+      ready: () => {
+        MathJax.startup.defaultReady();
+      }
+    }
+  };
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+
+  
+  <link href='tailwind.css?instanceId=9a24feb3-1402-43d7-9ce7-e3d94a379675' rel='stylesheet' type='text/css' />
+
+  <!-- Heist error element -->
+  <style type='text/css'>
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'MavenPro';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'MavenPro', sans-serif;
+    /* font-variation-settings: 'wght'300; */
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght'500;
+  }
+
+  strong {
+    font-variation-settings: 'wght'500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'MavenPro', sans-serif;
+  }
+</style>
+
+  <head-main></head-main>
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto'>
+
+      <nav id='breadcrumbs' class='w-full text-gray-700 md:hidden'>
+  <div class='flex justify-left'>
+    <div class='w-full px-2 py-2 bg-gray-50'>
+      <ul class='flex flex-wrap text-lg'>
+        <li class='inline-flex items-center'>
+          
+            
+              <img style='width: 1rem;' src='logo.png' />
+            
+          
+        </li>
+        
+          
+            <li class='inline-flex items-center'>
+              <a class='px-1 font-bold' href=''>
+                Plutonomicon
+              </a>
+              <svg fill='currentColor' viewBox='0 0 20 20' class='w-auto h-5 text-gray-400'>
+                <path fill-rule='evenodd' d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z' clip-rule='evenodd'></path>
+              </svg>
+            </li>
+          
+        
+      </ul>
+    </div>
+    <button class='inline px-2 py-1 text-white bg-blue-600 outline-none cursor-pointer focus:outline-none' title='Toggle sidebar' type='button' onclick="toggleHidden('sidebar')">
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'></path>
+      </svg>
+    </button>
+    <script>
+      function toggleHidden(elemId) {
+        document.getElementById(elemId).classList.toggle("hidden");
+      }
+    </script>
+  </div>
+</nav>
+
+      <div id='container' class='flex flex-nowrap flex-col md:flex-row bg-gray-50 md:mt-8 md:shadow-2xl md:mb-8'>
+        <!-- Sidebar column -->
+        <nav id='sidebar' class='flex-shrink hidden leading-relaxed md:block md:sticky md:top-0 md:h-full md:w-48 xl:w-64'>
+          <div class='px-2 py-2 text-gray-800'>
+
+            <div id='indexing-links' class='flex flex-row float-right p-2 space-x-2 text-gray-500'>
+              <a href='-/tags' title='View tags'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+                  </path>
+                </svg>
+              </a>
+              <a href='-/all' title='Expand full tree'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+                  </path>
+                </svg>
+              </a>
+            </div>
+
+            <div id='site-logo' class='pl-2'>
+              <div class='flex items-center my-2 space-x-2 justify-left'>
+                <a href='' title='Go to Home'>
+                  
+                    
+                      <!-- The style width attribute here is to prevent huge
+                      icon from displaying at those rare occasions when Tailwind
+                      hasn't kicked in immediately on page load 
+                      -->
+                      <img style='width: 1rem;' class='transition transform hover:scale-110 hover:opacity-80' src='logo.png' />
+                    
+                  
+                </a>
+                <a class='font-bold truncate' title='Go to Home' href=''>
+                  Home
+                </a>
+              </div>
+            </div>
+
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='CnG PToken' href='cngproof'>
+      CnG PToken
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Common Plutus Vulnerabilities' href='vulnerabilities'>
+      Common Plutus Vulnerabilities
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Consistency' href='consistency'>
+      Consistency
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+  
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'>
+        </path>
+      </svg>
+      
+  
+    <a class='font-bold text-blue-600 hover:underline truncate' title='Distributed Map' href='DistributedMap'>
+      Distributed Map
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='FLLocked' href='forwarding2'>
+      <em>FLLocked</em>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Forwarding Minting Policy' href='forwarding1'>
+      Forwarding Minting Policy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Fundamentals of Plutus' href='fundamentals'>
+      Fundamentals of Plutus
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='How Stake Validators Actually Work' href='stake-scripts'>
+      How Stake Validators Actually Work
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='On-Chain Association List With Constant Time Insert-Removal' href='assoc'>
+      On-Chain Association List With Constant Time Insert-Removal
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Optimizations to reduce CPU and Mem consumption' href='scriptmem'>
+      Optimizations to reduce CPU and Mem consumption
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Plutus Core Builtin Functions Reference' href='builtin-functions'>
+      Plutus Core Builtin Functions Reference
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Plutus Numeric Hierarchy' href='numeric'>
+      Plutus Numeric Hierarchy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='README' href='README'>
+      README
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Script optimisations' href='optimisations'>
+      Script optimisations
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Sketch: Protocol Categories' href='protocol-category'>
+      Sketch: Protocol Categories
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='State Thread Token Pattern' href='statethread'>
+      State Thread Token Pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Staying In Bounds' href='size-test'>
+      Staying In Bounds
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Stick Breaking Set' href='stick-breaking-set'>
+      Stick Breaking Set
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The MIT License (MIT)' href='LICENSE'>
+      The MIT License (MIT)
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The TxTP Architecture' href='transaction-token-protocol'>
+      The TxTP Architecture
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Untyped Plutus Core' href='uplc'>
+      Untyped Plutus Core
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='User guide for plutus-numeric' href='user-guide-numeric'>
+      User guide for <code>plutus-numeric</code>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='What is Data/BuiltinData?' href='builtin-data'>
+      What is Data/BuiltinData?
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Lists' href='builtin-lists'>
+      Working with Builtin Lists
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Pairs' href='builtin-pairs'>
+      Working with Builtin Pairs
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-perspective' href='transaction-perspective'>
+      transaction-perspective
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-token-pattern' href='transaction-token-pattern'>
+      transaction-token-pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+
+          </div>
+        </nav>
+
+        <!-- Main body column -->
+        <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <main class='px-4 py-4'>
+            <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Distributed Map
+  </a>
+</h1>
+            <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      Credit: Marcin Bugaj
+    </p>
+  
+    <p class='mb-3'>
+      Update: <a href='assoc' class='text-blue-600 mavenLinkBold hover:underline'>On-Chain Association List With Constant Time Insert/Removal</a> provides more efficient implementation of distributed map with all on-chain guarantees discussed below.
+    </p>
+  <h2 id='rationale' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Rationale</h2>
+    <p class='mb-3'>
+      One cannot store standard haskell map on datum of a utxo. The size of datum is limited by the maximum transaction size. Since the map may have an arbitrary number of elements we may hit maximum transaction size limits. We can leverage eutxo model to implement a distributed map. That is a map where each entry of a map is stored on a different utxo.
+    </p>
+  <h2 id='overview' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Overview</h2>
+    <p class='mb-3'>
+      To implement such a map we will need:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          a utxo that stores global state of a map, from now on called ‘global utxo’
+        </li>
+      
+        <li>
+          a utxo per each key-value pair, from now on called ‘entry utxo’
+        </li>
+      
+        <li>
+          three minting policies
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The distributed map has a few notable properties:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Entries cannot be removed from the map.
+        </li>
+      
+        <li>
+          Once a key is added it cannot be removed any more. One can mitigate the limitation by having <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Maybe Value</code> as map value instead of just <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Value</code>. So removing an entry boils down to storing <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Nothing</code>
+        </li>
+      
+        <li>
+          The ‘global utxo’ is used only when adding a new key to the map.
+        </li>
+      
+        <li>
+          That means that throughput of adding new keys to the map is limited. Reading and modifying existing entries does not require ‘global utxo’ and has high throughput (good parallelization).
+        </li>
+      
+        <li>
+          It’s a real map in a sense that there cannot be key duplicates.
+        </li>
+      
+        <li>
+          The cost of adding new keys to the map increases with the number of elements in the map.
+        </li>
+      
+        <li>
+          It’s provable <strong>on-chain</strong> that ALL entries have been visited when a map is traversed.
+        </li>
+      
+        <li>
+          It’s provable <strong>on-chain</strong> that a given key is not present in a map. Such proof is a utxo that can be consumed in an arbitrary transaction.
+        </li>
+      
+    </ul>
+  <h2 id='main-idea' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Main idea</h2>
+    <p class='mb-3'>
+      The main idea in the distributed map design is that ‘global utxo’ keeps track of total number of entries stored in the map and that each ‘entry utxo’ is indexed/labelled with an integer in the range [0, total number of entries - 1]. Since the keys cannot be removed, each entry is labelled with a unique integer that falls within that range. That makes it possible to prove exhaustiveness of traversal and to prove nonexistence of a key in a map.
+    </p>
+  
+    <p class='mb-3'>
+      We can think of the total number of entries in ‘global utxo’ as a version number of a map. In that context a version number changes if a new key is added to the map. Such ‘version number’ does not care about change of values mapped to keys.
+    </p>
+  <h2 id='datums-and-redeemers' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Datums and Redeemers</h2>
+    <p class='mb-3'>
+      Following datums and redeemers are used in the map:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data Entry = Entry Key (Maybe Value)
+type Id = Integer
+type TotalElements = Integer
+type NFT = CurrencySymbol
+
+data Datum =
+    GlobalDatum TotalElements
+  | ProofDatum NFT TotalElements Key
+  | EntryDatum NFT Id Entry
+
+data Redeemer =
+    Update (Maybe Value)
+  | CreateProof TotalElements Key
+  | AddKey Key
+  | UseProof
+  | UseEntry</code></pre></div>
+    <p class='mb-3'>
+      <strong>Datums:</strong>
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>GlobalDatum</code> is present only on ‘global utxo’.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      That utxo is unique for a map instance. It holds the total number of entries in a map. The ‘global utxo’ carries an NFT token that uniquely identifies map instance.
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum</code> is present only on dedicated ‘proof utxos’.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Utxo that carries datum constructed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum nft totalElements key</code> is a proof that a map identified by (the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>nft</code> currency symbol && <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>totalElements</code> perceived as a ‘version number’) does not contain key <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>key</code>.
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatum</code> is present only on ‘entry utxos’.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Id</code> used in the constructor is the unique entry index/label/indentifier
+    </p>
+  
+    <p class='mb-3'>
+      In addition to ‘global utxo’ and ‘entry utxo’ a new type of utxo is introduced - ‘proof utxo’. We’ll see how it is used soon.
+    </p>
+  
+    <p class='mb-3'>
+      <strong>Redeemers:</strong>
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>CreateProof totalElements key</code> is used in a transaction to create a proof that a map versioned by/containing <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>totalElements</code> does NOT contain key <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>key</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AddKey key</code> is used in a transaction to add a new entry and use <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Nothing</code> as a mapped value.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Update</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>UseProof</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>UseEntry</code> redeemers are self-explanatory.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Let’s see how the corresponding transactions look like and what checks the validator is supposed to perform. Then the minting policies will be described.
+    </p>
+  <h2 id='transactions-for-addupdateuse--validator-logic' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Transactions for Add/Update/Use & validator logic</h2>
+    <p class='mb-3'>
+      Convention: values in different constructors with the same names are deemed equal. e.g in <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum nft n key1</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum nft n key2</code> the values <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>nft</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>n</code> in both expressions are the same.
+    </p>
+  <h3 id='adding-key' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Adding key</h3>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          transaction input:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          ‘global utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>GlobalDatum n</code> consumed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AddKey key</code> redeemer
+        </li>
+      
+        <li>
+          ‘proof utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum nft n key</code> consumed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>UseProof</code> redeemer
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          transaction output:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          ‘global utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>GlobalDatum (n + 1)</code>
+        </li>
+      
+        <li>
+          ‘entry utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatum nft n (Entry key Nothing)</code>
+        </li>
+      
+        <li>
+          ‘proof utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum nft n key</code>
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          validation logic:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          see the symbols and their relations above
+        </li>
+      
+        <li>
+          input and output ‘global utxos’ carry one token of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>nft</code> currency symbol
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      In plain english the validator says:
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Transaction is correct if
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          total number of entries was incremented by one
+        </li>
+      
+        <li>
+          the proof was provided that the key in question is not yet in the map
+        </li>
+      
+        <li>
+          Nothing initialized ‘entry utxo’ with correct Id was produced
+        </li>
+      
+        <li>
+          ‘proof utxo’ is return and left intact
+        </li>
+      
+    </ul>
+  
+    </blockquote>
+  <h3 id='updating-entry' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Updating entry</h3>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          transaction input:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          ‘entry utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatum nft id (Entry k _)</code> consumed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Update maybeValue</code>
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          transaction output:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          ‘entry utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatum nft id (Entry k maybeValue)</code>
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          validation logic:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          see the symbols and their relations above
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Validation logic is very simple and does not require neither ‘global utxo’ nor ‘proof utxo’.
+    </p>
+  <h3 id='creating-proof' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Creating proof</h3>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          transaction input:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          ‘proof utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum nft (totalElements - 1) k</code> consumed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>CreateProof totalElements k</code> redeemer
+        </li>
+      
+        <li>
+          ‘entry utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatum nft (totalElements) (Entry l _)</code>
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          transaction output:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum nft totalElements k</code>
+        </li>
+      
+        <li>
+          unchanged ‘entry utxo’ from the input
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          validation logic:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          see the symbols and their relations above
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>k != l</code>
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      It’s an inductive proof and in plain english it says:
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Transaction is correct if:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          there is a proof that the map with (totalElements - 1) elements does not contain the given key
+        </li>
+      
+        <li>
+          the (totalElement)th entry is not associated with the given key
+        </li>
+      
+    </ul>
+  
+    </blockquote>
+  <h3 id='using-entry' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Using entry</h3>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          transaction input:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          ‘entry utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatum nft id (Entry k v)</code> consumed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>UseEntry</code>
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          transaction output:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          ‘entry utxo’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatum nft id (Entry k v)</code>
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          validation logic:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          see the symbols and their relations above
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      In plain english the validator says:
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      ‘entry utxo’ must be returned and left intact
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      <strong>Important note</strong>
+    </p>
+  
+    <p class='mb-3'>
+      In addition it is assumed that:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          all input and output ‘global utxo’ carry the token of currency symbol <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>GlobalDatumValid nft</code>
+        </li>
+      
+        <li>
+          all input and output ‘entry utxos’ carry the token of currency symbol <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatumValid nft</code>
+        </li>
+      
+        <li>
+          all input and output ‘proof utxos’ carry the token of currency symbol <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatumValid nft</code>
+        </li>
+      
+        <li>
+          That should be checked in validators. Minting policies for those tokens are described in the next sections. Those tokens are to ensure that malicious datums are not injected.
+        </li>
+      
+    </ul>
+  <h2 id='minting-policies' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Minting policies</h2><h3 id='globaldatumvalid-nft-token' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>(GlobalDatumValid nft) token</h3>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          validation logic:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          there is exactly one utxo at the output that carries datum constructed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>GlobalDatum 0</code> and it carries one token of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>nft</code> currency symbol
+        </li>
+      
+        <li>
+          only one <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>GlobalDatumValid</code> token is minted
+        </li>
+      
+        <li>
+          that token goes to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>GlobalDatum</code> utxo that was already mentioned
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      In plain english the minting policy says:
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      when a new distributed map is created the datum must be created with 0 <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>TotalElements</code>
+    </p>
+  
+    </blockquote>
+  <h3 id='proofdatumvalid-nft-token' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>(ProofDatumValid nft) token</h3>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          validation logic:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          there is exacly one utxo at the output that carries datum constructed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum nft 0 _</code>
+        </li>
+      
+        <li>
+          only one <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatumValid</code> token is minted
+        </li>
+      
+        <li>
+          that token goes to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum</code> utxo that was already mentioned
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      In plain english the minting policy says:
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      any key is not contained in an empty map
+    </p>
+  
+    </blockquote>
+  <h3 id='entrydatumvalid-nft-token' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>(EntryDatumValid nft) token</h3>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          validation logic:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          the input contains utxo carrying datum constructed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>GlobalDatum n</code> and it carries token of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>nft</code> currency symbol
+        </li>
+      
+        <li>
+          the input contains utxo carrying datum constructed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatum nft n k</code> and it carries <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ProofDatumValid</code> token
+        </li>
+      
+        <li>
+          the output contains ‘entry utxo’ constructed with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatum nft n (Entry k Nothing)</code>
+        </li>
+      
+        <li>
+          only one <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatumValid</code> token is minted
+        </li>
+      
+        <li>
+          that token goes to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EntryDatum</code> utxo that was already mentioned
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Caveat: EntryDatumValid must also be parametrized by currency symbol of ProofDatumValid
+    </p>
+  <h1 id='final-notes' class='pb-2 mb-2 text-5xl font-bold text-center'>Final notes</h1><h2 id='on-chain-guarantees' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>On-chain guarantees</h2>
+    <p class='mb-3'>
+      Since ‘entry utxos’ are indexed with continuous integers and the last index is known, the user may traverse the distributed map and be sure that all entries were visited and exactly once. That may come in handy when folding over entries of a distributed map.
+    </p>
+  
+    <p class='mb-3'>
+      The ‘proof utxos’ are utxos that hold a proof that a particular key is not contained in a map of a particular version. Those proofs are used when adding a new key to the map. Their use extends far beyond this. Sometimes one needs to know that a value is not present in a map to validate a transaction.
+    </p>
+  
+    <p class='mb-3'>
+      Let’s image a voting system. Each user creates vote which is just a utxo with a datum carrying user pkh and its vote. There is also a distributed map that maps users to their voting weights. Also a user not eligible for voting can create own vote utxo. This vote should be ignored of course. For such user there no entry in weights map (it has never been created). But what is a malicious user wants to tricks us and, when counting votes, creates a transaction in which he claims that ‘the vote should be ignored because its user is not in weights map’. For such a case an on-chain proof is needed that indeed the user is not in weights map. Otherwise there is a vulnerability where correct votes can be ignored.
+    </p>
+  <h2 id='proof-creation-optimization' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Proof creation optimization</h2>
+    <p class='mb-3'>
+      Proof creation may be parallelized in a similar way merge sort works. Then the number of cardano blocks required to create a proof is logarithmic instead of linear on the number of elements in a map.
+    </p>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+            <div class='flex flex-col lg:flex-row lg:space-x-2'>
+              
+              
+  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
+    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
+    <ul class='space-y-1'>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='README'>
+            README
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><a href='consistency' class='text-gray-600 font-bold hover:bg-gray-50'>Consistency of a Distributed Map</a>, which explains some ways of operating on a <a href='DistributedMap' class='text-gray-600 font-bold hover:bg-gray-50'>distributed map</a>.</div>
+    </div>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><a href='DistributedMap' class='text-gray-600 font-bold hover:bg-gray-50'>DistributedMap</a>, describing an on-chain implementation of key-value mappings. This is naive, and mostly designed for conceptual illustration.</div>
+    </div>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><a href='assoc' class='text-gray-600 font-bold hover:bg-gray-50'>On-Chain Association List With Constant Time Insert-Removal</a>, describing a pattern that can be used to replicate account-style maps without breaking transaction size limits. This is the optimized version of <a href='DistributedMap' class='text-gray-600 font-bold hover:bg-gray-50'>the naive version of that data structure</a>.</div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='assoc'>
+            On-Chain Association List With Constant Time Insert-Removal
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>The excellent article <a href='DistributedMap' class='text-gray-600 font-bold hover:bg-gray-50'>Distributed map in EUTXO model</a> from Marcin Bugaj describes the need for an on-chain, distributed data structure which can guarantee uniqueness of entries.</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+    </ul>
+  </div>
+
+            </div>
+            
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+  </section>
+
+            <!-- What goes in this file will at the very end of the main div -->
+          </main>
+        </div>
+      </div>
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.5.3.0'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tasks' title='View tasks'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+      </svg>
+    </a>
+  </div>
+</footer>
+    </div>
+  
+</body>
+
+</html>

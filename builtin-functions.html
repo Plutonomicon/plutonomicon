@@ -1,0 +1,1461 @@
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Plutus Core Builtin Functions Reference – Plutonomicon
+  </title>
+  
+    
+      <meta property='og:description' content />
+      <meta property='og:site_name' content='Plutonomicon' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Plutus Core Builtin Functions Reference' />
+    
+    
+      <base href='/plutonomicon/' />
+      <link href='logo.png' rel='icon' />
+    
+    <!-- Prism.js --><link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/themes/prism-tomorrow.min.css' rel='stylesheet' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/prism.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/autoloader/prism-autoloader.min.js'></script>
+
+<script>
+  window.MathJax = {
+    startup: {
+      ready: () => {
+        MathJax.startup.defaultReady();
+      }
+    }
+  };
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+
+  
+  <link href='tailwind.css?instanceId=9a24feb3-1402-43d7-9ce7-e3d94a379675' rel='stylesheet' type='text/css' />
+
+  <!-- Heist error element -->
+  <style type='text/css'>
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'MavenPro';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'MavenPro', sans-serif;
+    /* font-variation-settings: 'wght'300; */
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght'500;
+  }
+
+  strong {
+    font-variation-settings: 'wght'500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'MavenPro', sans-serif;
+  }
+</style>
+
+  <head-main></head-main>
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto'>
+
+      <nav id='breadcrumbs' class='w-full text-gray-700 md:hidden'>
+  <div class='flex justify-left'>
+    <div class='w-full px-2 py-2 bg-gray-50'>
+      <ul class='flex flex-wrap text-lg'>
+        <li class='inline-flex items-center'>
+          
+            
+              <img style='width: 1rem;' src='logo.png' />
+            
+          
+        </li>
+        
+          
+            <li class='inline-flex items-center'>
+              <a class='px-1 font-bold' href=''>
+                Plutonomicon
+              </a>
+              <svg fill='currentColor' viewBox='0 0 20 20' class='w-auto h-5 text-gray-400'>
+                <path fill-rule='evenodd' d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z' clip-rule='evenodd'></path>
+              </svg>
+            </li>
+          
+        
+      </ul>
+    </div>
+    <button class='inline px-2 py-1 text-white bg-blue-600 outline-none cursor-pointer focus:outline-none' title='Toggle sidebar' type='button' onclick="toggleHidden('sidebar')">
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'></path>
+      </svg>
+    </button>
+    <script>
+      function toggleHidden(elemId) {
+        document.getElementById(elemId).classList.toggle("hidden");
+      }
+    </script>
+  </div>
+</nav>
+
+      <div id='container' class='flex flex-nowrap flex-col md:flex-row bg-gray-50 md:mt-8 md:shadow-2xl md:mb-8'>
+        <!-- Sidebar column -->
+        <nav id='sidebar' class='flex-shrink hidden leading-relaxed md:block md:sticky md:top-0 md:h-full md:w-48 xl:w-64'>
+          <div class='px-2 py-2 text-gray-800'>
+
+            <div id='indexing-links' class='flex flex-row float-right p-2 space-x-2 text-gray-500'>
+              <a href='-/tags' title='View tags'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+                  </path>
+                </svg>
+              </a>
+              <a href='-/all' title='Expand full tree'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+                  </path>
+                </svg>
+              </a>
+            </div>
+
+            <div id='site-logo' class='pl-2'>
+              <div class='flex items-center my-2 space-x-2 justify-left'>
+                <a href='' title='Go to Home'>
+                  
+                    
+                      <!-- The style width attribute here is to prevent huge
+                      icon from displaying at those rare occasions when Tailwind
+                      hasn't kicked in immediately on page load 
+                      -->
+                      <img style='width: 1rem;' class='transition transform hover:scale-110 hover:opacity-80' src='logo.png' />
+                    
+                  
+                </a>
+                <a class='font-bold truncate' title='Go to Home' href=''>
+                  Home
+                </a>
+              </div>
+            </div>
+
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='CnG PToken' href='cngproof'>
+      CnG PToken
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Common Plutus Vulnerabilities' href='vulnerabilities'>
+      Common Plutus Vulnerabilities
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Consistency' href='consistency'>
+      Consistency
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Distributed Map' href='DistributedMap'>
+      Distributed Map
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='FLLocked' href='forwarding2'>
+      <em>FLLocked</em>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Forwarding Minting Policy' href='forwarding1'>
+      Forwarding Minting Policy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Fundamentals of Plutus' href='fundamentals'>
+      Fundamentals of Plutus
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='How Stake Validators Actually Work' href='stake-scripts'>
+      How Stake Validators Actually Work
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='On-Chain Association List With Constant Time Insert-Removal' href='assoc'>
+      On-Chain Association List With Constant Time Insert-Removal
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Optimizations to reduce CPU and Mem consumption' href='scriptmem'>
+      Optimizations to reduce CPU and Mem consumption
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+  
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'>
+        </path>
+      </svg>
+      
+  
+    <a class='font-bold text-blue-600 hover:underline truncate' title='Plutus Core Builtin Functions Reference' href='builtin-functions'>
+      Plutus Core Builtin Functions Reference
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Plutus Numeric Hierarchy' href='numeric'>
+      Plutus Numeric Hierarchy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='README' href='README'>
+      README
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Script optimisations' href='optimisations'>
+      Script optimisations
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Sketch: Protocol Categories' href='protocol-category'>
+      Sketch: Protocol Categories
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='State Thread Token Pattern' href='statethread'>
+      State Thread Token Pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Staying In Bounds' href='size-test'>
+      Staying In Bounds
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Stick Breaking Set' href='stick-breaking-set'>
+      Stick Breaking Set
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The MIT License (MIT)' href='LICENSE'>
+      The MIT License (MIT)
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The TxTP Architecture' href='transaction-token-protocol'>
+      The TxTP Architecture
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Untyped Plutus Core' href='uplc'>
+      Untyped Plutus Core
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='User guide for plutus-numeric' href='user-guide-numeric'>
+      User guide for <code>plutus-numeric</code>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='What is Data/BuiltinData?' href='builtin-data'>
+      What is Data/BuiltinData?
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Lists' href='builtin-lists'>
+      Working with Builtin Lists
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Pairs' href='builtin-pairs'>
+      Working with Builtin Pairs
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-perspective' href='transaction-perspective'>
+      transaction-perspective
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-token-pattern' href='transaction-token-pattern'>
+      transaction-token-pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+
+          </div>
+        </nav>
+
+        <!-- Main body column -->
+        <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <main class='px-4 py-4'>
+            <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Plutus Core Builtin Functions Reference
+  </a>
+</h1>
+            <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      This document serves as a reference to the Plutus Core builtin functions, aka <a href='https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>DefaultFun</code></a>. It is primarily meant for Pluto users and Plutarch developers/contributors. As such, it contains information about <em>forcing</em>. That is, how many times each of these builtins need to be forced to actually use them.
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Note: If you spot any mistakes/have any related questions that this guide lacks the answer to, please don’t hesitate to raise an issue. The goal is to have high quality documentation for Pluto and Plutarch users!
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      <a href='https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-Builtins-Internal.html' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Cross Reference</a>
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Note: The “Type” column of the table below is primarily for documentation reasons. After all, it’s all <em>Untyped</em> Plutus Core. However, most of these types <em>do</em> need to be adhered to. There are a few cases where some flexibility allowed. These cases will be noted on the table itself.
+    </p>
+  
+    </blockquote>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Note: For brevity, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>BuiltinType</code> is referred to just <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Type</code> in the table. So <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code> actually refers to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>BuiltinInteger</code>. <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>BuiltinUnit</code> is written as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>()</code>.
+    </p>
+  
+    </blockquote>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Note: Plutarch either provides direct synonyms to these builtin functions, or provides a safer wrapper around them. Consult the <a href='https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md#compiling-and-running' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutarch guide</a>. However, if you <em>must</em> to use the builtins directly in Plutarch, see <a href='https://github.com/Plutonomicon/plutarch/blob/master/docs/DEVGUIDE.md#plutus-core-builtin-functions' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutus Core Builtins</a> section on the Plutarch guide.
+    </p>
+  
+    </blockquote>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>DefaultFun</code></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Type</th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Forces</th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Description</th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Pluto Usage</th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>AddInteger</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; Integer</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Sum 2 integers and return the result.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AddInteger 1 2 -- 3</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>SubtractInteger</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; Integer</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Subtract fist integer by second and return the result.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>SubtractInteger 5 2 -- 3</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>MultiplyInteger</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; Integer</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Multiply 2 integers and return the result.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MultiplyInteger 3 3 -- 9</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>DivideInteger</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; Integer</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Divide first integer by second and return the result.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>DivideInteger 6 2 -- 3</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>QuotientInteger</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; Integer</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Quotient of first integer by second and return the result.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>QuotientInteger 5 2 -- 2</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>RemainderInteger</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; Integer</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Remainder of first integer by second and return the result.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>RemainderInteger 5 2 -- 1</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>ModInteger</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; Integer</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Modulus of first integer by second and return the result.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ModInteger 5 2 -- 1</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>EqualsInteger</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; Bool</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Equality between two integers.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EqualsInteger 1 1 -- True</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>LessThanInteger</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; Bool</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>LT comparison between two integers.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>LessThanInteger 1 3 -- True</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>LessThanEqualsInteger</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; Bool</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>LTE comparison between two integers.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>LessThanEqualsInteger 1 1 -- True</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>AppendByteString</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; ByteString -&gt; ByteString</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Concatenate two bytestrings.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AppendByteString 0xfe 0xab -- 0xfeab</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>ConsByteString</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; ByteString -&gt; ByteString</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Prepend a byte, represented by a natural number (<code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code>), to a bytestring.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ConsByteString 65 0xab -- 0x41ab</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>SliceByteString</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Integer -&gt; ByteString -&gt; ByteString</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Slice a bytestring using given indices (inclusive on both ends).</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>SliceByteString 1 3 0x4102afde5b2a -- 0x02afde</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>LengthOfByteString<span xmlhtmlRaw><sup></span>1<span xmlhtmlRaw></sup></span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; Integer</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Get the length of a bytestring.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>LengthByteString 0x4102afde5b2a -- 6</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>IndexByteString</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; Integer -&gt; Integer</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Get the byte at given index from a bytestring.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>IndexByteString 0x4102afde5b2a 2 -- 175</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>EqualsByteString</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; ByteString -&gt; Bool</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Equality between two bytestrings.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EqualsByteString 0xab 0xab -- True</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>LessThanByteString</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; ByteString -&gt; Bool</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>LT comparison between two bytestrings.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>LessThanByteString 0x10 0xab -- True</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>LessThanEqualsByteString<span xmlhtmlRaw><sup></span>2<span xmlhtmlRaw></sup></span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; ByteString -&gt; Bool</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>LTE comparison between two bytestrings.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>LessThanEqualByteString 0x10 0x10 -- True</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Sha2_256</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; PByteString</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Hash a bytestring using SHA-256.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Sha3_256</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; PByteString</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Hash a bytestring using SHA3-256.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Blake2b_256</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; ByteString</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Hash a bytestring using Blake2B-25.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>VerifySignature</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString :--&gt; ByteString :--&gt; ByteString :--&gt; PBool</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Given PubKey, Message, and Signature, verify the signature.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>AppendString</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>String -&gt; String -&gt; String</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Concatenate two strings/texts.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AppendString "foo" "bar" -- "foobar"</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>EqualsString</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>String -&gt; String -&gt; Bool</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Equality between two strings/texts.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EqualsString "foo" "foo" -- True</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>EncodeUtf8</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>String -&gt; ByteString</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Encode a string/text using UTF-8.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>DecodeUtf8</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; String</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Decode a bytestring using UTF-8.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>IfThenElse</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Bool -&gt; a -&gt; a -&gt; a</code><span xmlhtmlRaw><sup></span>3<span xmlhtmlRaw></sup></span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>1</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>if-then-else</code> as a function. Both branches are <strong>strictly</strong> evaluated, since UPLC is strict.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! IfThenElse True 42 7 -- 42</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>ChooseUnit</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>() -&gt; a -&gt; a</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>1</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>“Choose” (catamorphism) on the unit type. Since the unit type has only one representation - it just has one branch.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! ChooseUnit () 42 -- 42</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Trace</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>String -&gt; a -&gt; a</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>1</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Log the message given by the first argument and return the second argument.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! Trace "foo" 1 -- 1</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>FstPair</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Pair a b -&gt; a</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>2</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Get the first member of the pair.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! ! FstPair (MkPairData (data 1) (data [42, 0xfe])) -- data 1</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>SndPair</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Pair a b -&gt; a</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>2</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Get the second member of the pair.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! ! SndPair (MkPairData (data 1) (data [42, 0xfe])) -- data [42, 0xfe]</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>ChooseList</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List a -&gt; b -&gt; b -&gt; b</code><span xmlhtmlRaw><sup></span>3<span xmlhtmlRaw></sup></span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>2</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>“Choose” (catamorphism) on a builtin list. Return the second argument if list was empty/nil, otherwise return the third argument. As usual, both arguments are evaluated <em>before</em> choosing.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! ! ChooseList (MkNilData ()) 0x41 0xab -- 0x41</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>MkCons</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>a -&gt; List a -&gt; List a</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>1</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Prepend an element onto a list. The list element type must be the same as the 1st arg type.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! MkCons (data 1) (MkNilData ()) -- [data 1]</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>HeadList</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List a -&gt; a</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>1</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Get the first element of a list. Errors if list is empty.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! HeadList (! MkCons (data 1) (MkNilData ())) -- data 1</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>TailList</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List a -&gt; List a</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>1</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Get the tail of a list (i.e everything but the first element). Errors if list is empty.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! TailList (! MkCons (data 1) (MkNilData ())) -- []</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>NullList</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List a -&gt; Bool</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>1</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Returns <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>True</code> if given list is empty.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! NullList (MkNilData ())</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>ChooseData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data -&gt; a -&gt; a -&gt; a -&gt; a -&gt; a -&gt; a</code><span xmlhtmlRaw><sup></span>3<span xmlhtmlRaw></sup></span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>1</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>“Choose” (catamorphism) on <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code>. It has 5 branches. The first branch (second argument) is returned for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Constr</code>, the second branch for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Map</code>, the third for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List</code>, the fourth for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>I</code>, and finally, the fifth for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>B</code>. As usual, all arguments are evaluated <em>before</em> choosing.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>! ChooseData (data 0xbc) 0 1 2 3 4 -- 4</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>ConstrData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; List Data -&gt; Data</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Create a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Constr</code> data with a constructor id and its fields, as a builtin list of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code> elements.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Constrdata 0 (MkNilData ()) -- data sigma0.[]</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>MapData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List (Pair Data Data) -&gt; Data</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Wrap a bytestring into a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code>. Returns a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>B</code> data value.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MapData (MkNilPairData ()) -- data {}</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>ListData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List Data -&gt; Data</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Wrap a builtin list of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code> elements into a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code>. Returns a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List</code> data value.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ListData (! MkCons (data 1) (MkNilData ())) -- data [1]</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>IData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer -&gt; Data</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Wrap an integer into a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code>. Returns a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>I</code> data value.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>IData 42 -- data 42</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>BData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString -&gt; Data</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Wrap a bytestring into a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code>. Returns a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>B</code> data value.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>BData 0xab -- data 0xab</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>UnConstrData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data -&gt; Pair Integer (List Data)</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Get the constructor id and the fields in a pair from a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Constr</code> data value. Fails if the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code> isn’t a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Constr</code> data.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>UnConstrData (data sigma0.[]) -- (0, [])</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>UnMapData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data -&gt; List (Pair Data Data)</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Extract a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List (Pair Data Data)</code> from a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Map</code> data value. Fails if the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code> isn’t a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Map</code> data.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>UnMapData (data { 0xab = 1 }) -- [(0xab, 1)]</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>UnListData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data -&gt; List Data</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Extract a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List Data</code> from a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List</code> data value. Fails if the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code> isn’t a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>List</code> data.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>UnListData (data [1]) -- [data 1]</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>UnIData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data -&gt; Integer</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Extract a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code> from a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>I</code> data value. Fails if the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code> isn’t a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>I</code> data.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>UnIData (data 42) -- 42</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>UnBData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data -&gt; ByteString</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Extract a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ByteString</code> from a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>B</code> data value. Fails if the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code> isn’t a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>B</code> data.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>UnBData (data 0xab) -- 0xab</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>EqualsData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data -&gt; Data -&gt; Bool</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Equality between two data values.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EqualsData (data [5, 0xab]) (data [5, 0xab]) -- True</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>MkPairData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data -&gt; Data -&gt; Pair Data Data</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Make a pair of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code> values.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MkPairData (data 1) (data [42, 0xfe]) -- (data 1, data [42, 0xfe])</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>MkNilData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>() -&gt; List Data</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Make a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>nil</code> list of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code>.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MkNilData () -- []</code></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>MkNilPairData</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>() -&gt; List (Pair Data Data)</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Make a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>nil</code> list of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Pair Data Data</code>.</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MkNilPairData () -- []</code></td></tr></tbody></table>
+    <p class='mb-3'>
+      1: <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>LengthOfByteString</code> is called <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>LengthByteString</code> in Pluto.
+    </p>
+  
+    <p class='mb-3'>
+      2: <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>LessThanEqualsByteString</code> is called <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>LessThanEqualByteString</code> in Pluto.
+    </p>
+  
+    <p class='mb-3'>
+      3: This can actually take in different types for its branches. The type of one branch could be <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code>, whereas the other could be <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Data</code>, and so on.
+    </p>
+  <h1 id='useful-links' class='pb-2 mb-2 text-5xl font-bold text-center'>Useful Links</h1>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='builtin-data' class='text-blue-600 mavenLinkBold hover:underline'>Builtin data</a>
+        </li>
+      
+        <li>
+          <a href='builtin-lists' class='text-blue-600 mavenLinkBold hover:underline'>Builtin lists</a>
+        </li>
+      
+        <li>
+          <a href='builtin-pairs' class='text-blue-600 mavenLinkBold hover:underline'>Builtin pairs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Pluto guide</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutarch guide</a>
+        </li>
+      
+        <li>
+          <a href='https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutus builtin functions and types</a>
+        </li>
+      
+        <li>
+          <a href='https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutus Core builtin function identifiers, aka <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>DefaultFun</code></a>
+        </li>
+      
+        <li>
+          <a href='https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutus Core types, aka <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>DefaultUni</code></a>
+        </li>
+      
+    </ul>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+            <div class='flex flex-col lg:flex-row lg:space-x-2'>
+              
+              
+  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
+    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
+    <ul class='space-y-1'>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='builtin-pairs'>
+            Working with Builtin Pairs
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><a href='builtin-functions' class='text-gray-600 font-bold hover:bg-gray-50'>Builtin functions</a></div>
+    </div>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>Here’s the synonym to Haskell’s <code>fst</code>! Its type looks like- <code>FstPair :: forall a b. BuiltinPair a b -&gt; a</code>. It takes <em>two</em> forces, which you may already have known from <a href='builtin-functions' class='text-gray-600 font-bold hover:bg-gray-50'>Builtin Function Reference</a>. You force it twice, and pass in a builtin pair, and you get the first element of the pair.</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='builtin-lists'>
+            Working with Builtin Lists
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><a href='builtin-functions' class='text-gray-600 font-bold hover:bg-gray-50'>Builtin functions</a></div>
+    </div>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>Its type looks like- <code>HeadList :: forall a. BuiltinList a -&gt; a</code>. See that type variable? That means it takes <em>one</em> force. But <a href='builtin-functions' class='text-gray-600 font-bold hover:bg-gray-50'>you already knew that</a>. You force it once, and pass in a builtin list, and you get the first element of the list (or a scary error if the list is empty). Simple!</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='builtin-data'>
+            What is Data/BuiltinData?
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><a href='builtin-functions' class='text-gray-600 font-bold hover:bg-gray-50'>Builtin functions</a></div>
+    </div>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>Each argument corresponds to a branch. Details are discussed at <a href='builtin-functions' class='text-gray-600 font-bold hover:bg-gray-50'>Plutus Core builtin functions reference</a>.</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='uplc'>
+            Untyped Plutus Core
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>See <a href='builtin-functions' class='text-gray-600 font-bold hover:bg-gray-50'>builtin-functions</a> for full list of builtins.</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+    </ul>
+  </div>
+
+            </div>
+            
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+  </section>
+
+            <!-- What goes in this file will at the very end of the main div -->
+          </main>
+        </div>
+      </div>
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.5.3.0'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tasks' title='View tasks'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+      </svg>
+    </a>
+  </div>
+</footer>
+    </div>
+  
+</body>
+
+</html>

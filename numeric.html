@@ -1,0 +1,2280 @@
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Plutus Numeric Hierarchy – Plutonomicon
+  </title>
+  
+    
+      <meta property='og:description' content />
+      <meta property='og:site_name' content='Plutonomicon' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Plutus Numeric Hierarchy' />
+    
+    
+      <base href='/plutonomicon/' />
+      <link href='logo.png' rel='icon' />
+    
+    <!-- Prism.js --><link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/themes/prism-tomorrow.min.css' rel='stylesheet' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/prism.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/autoloader/prism-autoloader.min.js'></script>
+
+<script>
+  window.MathJax = {
+    startup: {
+      ready: () => {
+        MathJax.startup.defaultReady();
+      }
+    }
+  };
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+
+  
+  <link href='tailwind.css?instanceId=9a24feb3-1402-43d7-9ce7-e3d94a379675' rel='stylesheet' type='text/css' />
+
+  <!-- Heist error element -->
+  <style type='text/css'>
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'MavenPro';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'MavenPro', sans-serif;
+    /* font-variation-settings: 'wght'300; */
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght'500;
+  }
+
+  strong {
+    font-variation-settings: 'wght'500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'MavenPro', sans-serif;
+  }
+</style>
+
+  <head-main></head-main>
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto'>
+
+      <nav id='breadcrumbs' class='w-full text-gray-700 md:hidden'>
+  <div class='flex justify-left'>
+    <div class='w-full px-2 py-2 bg-gray-50'>
+      <ul class='flex flex-wrap text-lg'>
+        <li class='inline-flex items-center'>
+          
+            
+              <img style='width: 1rem;' src='logo.png' />
+            
+          
+        </li>
+        
+          
+            <li class='inline-flex items-center'>
+              <a class='px-1 font-bold' href=''>
+                Plutonomicon
+              </a>
+              <svg fill='currentColor' viewBox='0 0 20 20' class='w-auto h-5 text-gray-400'>
+                <path fill-rule='evenodd' d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z' clip-rule='evenodd'></path>
+              </svg>
+            </li>
+          
+        
+      </ul>
+    </div>
+    <button class='inline px-2 py-1 text-white bg-blue-600 outline-none cursor-pointer focus:outline-none' title='Toggle sidebar' type='button' onclick="toggleHidden('sidebar')">
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'></path>
+      </svg>
+    </button>
+    <script>
+      function toggleHidden(elemId) {
+        document.getElementById(elemId).classList.toggle("hidden");
+      }
+    </script>
+  </div>
+</nav>
+
+      <div id='container' class='flex flex-nowrap flex-col md:flex-row bg-gray-50 md:mt-8 md:shadow-2xl md:mb-8'>
+        <!-- Sidebar column -->
+        <nav id='sidebar' class='flex-shrink hidden leading-relaxed md:block md:sticky md:top-0 md:h-full md:w-48 xl:w-64'>
+          <div class='px-2 py-2 text-gray-800'>
+
+            <div id='indexing-links' class='flex flex-row float-right p-2 space-x-2 text-gray-500'>
+              <a href='-/tags' title='View tags'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+                  </path>
+                </svg>
+              </a>
+              <a href='-/all' title='Expand full tree'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+                  </path>
+                </svg>
+              </a>
+            </div>
+
+            <div id='site-logo' class='pl-2'>
+              <div class='flex items-center my-2 space-x-2 justify-left'>
+                <a href='' title='Go to Home'>
+                  
+                    
+                      <!-- The style width attribute here is to prevent huge
+                      icon from displaying at those rare occasions when Tailwind
+                      hasn't kicked in immediately on page load 
+                      -->
+                      <img style='width: 1rem;' class='transition transform hover:scale-110 hover:opacity-80' src='logo.png' />
+                    
+                  
+                </a>
+                <a class='font-bold truncate' title='Go to Home' href=''>
+                  Home
+                </a>
+              </div>
+            </div>
+
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='CnG PToken' href='cngproof'>
+      CnG PToken
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Common Plutus Vulnerabilities' href='vulnerabilities'>
+      Common Plutus Vulnerabilities
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Consistency' href='consistency'>
+      Consistency
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Distributed Map' href='DistributedMap'>
+      Distributed Map
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='FLLocked' href='forwarding2'>
+      <em>FLLocked</em>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Forwarding Minting Policy' href='forwarding1'>
+      Forwarding Minting Policy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Fundamentals of Plutus' href='fundamentals'>
+      Fundamentals of Plutus
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='How Stake Validators Actually Work' href='stake-scripts'>
+      How Stake Validators Actually Work
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='On-Chain Association List With Constant Time Insert-Removal' href='assoc'>
+      On-Chain Association List With Constant Time Insert-Removal
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Optimizations to reduce CPU and Mem consumption' href='scriptmem'>
+      Optimizations to reduce CPU and Mem consumption
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Plutus Core Builtin Functions Reference' href='builtin-functions'>
+      Plutus Core Builtin Functions Reference
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+  
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'>
+        </path>
+      </svg>
+      
+  
+    <a class='font-bold text-blue-600 hover:underline truncate' title='Plutus Numeric Hierarchy' href='numeric'>
+      Plutus Numeric Hierarchy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='README' href='README'>
+      README
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Script optimisations' href='optimisations'>
+      Script optimisations
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Sketch: Protocol Categories' href='protocol-category'>
+      Sketch: Protocol Categories
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='State Thread Token Pattern' href='statethread'>
+      State Thread Token Pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Staying In Bounds' href='size-test'>
+      Staying In Bounds
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Stick Breaking Set' href='stick-breaking-set'>
+      Stick Breaking Set
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The MIT License (MIT)' href='LICENSE'>
+      The MIT License (MIT)
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The TxTP Architecture' href='transaction-token-protocol'>
+      The TxTP Architecture
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Untyped Plutus Core' href='uplc'>
+      Untyped Plutus Core
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='User guide for plutus-numeric' href='user-guide-numeric'>
+      User guide for <code>plutus-numeric</code>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='What is Data/BuiltinData?' href='builtin-data'>
+      What is Data/BuiltinData?
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Lists' href='builtin-lists'>
+      Working with Builtin Lists
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Pairs' href='builtin-pairs'>
+      Working with Builtin Pairs
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-perspective' href='transaction-perspective'>
+      transaction-perspective
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-token-pattern' href='transaction-token-pattern'>
+      transaction-token-pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+
+          </div>
+        </nav>
+
+        <!-- Main body column -->
+        <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <main class='px-4 py-4'>
+            <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Plutus Numeric Hierarchy
+  </a>
+</h1>
+            <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      Credit - Koz Ross
+    </p>
+  <h2 id='introduction' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Introduction</h2>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      “God gave us the integers; all else is the work of man.” <a href='https://en.wikiquote.org/wiki/Leopold_Kronecker' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Leopold Kronecker</a>
+    </p>
+  
+    <p class='mb-3'>
+      “Plutus gave us the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code>s; all else is the work of MLabs.” Anonymous
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      Numbers are a concept that is at the same time familiar in its generalities, but aggravating in its detail. This is mostly because mathematicians typically operate in the real line, which we, as computer scientists, cannot; additionally, as Haskell developers, we are more concerned with <em>capabilities</em> than <em>theorems.</em> Therefore, working with numbers on a computer is, in basically every language, some degree of unsatisfactory.
+    </p>
+  
+    <p class='mb-3'>
+      The goal of this document is to provide:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-decimal list-inside'>
+      
+        <li>
+          An explanation of the numerical hierarchy of Plutus, as well as our extensions to it;
+        </li>
+      
+        <li>
+          A reasoning of why it was designed, or extended, in the way that it was; and
+        </li>
+      
+        <li>
+          A clarification of the algebraic laws and principles underlying everything, to aid you in their use and extension.
+        </li>
+      
+    </ul>
+  <h2 id='basics' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Basics</h2>
+    <p class='mb-3'>
+      Plutus provides two ‘base’ numerical types: <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Rational</code>. These correspond to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Z</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q</code>
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn1';">1</a></sup>
+    <!-- DoNotFormat -->
+   in mathematics, and in theory, all the operations reasonable to define on them.
+    </p>
+  
+    <p class='mb-3'>
+      As MLabs extensions, we also provide <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>NatRatio</code>; the former corresponds to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code> in mathematics, while the latter doesn’t really have an analog that’s talked about much, but represents the non-negative part of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q</code>. We will write this as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q+</code>.
+    </p>
+  
+    <p class='mb-3'>
+      Part of the challenge of a numerical hierarchy is the tension between:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-decimal list-inside'>
+      
+        <li>
+          The overloading of many mathematical concepts, such as addition; and
+        </li>
+      
+        <li>
+          The fact that the behaviour of different numerical types makes these vary in behaviour.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      We want to have the ability to write number-related concepts without having to have several varieties of the same operation: the natural method for this is type classes, whose original purpose was ad-hoc polymorphism. It is likely that numerical concepts were a high priority for this kind of behaviour. However, <em>because</em> type classes allow ad-hoc polymorphism, we have to define clear expectations of what we expect a ‘valid’ or ‘correct’ implementation of a type class method to do. This also ties back to our problem: we want the behaviour of our numerical operators to be consistent with our intuition and reasoning, but also flexible enough to allow grouping of common behaviour.
+    </p>
+  <h3 id='inadequacy-of-num' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Inadequacy of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Num</code></h3>
+    <p class='mb-3'>
+      The Haskell approach to arithmetic and numerical operations involves the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Num</code> type class. This approach is highly unsatisfactory as a foundation, for multiple reasons:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          A lot of unrelated concepts are ‘mashed together’ in this design. In particular, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>fromInteger</code> is really a <em>syntactic</em> construction for overloading numerical syntax, which is at odds with everything else in <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Num</code>.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Num</code> is ‘too strong’ to serve as a foundation for a numerical hierarchy. As it demands a definition of either <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>negate</code> or <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>-</code>, it means that many types (including <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code>) must be partial in <em>at least</em> this method. Furthermore, demanding a definition of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>fromInteger</code> for values that <em>cannot</em> be negative (such as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code>) requires either odd behaviour or partiality.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Num</code> is not well-founded. It is similar enough to a range of concepts, but not similar enough to actually rely on.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Thus, instead of this, Plutus took a different approach, which we both explain, and extend, here
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn2';">2</a></sup>
+    <!-- DoNotFormat -->
+  .
+    </p>
+  <h3 id='semigroups-and-monoids' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Semigroups and Monoids</h3>
+    <p class='mb-3'>
+      Everything must begin with a foundation; in the case of the Plutus numerical hierarchy, it is the familiar <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Semigroup</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Monoid</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>class Semigroup (a :: Type) where
+  (&lt;&gt;) :: a -&gt; a -&gt; a
+
+class (Semigroup a) =&gt; Monoid (a :: Type) where
+  mempty :: a</code></pre></div>
+    <p class='mb-3'>
+      These come with two laws
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn3';">3</a></sup>
+    <!-- DoNotFormat -->
+  :
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x, y, z</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>(x &lt;&gt; y) &lt;&gt; z = x &lt;&gt; (y &lt;&gt; z)</code> (associativity).
+        </li>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;&gt; mempty = mempty &lt;&gt; x = x</code> (identity of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>mempty</code>).
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Semigroup</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Monoid</code> have a plethora of uses, and act as a foundation for <em>many</em> concepts, both in Haskell and outside of it. However, we need more structure than this to define sensible arithmetic.
+    </p>
+  
+    <p class='mb-3'>
+      Mathematically, there is a convention to talk about <em>additive</em> and <em>multiplicative</em> semigroups, monoids, and indeed, other structures. This ‘links together’ two <em>different</em> structures over the same set, and provides us with additional guarantees. To this effect, Plutus defines <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveSemigroup</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveMonoid</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MultiplicativeSemigroup</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MultiplicativeMonoid</code>, as so:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>class AdditiveSemigroup (a :: Type) where
+  (+) :: a -&gt; a -&gt; a
+
+class (AdditiveSemigroup a) =&gt; AdditiveMonoid (a :: Type) where
+  zero :: a
+
+class MultiplicativeSemigroup (a :: Type) where
+  (*) :: a -&gt; a -&gt; a
+
+class (MultiplicativeSemigroup a) =&gt; MultiplicativeMonoid (a :: Type) where
+  one :: a</code></pre></div>
+    <p class='mb-3'>
+      As per <a href='https://en.wikipedia.org/wiki/Additive_group' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>additive semigroups</a>, <a href='https://en.wikipedia.org/wiki/Multiplicative_group' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>multiplicative semigroups</a>, and the corresponding monoids, we have the following laws:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>a</code> must be a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Semigroup</code> (and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Monoid</code>) under <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>+</code> (with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>zero</code>) and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>*</code> (with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>one</code>).
+        </li>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x, y</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x + y = y + x</code>. In words, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>+</code> must <em>commute,</em> or <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>+</code> must be a <em>commutative operation.</em>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Using this, we get the following instances:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- Provided by Plutus
+
+instance AdditiveSemigroup Integer
+instance AdditiveMonoid Integer
+instance MultiplicativeSemigroup Integer
+instance MultiplicativeMonoid Integer
+
+instance AdditiveSemigroup Rational
+instance AdditiveMonoid Rational
+instance MultiplicativeSemigroup Rational
+instance MultiplicativeMonoid Rational
+
+-- Provided by us
+
+instance AdditiveSemigroup Natural
+instance AdditiveMonoid Natural
+instance MultiplicativeSemigroup Natural
+instance MultiplicativeMonoid Natural
+
+instance AdditiveSemigroup NatRatio
+instance AdditiveMonoid NatRatio
+instance MultiplicativeSemigroup NatRatio
+instance MultiplicativeMonoid NatRatio</code></pre></div>
+    <p class='mb-3'>
+      These are defined in the expected way, using addition, multiplication, zero and one for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Z</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q+</code> respectively.
+    </p>
+  <h3 id='semiring-the-foundation-of-the-universe' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Semiring: the foundation of the universe</h3>
+    <p class='mb-3'>
+      The combination of additive and multiplicative monoids on the same set (type in Haskell) has special treatment, and capabilities, as well as a name: a <a href='https://en.wikipedia.org/wiki/Semiring' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>semiring</em></a>. This forms a fundamental structure, both for abstract algebra, but also for any numerical system, as it represents a combination of two fundamental operations (addition and multiplication), plus the identities and behaviours we expect from them.
+    </p>
+  
+    <p class='mb-3'>
+      In Plutus, it is assumed that <em>anything</em> which is both an <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveMonoid</code> and a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MultiplicativeMonoid</code> is, in fact, a semiring:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>type Semiring (a :: Type) = (AdditiveMonoid a, MultiplicativeMonoid a)</code></pre></div>
+    <p class='mb-3'>
+      This statement hides some laws which are required for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>a</code> to be a semiring:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x, y, z</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x * (y + z) = x * y + x * z</code>. This law is called <em>distributivity</em>; we can also say that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>*</code> <em>distributes over</em> <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>+</code>
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn4';">4</a></sup>
+    <!-- DoNotFormat -->
+  .
+        </li>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x * zero = zero * x = zero</code>. This law is called <em>annihilation.</em>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      We thus have to ensure that we <em>only</em> define this combination of instances for types where these laws apply
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn5';">5</a></sup>
+    <!-- DoNotFormat -->
+  .
+    </p>
+  
+    <p class='mb-3'>
+      Distributivity in particular is a powerful concept, as it gives us much of the power of algebra over numbers. This can be applied in many contexts, possibly achieving non-trivial speedups: consider some of the examples from <a href='https://marcpouly.ch/pdf/internal_100712.pdf' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>Semirings for Breakfast</em></a> as a demonstration.
+    </p>
+  <h2 id='two-universes' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Two universes</h2>
+    <p class='mb-3'>
+      As a foundation for a numerical hierarchy (or system in general), semirings (and indeed, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Semiring</code>s) get us fairly far. However, they do not give us enough for a full treatment of the four basic arithmetical operations: we have a treatment of addition and multiplication, but <em>not</em> subtraction or division.
+    </p>
+  
+    <p class='mb-3'>
+      Generally, addition and subtraction are viewed as ‘paired’ operations, where one ‘undoes’ the other. This is a common mathematical concept, termed an <a href='https://en.wikipedia.org/wiki/Inverse_function' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>inverse</em></a>. Thus, it’s common to consider subtraction as ‘inverse addition’ (and division as ‘inverse multiplication’). However, these statements hide some complexity; there are, in fact, <em>two</em> ways to view subtraction (only one of which is a true inverse), while division is only a partial inverse. These are of minor note to mathematicians, but of <em>significant</em> concern to us as Haskell developers. We want to ensure good laws and totality, but also have the behaviour of these operations line up with our intuition.
+    </p>
+  
+    <p class='mb-3'>
+      The ‘classical’ treatment of subtraction involves extending the additive monoids we have seen so far to <a href='https://en.wikipedia.org/wiki/Additive_group' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>additive groups</em></a>, which contain the notion of an <a href='https://en.wikipedia.org/wiki/Additive_inverse' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>additive inverse</em></a> for each element. In Plutus, we have this notion in the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveGroup</code> type class:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>class (AdditiveMonoid a) =&gt; AdditiveGroup (a :: Type) where
+  (-) :: a -&gt; a -&gt; a</code></pre></div>
+    <p class='mb-3'>
+      There is also a helper function <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>negate :: (AdditiveGroup a) =&gt; a -&gt; a</code>, which gives the additive inverse of its argument. The only law for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveGroup</code>s is that for all <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, there exists a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x + y = zero</code>. Both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Rational</code> are <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveGroup</code>s (using subtraction for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>-</code>); however, neither <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code> nor <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>NatRatio</code> can be, as subtraction on <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code> or <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q+</code> is not <a href='https://en.wikipedia.org/wiki/Closure_(mathematics)' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>closed</em></a>. This is one reason why <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code> is awkward to use in Haskell in particular. While we <em>could</em> define some kind of ‘alt-subtraction’ based on additive inverses for these two types, they wouldn’t fit our notion of what subtraction ‘should be like’.
+    </p>
+  
+    <p class='mb-3'>
+      An alternative approach is proposed by <a href='https://www.springer.com/gp/book/9780387754499' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Gondran and Minoux</a>. This is done by identifying an alternative (and mutually-incompatible) property of (some) monoids, and using it as a basis for a separate, but lawful, operation.
+    </p>
+  <h3 id='a-mathematical-aside' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>A mathematical aside</h3>
+    <p class='mb-3'>
+      What’s next leans heavily on abstract algebra and maths. You can skip this section if it doesn’t interest you.
+    </p>
+  
+    <p class='mb-3'>
+      For any monoid, we can define two <em>natural orders.</em> Given a monoid <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>M = (S, *, 0)</code>, we define the <em>left natural order</em> on <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>S</code> as so: for all <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x, y</code> in <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>S</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;~= y</code> if and only if there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> in <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>S</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = z * x</code>. The <em>right natural order</em> on <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>S</code> is defined analogously: for all <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x, y</code> in <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>S</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;=~ y</code> if and only if there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> in <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>S</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = x * z</code>.
+    </p>
+  
+    <p class='mb-3'>
+      Consider <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Ordering</code>, with its instances of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Semigroup</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Monoid</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data Ordering = LT | EQ | GT
+
+-- Slightly longer than what exists in base, for clarity
+instance Semigroup Ordering where
+  LT &lt;&gt; LT = LT
+  LT &lt;&gt; EQ = LT
+  LT &lt;&gt; GT = LT
+  EQ &lt;&gt; LT = LT
+  EQ &lt;&gt; EQ = EQ
+  EQ &lt;&gt; GT = GT
+  GT &lt;&gt; LT = GT
+  GT &lt;&gt; EQ = GT
+  GT &lt;&gt; GT = GT
+
+instance Monoid Ordering where
+  mempty = EQ</code></pre></div>
+    <p class='mb-3'>
+      The left natural order on <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Ordering</code> would be defined as so:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>(&lt;~=) :: Ordering -&gt; Ordering -&gt; Bool
+LT &lt;~= LT = True
+LT &lt;~= EQ = False
+LT &lt;~= GT = True
+EQ &lt;~= LT = True
+EQ &lt;~= EQ = True
+EQ &lt;~= GT = True
+GT &lt;~= LT = True
+GT &lt;~= EQ = False
+GT &lt;~= GT = True</code></pre></div>
+    <p class='mb-3'>
+      Intuitively, the left natural ordering makes <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EQ</code> the smallest element, and all the others are ‘about the same’. The right natural order on <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Ordering</code> is instead this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>(&lt;=~) :: Ordering -&gt; Ordering -&gt; Bool
+LT &lt;=~ LT = True
+LT &lt;=~ EQ = False
+LT &lt;=~ GT = False
+EQ &lt;=~ LT = True
+EQ &lt;=~ EQ = True
+EQ &lt;=~ GT = True
+GT &lt;=~ LT = False
+GT &lt;=~ EQ = False
+GT &lt;=~ GT = True</code></pre></div>
+    <p class='mb-3'>
+      This is different; here, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>EQ</code> is still the smallest element, but <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>LT</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>GT</code> are now mutually incomparable.
+    </p>
+  
+    <p class='mb-3'>
+      We note that:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Any natural order is <a href='https://en.wikipedia.org/wiki/Reflexive_relation' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>reflexive</em></a>. As <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>0</code> is a neutral element, for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x * 0 = 0 * x = x</code>; from this, it follows that both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;~= x</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;=~ x</code> are always the case.
+        </li>
+      
+        <li>
+          Any natural order is <a href='https://en.wikipedia.org/wiki/Transitive_relation' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>transitive</em></a>. If we have <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x, y, z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;~= y</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y &lt;~= z</code>, we have <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x', y'</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = x' * x</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z = y' * y</code>; thus, as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>*</code> is closed, we can see that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z = (y' * x') * x</code>. Furthermore, as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>*</code> is associative, we can ignore the bracketing. While we demonstrate this on a left natural order, the case for the right natural order is symmetric.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This combination of properties means that any natural order is at least a <a href='https://en.wikipedia.org/wiki/Preorder' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>preorder</em></a>. We also note that the only thing setting left and right natural orders apart is the fact that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>*</code> doesn’t have to be commutative; if it is, the two are identical, and we can just talk about <em>the</em> natural order, which we denote <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>&lt;~=~</code>. In our case, this is convenient, as additive monoids are <em>always</em> commutative in their operation
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn6';">6</a></sup>
+    <!-- DoNotFormat -->
+  .
+    </p>
+  
+    <p class='mb-3'>
+      Consider <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code> under multiplication, with 1 as the identity element. For the left natural ordering, we note the following:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          1 is smaller than anything else: <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>1 &lt;~= y</code> must imply that there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = z * 1</code>; as <em>anything</em> multiplied by 1 is just itself, this holds for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y</code>. However, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;~= 1</code> must imply that there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>1 = z * x</code>, which is impossible for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code> except 1.
+        </li>
+      
+        <li>
+          0 is larger than anything else: <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;~= 0</code> must imply that there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>0 = z * x</code>; we can always choose <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z = 0</code> to make that true. However, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>0 &lt;~= y</code> must imply that there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = z * 0</code>; for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y</code> <em>other</em> than 0, this is not possible.
+        </li>
+      
+        <li>
+          Otherwise, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;~= y</code> if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code> is a factor of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y</code>, but never otherwise: if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;~= y</code> holds, it implies that there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = z * x</code>. This is only possible if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code> is a factor of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y</code>, as otherwise, we would have to produce <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z = y / x</code>, which does not exist in general in <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      For the right natural ordering, we get the following, repeated for clarity:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          1 is smaller than anything else: <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>1 &lt;=~ y</code> must imply that there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = 1 * z</code>; as <em>anything</em> multiplied by 1 is just itself, this holds for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y</code>. However, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;=~ 1</code> must imply that there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>1 = x * z</code>, which is impossible for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code> except 1.
+        </li>
+      
+        <li>
+          0 is larger than anything else: <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;=~ 0</code> must imply there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>0 = x * z</code>; we can always choose <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z = 0</code> to make that true. However, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>0 &lt;=~ y</code> must imply there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = 0 * z</code>; for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y</code><br /><em>other</em> than 0, this is not possible.
+        </li>
+      
+        <li>
+          Otherwise, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;=~ y</code> if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code> is a factor of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y</code>, but never otherwise: if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;= y</code> holds, it implies that there exists <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = x * z</code>. This is only possible if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code> is a factor of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y</code>, as otherwise, we would have to produce <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z = y / x</code>, which does not exist in general in <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      We can see that the outcomes are the same for both orders, as multiplication on <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code> commutes.
+    </p>
+  
+    <p class='mb-3'>
+      Let <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>M = (S, *, 0)</code> be a monoid with a natural order <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>&lt;~=~</code>. We say that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>&lt;~=~</code> is a <em>canonical natural order</em> if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>&lt;=</code> is <a href='https://en.wikipedia.org/wiki/Antisymmetric_relation' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>antisymmetric</em></a>; specifically, if for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x,y</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;~=~ y</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y &lt;~=~ x</code>imply that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x = y</code>. Because all natural orders (canonical or not) are also reflexive and transitive, any canonical natural order is (at least) a <a href='https://en.wikipedia.org/wiki/Partially_ordered_set#Partial_order_relation' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>partial order</em></a>.
+    </p>
+  
+    <p class='mb-3'>
+      As an example, consider the natural order of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code> with multiplication and 1 as the identity described above. This is a canonical natural order, for the following reason: if we have both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;~=~ y</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y &lt;~=~ x</code>, it means that we have <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z1</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z2</code> such that both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = x * z1</code> and also <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x = y * z2</code>. Substituting the definition of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code> into the first equation yields <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = y * z2 * z1</code>, which implies that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z2 * z1 = 1</code>, which in turn implies that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z1 = 1</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z2 = 1</code>. Therefore, it must be the case that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x = y * 1</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = x * 1</code>, which means <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x = y</code>. As a counter-example, consider the natural order on <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Z</code> with multiplication and 1 as the identity. We observe that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>1 &lt;~=~ -1</code>, as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>-1 = 1 * -1</code>; however, simultaneously, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>-1 &lt;~=~ 1</code>, as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>1 = -1 * -1</code> - but of course, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>1 /= -1</code>.
+    </p>
+  
+    <p class='mb-3'>
+      By a theorem of Gondran and Minoux, the properties of canonical natural order and additive inverse are mutually-exclusive: <em>no</em> monoid can have both. We say that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>M</code> is <em>canonically-ordered</em> if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>M</code> has a canonical natural order.
+    </p>
+  
+    <p class='mb-3'>
+      This raises the question of whether we can recover something similar to an additive inverse, but in the context of a canonical natural order. It turns out that we can. Let <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>M = (S, +, 0)</code> be a commutative, canonically-ordered monoid with canonical natural order <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>&lt;~=~</code>. Then, there exists an operation <em>monus</em> (denoted <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>^-</code>), such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x ^- y</code> is the unique least <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>z</code> in <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>S</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;~=~ y + z</code>.
+    </p>
+  
+    <p class='mb-3'>
+      We call such an <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>M</code> a <em>hemigroup;</em> if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>M</code> happens to be an additive monoid, that would make it an <em>additive hemigroup</em>
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn7';">7</a></sup>
+    <!-- DoNotFormat -->
+  . The term ‘hemigroup’ derives from Gondran and Minoux, designed to designate a ‘separate but parallel’ concept to groups.
+    </p>
+  <h3 id='a-different-subtraction' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>A different subtraction</h3>
+    <p class='mb-3'>
+      Based on the principles described above, we can define a parallel concept to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveGroup</code> in Plutus. We provide this as so:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>class (AdditiveMonoid a) =&gt; AdditiveHemigroup (a :: Type) where
+  (^-) :: a -&gt; a -&gt; a</code></pre></div>
+    <p class='mb-3'>
+      Unlike <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveGroup</code>, the laws required for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveHemigroup</code> are <a href='https://en.wikipedia.org/wiki/Monus#Properties' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>more extensive</a>:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x, y</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x + (y ^- x) = y + (x ^- y)</code>.
+        </li>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x, y, z</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>(x ^- y) ^- z = x ^- (y + z)</code>
+        </li>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x ^- x = zero ^- x = zero</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>NatRatio</code> are valid instances of this type class; in both cases, monus corresponds to the ‘difference-or-zero’ operation, which can be (informally) described as:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>x ^- y 
+  | x &lt; y = zero
+  | otherwise = x - y</code></pre></div><h3 id='one-arithmetic-two-systems' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>One arithmetic, two systems</h3>
+    <p class='mb-3'>
+      Having both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveGroup</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveHemigroup</code>, and their mutual incompatibility (in the sense that no type can lawfully be both) creates two ‘universes’ in the numerical hierarchy, both rooted at <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Semigroup</code>. On the one hand, if we have an additive inverse available, we get a combination of additive group and multiplicative monoid, which is a <a href='https://en.wikipedia.org/wiki/Ring_(mathematics)' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>ring</em></a>
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn8';">8</a></sup>
+    <!-- DoNotFormat -->
+  :
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- Provided by Plutus
+type Ring (a :: Type) = (AdditiveGroup a, MultiplicativeMonoid a)</code></pre></div>
+    <p class='mb-3'>
+      On the (incompatible) other hand, if we have a monus operation, we get a combination of additive _hemi_group and multiplicative monoid, which is a <em>hemiring:</em>
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- Provided by us
+type Hemiring (a :: Type) = (AdditiveHemigroup a, MultiplicativeMonoid a)</code></pre></div>
+    <p class='mb-3'>
+      Both of these retain the laws necessary to be <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Semiring</code>s (which they are both extensions of), but add the requirements of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveGroup</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveHemigroup</code> respectively.
+    </p>
+  
+    <p class='mb-3'>
+      Rings have a rich body of research in mathematics, as well as considerably many extensions; hemirings (and generally, work related to canonically-ordered monoids and monus) are far less studied: only <a href='https://www.springer.com/gp/book/9780387754499' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Gondran and Minoux</a> have done significant investigation of this universe mathematically, demonstrating that many of the capabilities and theorems around rings can, to some degree, be recovered in the alternate universe. <a href='https://marcpouly.ch/pdf/internal_100712.pdf' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>Semirings for Breakfast</em></a> presents more practical results, but takes a slightly different foundation (since the basis of his work are what Gondran and Minoux call <em>pre-semirings</em>, which lack identity elements).
+    </p>
+  
+    <p class='mb-3'>
+      In some respect, this distinction is similar to the inherent separation between <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code> (which, corresponding to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Z</code>, is ‘the canonical ring’) and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code> (which, corresponding to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code>, is ‘the canonical hemiring’).
+    </p>
+  <h3 id='absolute-value-and-signum' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Absolute value and signum</h3>
+    <p class='mb-3'>
+      The extended structures based on rings are not only of theoretical interest: we describe one example where they allow us to capture useful behaviour (absolute value and signum) in a law-abiding, but generalizable way.
+    </p>
+  
+    <p class='mb-3'>
+      Let <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>R = (S, +, *, 0, 1)</code> be a ring. We say that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>R</code> is an <a href='https://en.wikipedia.org/wiki/Integral_domain' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>integral domain</em></a> if for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x /= 0</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y, z</code> in <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>S</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x * y = x * z</code> implies <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = z</code>. In some sense, being an integral domain implies a (partial) cancellativity for multiplication. Both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Z</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q</code> are integral domains; this serves as an important ‘extended structure’ based on rings.
+    </p>
+  
+    <p class='mb-3'>
+      We can use this as a basis for notions of <a href='https://en.wikipedia.org/wiki/Absolute_value' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>absolute value</a> and <a href='https://en.wikipedia.org/wiki/Sign_function' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>signum</a>. First, we take an <a href='https://en.wikipedia.org/wiki/Absolute_value_(algebra)' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>algebraic presentation</a> of absolute value; translated into Haskell, this would look as so:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- Not actually defined by us, but similar
+class (Ord a, Ring a) =&gt; IntegralDomain (a :: Type) where
+  abs :: a -&gt; a</code></pre></div>
+    <p class='mb-3'>
+      In this case, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>abs</code> acts as a measure of the ‘magnitude’ of a value, irrespective of its ‘sign’. The laws in this case would be as follows
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn9';">9</a></sup>
+    <!-- DoNotFormat -->
+  :
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-decimal list-inside'>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x /= zero</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y, z</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x * y = x * z</code> implies <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = z</code>. This is a rephrasing of the integral domain axiom above.
+        </li>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>abs x &gt;= 0</code>. This assumes an order exists on <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>a</code>; we make this explicit with an <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Ord a</code> constraint.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>abs x = zero</code> if and only if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x = zero</code>.
+        </li>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x, y</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>abs (x * y) = abs x * abs y</code>.
+        </li>
+      
+        <li>
+          For any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x &lt;= abs x</code>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This definition of absolute value is ‘blind’ in the sense that we have no information in the type system that the value <em>must</em> be ‘non-negative’ in some sense. We will address this later in this section.
+    </p>
+  
+    <p class='mb-3'>
+      Having this concept, we can now define a notion of ‘sign function’ on that basis. We base this on the <a href='https://en.wikipedia.org/wiki/Sign_function#Properties' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>signum function</a> on real numbers relative the absolute value; rephrased in Haskell, this states that, for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>signum x * abs x = x</code>. Thus, we can introduce a default definition of signum as so:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- Version 2
+-- Not actually defined by us, but similar
+class (Ord a, Ring a) =&gt; IntegralDomain (a :: Type) where
+  abs :: a -&gt; a
+  signum :: a -&gt; a
+  signum x = case compare x zero of 
+    EQ -&gt; zero
+    LT -&gt; negate one
+    GT -&gt; one</code></pre></div>
+    <p class='mb-3'>
+      This is an adequate definition: both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Rational</code> can be valid instances, based on a function already provided by Plutus (but hard to find). The basis taken by Plutus for absolute value differs slightly from the treatment we’ve provided; instead, they define the following:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- Provided by Plutus in Data.Ratio
+abs :: (Ord a, AdditiveGroup a) =&gt; a -&gt; a
+abs x = if x &lt; zero then negate x else x</code></pre></div>
+    <p class='mb-3'>
+      We decided for our approach above, instead of this, for several reasons:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Despite its generality, the location of this function is fairly surprising - it’s only to do with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Ratio</code>, but applies just as well (at least) to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code>.
+        </li>
+      
+        <li>
+          A general notion of signum is impossible in this presentation, as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>AdditiveGroup</code> does not give us a multiplicative identity (or even multiplication as such).
+        </li>
+      
+        <li>
+          The notion being appealed to here is that of a <a href='https://en.wikipedia.org/wiki/Linearly_ordered_group' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>linearly-ordered group</em></a>; thus, the extension being done is of additive groups, not rings. This is a problem, as linearly-ordered groups must be either trivial (one element in size) or infinite; we require no such restrictions.
+        </li>
+      
+        <li>
+          The issue with ‘blindness’ we described previously remains here; our method has a way of resolving it (see below).
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Finally, we address the notion of ‘blindness’ in our implementation of absolute value; more precisely, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>abs</code> as defined above does not enshrine the ‘non-negativity’ of its result in the type system. As in Haskell, we want to make <a href='https://buttondown.email/hillelwayne/archive/making-illegal-states-unrepresentable/' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>illegal states unrepresentable</a> and <a href='https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>parse, not validate</a>, this feels a bit unsatisfactory. We would like to have a way to inform the compiler that after we call (possibly a different version) of our absolute value function that the result <em>cannot</em> be ‘negative’. To do this requires a little more theoretical ground.
+    </p>
+  
+    <p class='mb-3'>
+      Rings (and indeed, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Ring</code>s) are characterized by the existence of additive inverses; likewise, non-rings (and non-<code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Ring</code>s) are characterized by their inability to have such. The two-universe presentation we have given here demonstrates this in one way. However, a more ‘baseline’ mathematical view of this is to state that non-rings are <em>incomplete</em> - for example, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code>is an incomplete version of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Z</code>, and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q+</code> is an incomplete version of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q</code>. In this sense, we can see <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Z</code> as ‘completing’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>N</code> by introducing additive inverses; analogously, we can view <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q</code> as ‘completing’ <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Q+</code> by introducing additive inverses.
+    </p>
+  
+    <p class='mb-3'>
+      Based on this view, we can extend <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>IntegralDomain</code> into a multi-parameter type class, which, in addition to specifying an abstract notion of absolute value, also relates together a type and its ‘additive completion’ (or an ‘additive restriction’ and its extension):
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- Version 3
+-- Still not quite what we provide, but we're nearly there!
+class (Ring a, Ord a) =&gt; IntegralDomain a r | a -&gt; r, r -&gt; a where
+  abs :: a -&gt; a
+  signum :: a -&gt; a
+  signum x = case compare x zero of 
+    EQ -&gt; zero
+    LT -&gt; negate one
+    GT -&gt; one
+  projectAbs :: a -&gt; r
+  addExtend :: r -&gt; a</code></pre></div>
+    <p class='mb-3'>
+      <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>projectAbs</code> is an ‘absolute value projection’: it takes us from a ‘larger’ type <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>a</code> into a ‘smaller’ type <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>r</code> by ‘squashing together’ values whose absolute value would be the same. <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>addExtend</code> on the other hand is an ‘additive extension’, which ‘extends’ the ‘smaller’ type <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>r</code> into the ‘larger’ type <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>a</code>. These are governed by the following law:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>addExtend . projectAbs $ x = abs x</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This law provides necessary consistency with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>abs</code>, as well as demonstrating that the operations form a (partial) inverse. Our use of functional dependencies in the definition is to ensure good type inference.
+    </p>
+  
+    <p class='mb-3'>
+      Lastly, to round out our observations, we note that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>a</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>r</code> are partially isomorphic: in fact, you can form a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Prism</code> between them. Thus, for completeness, we also provide the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>preview</code> direction of this <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Prism</code>, finally yielding the definition of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>IntegralDomain</code> which we provide
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn10';">10</a></sup>
+    <!-- DoNotFormat -->
+  :
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- What we provide, at last
+class (Ring a, Ord a) =&gt; IntegralDomain a r | a -&gt; r, r -&gt; a where
+  abs :: a -&gt; a
+  signum :: a -&gt; a
+  signum x = case compare x zero of 
+    EQ -&gt; zero
+    LT -&gt; negate one
+    GT -&gt; one
+  projectAbs :: a -&gt; r
+  addExtend :: r -&gt; a
+  restrictMay :: a -&gt; Maybe r
+  restrictMay x
+    | x == abs x = Just . projectAbs $ x
+    | otherwise = Nothing</code></pre></div>
+    <p class='mb-3'>
+      Naturally, the behaviour of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>restrictMay</code> is governed by a law: for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>restrictMay x = Just y</code> if and only if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>abs x = x</code>.
+    </p>
+  <h2 id='the-problem-of-division' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>The problem of division</h2>
+    <p class='mb-3'>
+      The operation of division is the most complex of all the arithmetic operations, for a variety of reasons. Firstly, for two of our types of interest (<code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code>), the operation is not even <em>defined</em>; secondly, even where it <em>is</em> defined, it’s inherently partial, as <a href='https://en.wikipedia.org/wiki/Division_by_zero#Division_as_the_inverse_of_multiplication' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>division by zero is problematic</a>. While there do exist systems that <a href='https://en.wikipedia.org/wiki/Projectively_extended_real_line' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>can define division by zero</a>, these do not behave the way we expect algebraically, both in terms of division and also other operations, and come with complications of their own. Resolving these problems in a satisfactory way is complex: we decided on a two-pronged approach. Roughly, we define an analogy of ‘division-with-remainder’ which can be closed, and use this for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code>; additionally, we attempt a more ‘mathematical’ treatment of division for what remains, with the acceptance of partiality in the narrowest possible scope.
+    </p>
+  <h3 id='division-with-remainder' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Division with remainder</h3>
+    <p class='mb-3'>
+      One basis for division we can consider is <a href='https://en.wikipedia.org/wiki/Euclidean_division#Division_theorem' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>Euclidean division</em></a>. Intuitively, this treats division like repeated subtraction: <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x / y</code> is seen as a combination of:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-decimal list-inside'>
+      
+        <li>
+          The count of how many times <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y</code> can be subtracted from <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>; and
+        </li>
+      
+        <li>
+          What remains after that.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      In this view, division as an operation that produces <em>two</em> results: a <em>quotient</em> (corresponding to 1) and a <em>remainder</em> (corresponding to 2). This, together with the axioms of Euclidean division, suggests an implementation:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- Not actually implemented - just a stepping stone
+class (IntegralDomain a) =&gt; Euclidean (a :: Type) where
+  divMod :: a -&gt; a -&gt; (a, a)</code></pre></div>
+    <p class='mb-3'>
+      Here, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>divMod</code> is ‘division with remainder’, producing both the quotient and remainder. This would require the following law: for all <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y /= zero</code>, if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>divMod x y = (q, r)</code>, then <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>q * y + r = x</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>0 &lt;= r &lt; abs y</code>.
+    </p>
+  
+    <p class='mb-3'>
+      However, this design is unsatisfying for two reasons:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Due to the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>IntegralDomain</code> requirement, only <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code> could be an instance. This seems strange, as the concept of division-with-remainder doesn’t intuitively require a notion of sign.
+        </li>
+      
+        <li>
+          The Euclidean division axioms exclude <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = zero</code>, making <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>/</code> inherently partial.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The main reason these are required mathematically are due to a requirement that division be an ‘inverse’ to multiplication inherently - Euclidean division is designed as a stepping stone to ‘actual’ division, which is viewed as a partial inverse to multiplication generally, and the two <em>cannot</em> disagree. There is no <em>inherent</em> reason why we have to be bound by this as Haskell developers: the two concepts can be viewed as orthogonal. While this approach is somewhat <a href='https://www.schoolofhaskell.com/user/edwardk/editorial/procrustean-mathematics' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Procrustean</a> in nature, we are interested in lawful and useful behaviours that fit within the intuition we have, and the operators we can provide, rather than mathematical theorems in and of themselves.
+    </p>
+  
+    <p class='mb-3'>
+      Thus, we solve this issue by instead defining the following:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- What we actually provide
+class (Ord a, Semiring a) =&gt; EuclideanClosed (a :: Type) where
+  divMod :: a -&gt; a -&gt; (a, a)</code></pre></div>
+    <p class='mb-3'>
+      This presentation requires more laws to constrain its behaviour; specifically, we have to handle the case of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y = zero</code>. Thus, we have the following laws:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-decimal list-inside'>
+      
+        <li>
+          For all <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x, y</code>, if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>divMod x y = (q, r)</code>, then <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>q * y + r = x</code>.
+        </li>
+      
+        <li>
+          For all <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>divMod x zero = (zero, x)</code>.
+        </li>
+      
+        <li>
+          For all <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y /= zero</code>, if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>divMod x y = (q, r)</code>, then <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>zero &lt;= r &lt; y</code>; if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>a</code> is an <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>IntegralDomain</code>, then <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>zero &lt;= abs r &lt; abs y</code> instead.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This allows us to define
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn11';">11</a></sup>
+    <!-- DoNotFormat -->
+  :
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- Defined by us
+div :: forall (a :: Type) . 
+  (EuclideanClosed a) =&gt; a -&gt; a -&gt; a
+div x = fst . divMod x
+
+-- Also defined by us
+rem :: forall (a :: Type) . 
+  (EuclideanClosed a) =&gt; a -&gt; a -&gt; a
+rem x = snd . divMod x</code></pre></div>
+    <p class='mb-3'>
+      This resolves both issues: we now have closure, and both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code> can be lawful instances. For <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code>, the behaviour is clear; for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code>, this acts as a combination of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>quotient</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>remainder</code> from Plutus.
+    </p>
+  <h3 id='multiplicative-inverses-and-groups' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Multiplicative inverses and groups</h3>
+    <p class='mb-3'>
+      Mathematically-speaking, the notion of <a href='https://en.wikipedia.org/wiki/Multiplicative_inverse' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>multiplicative inverse</a> provides the basis of division. This requires the existence of a <em>reciprocal</em> for every value (except the additive identity). This creates the notion of <a href='https://en.wikipedia.org/wiki/Multiplicative_group' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>multiplicative group</em></a>; translated into Haskell, it looks like so
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn12';">12</a></sup>
+    <!-- DoNotFormat -->
+  :
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- Provided by us (plus one more method, see Exponentiation)
+class (MultiplicativeMonoid a) =&gt; MultiplicativeGroup (a :: Type) where
+  {-# MINIMAL (/) | reciprocal #-}
+  (/) :: a -&gt; a -&gt; a
+  x / y = x * reciprocal y
+  reciprocal :: a -&gt; a
+  reciprocal x = one / x</code></pre></div>
+    <p class='mb-3'>
+      As expected, this has laws following the axioms of multiplicative groups. In particular, the following laws assume <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y /= zero</code>; we <em>must</em> leave division by zero undefined.
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-decimal list-inside'>
+      
+        <li>
+          If <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x / y = z</code> then <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y * z = x</code>.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x / y = x * reciprocal y</code>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This means that both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>/</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>reciprocal</code> are partial functions; while it is desirable to have total division, it is difficult to do without creating mathematical paradoxes or breaking assumptions on the behaviour of either division itself, or the other arithmetic operators. With this caveat, both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Rational</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>NatRatio</code> can be lawful instances.
+    </p>
+  
+    <p class='mb-3'>
+      This also gives rise to two additional structures. A ring extended with multiplicative inverses is a <a href='https://en.wikipedia.org/wiki/Field_(mathematics)' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>field</em></a>
+    <!-- DoNotFormat -->
+    <!-- We use JavaScript because anchor links won't work if there is a <base> tag;
+         see https://stackoverflow.com/a/34765348 
+    -->
+    <sup class='px-0.5'><a class='text-blue-600 hover:underline' href='javascript:;' onclick="document.location.hash='#fn13';">13</a></sup>
+    <!-- DoNotFormat -->
+  :
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>type Field (a :: Type) = (AdditiveGroup a, MultiplicativeGroup a)</code></pre></div>
+    <p class='mb-3'>
+      In the parallel universe of canonical natural orderings, we can define a similar concept:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>type Hemifield (a :: Type) = (AdditiveHemigroup a, MultiplicativeGroup a)</code></pre></div>
+    <p class='mb-3'>
+      These require no additional laws beyond the ones required by their respective component instances.
+    </p>
+  <h2 id='exponentiation' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Exponentiation</h2>
+    <p class='mb-3'>
+      In some sense, we can view multiplication as repeated addition:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>x * y = x + x + ... + x
+        \_____________/         
+            y times</code></pre></div>
+    <p class='mb-3'>
+      By a similar analogy, we can view exponentiation as repeated multiplication:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>x ^ y = x * x * ... * x
+        \_____________/
+            y times</code></pre></div>
+    <p class='mb-3'>
+      In this presentation, we expect that for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x ^ 1 = x</code>. Since in this case, the exponent is a <em>count</em>, and the only required operation is multiplication, we can define a form of exponentiation for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MultiplicativeMonoid</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- We define this operation, but not in this way, as it's inefficient.
+powNat :: forall (a :: Type) . 
+  (MultiplicativeMonoid a) =&gt; 
+  a -&gt; Natural -&gt; a
+powNat x i
+  | i == zero = one
+  | i == one = x
+  | otherwise = x * (powNat x (i ^- 1))</code></pre></div>
+    <p class='mb-3'>
+      The convention that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x ^ 0 = 1</code> for all <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x</code> is maintained here, replacing the number <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>1</code> with the multiplicative monoid identity. This also provides closure.
+    </p>
+  
+    <p class='mb-3'>
+      If we have a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MultiplicativeGroup</code>, we can also have negative exponents, which are defined with the equivalence <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x ^ (negate y) = reciprocal (x ^ y)</code> (in Haskell terms). We can thus provide a function to perform this operation for any <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MultiplicativeGroup</code>; we instead choose to make it part of the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>MultiplicativeGroup</code> type class, as it allows more efficient implementations to be defined in some cases.
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- This is part of MultiplicativeGroup, and is more efficient, in our case
+powInteger :: forall (a :: Type) . 
+  (MultiplicativeGroup a) =&gt;
+  a -&gt; Integer -&gt; a
+powInteger x i
+  | i == zero = one
+  | i == one = x
+  | i &lt; zero = reciprocal . powNat x . projectAbs $ i
+  | otherwise = powNat x . projectAbs $ i </code></pre></div>
+    <p class='mb-3'>
+      Both of these presentations are <a href='https://en.wikipedia.org/wiki/Exponentiation#Monoids' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>mathematically-grounded</a>.
+    </p>
+  
+    <div title='Footnotes' class='pt-2 mt-8 space-y-1 text-gray-500 transform scale-x-90 border-t-2'>
+      <header class='font-semibold'>Footnotes</header>
+      
+        <div id='fn1'>
+          <header class='italic'>
+            1.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            Why do mathematicians refer to the integers as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Z</code> and the rationals as
+          </div>
+        </div>
+      
+        <div id='fn2'>
+          <header class='italic'>
+            2.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            It is informative to compare the approach chosen by Plutus (and our
+          </div>
+        </div>
+      
+        <div id='fn3'>
+          <header class='italic'>
+            3.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            When we describe <em>laws</em>, the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>=</code> symbol refers to <em>substitution</em> rather
+          </div>
+        </div>
+      
+        <div id='fn4'>
+          <header class='italic'>
+            4.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            While <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>*</code> for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Integer</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Natural</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>NatRatio</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Rational</code> happens to
+          </div>
+        </div>
+      
+        <div id='fn5'>
+          <header class='italic'>
+            5.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            Purescript defines a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Semiring</code> type class of its own instead of defining
+          </div>
+        </div>
+      
+        <div id='fn6'>
+          <header class='italic'>
+            6.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            In order to have a natural order (that is, have left and right natural
+          </div>
+        </div>
+      
+        <div id='fn7'>
+          <header class='italic'>
+            7.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            This terminology is a little different to Gondran and Minoux’s original
+          </div>
+        </div>
+      
+        <div id='fn8'>
+          <header class='italic'>
+            8.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            As with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Semiring</code>, Purescript instead has a dedicated <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Ring</code> type class.
+          </div>
+        </div>
+      
+        <div id='fn9'>
+          <header class='italic'>
+            9.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            Technically, laws 1 and 5 are quite restrictive; they forbid, for example,
+          </div>
+        </div>
+      
+        <div id='fn10'>
+          <header class='italic'>
+            10.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            Purescript instead treats <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>abs</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>signum</code> as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Ring</code>-related concepts,
+          </div>
+        </div>
+      
+        <div id='fn11'>
+          <header class='italic'>
+            11.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            Purescript instead uses the concept of [_Euclidean
+          </div>
+        </div>
+      
+        <div id='fn12'>
+          <header class='italic'>
+            12.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            Purescript instead follows the concept of a [_skew
+          </div>
+        </div>
+      
+        <div id='fn13'>
+          <header class='italic'>
+            13.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            Purescript instead has a dedicated <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Field</code> type class, which enforces
+          </div>
+        </div>
+      
+    </div>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+            <div class='flex flex-col lg:flex-row lg:space-x-2'>
+              
+              
+  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
+    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
+    <ul class='space-y-1'>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='README'>
+            README
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><a href='numeric' class='text-gray-600 font-bold hover:bg-gray-50'>Plutus Numeric Hierarchy</a>, which gives an overview of the Plutus numerical type class stack, as well as the extensions to it provided by <a href='https://github.com/Liqwid-Labs/plutus-extra/tree/master/plutus-numeric' class='text-gray-600 hover:underline' target='_blank' rel='noopener'><code>plutus-numeric</code></a>.</div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+    </ul>
+  </div>
+
+            </div>
+            
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+  </section>
+
+            <!-- What goes in this file will at the very end of the main div -->
+          </main>
+        </div>
+      </div>
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.5.3.0'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tasks' title='View tasks'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+      </svg>
+    </a>
+  </div>
+</footer>
+    </div>
+  
+</body>
+
+</html>

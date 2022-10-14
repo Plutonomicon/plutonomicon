@@ -1,0 +1,1825 @@
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    How Stake Validators Actually Work – Plutonomicon
+  </title>
+  
+    
+      <meta property='og:description' content />
+      <meta property='og:site_name' content='Plutonomicon' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='How Stake Validators Actually Work' />
+    
+    
+      <base href='/plutonomicon/' />
+      <link href='logo.png' rel='icon' />
+    
+    <!-- Prism.js --><link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/themes/prism-tomorrow.min.css' rel='stylesheet' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/prism.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/autoloader/prism-autoloader.min.js'></script>
+
+<script>
+  window.MathJax = {
+    startup: {
+      ready: () => {
+        MathJax.startup.defaultReady();
+      }
+    }
+  };
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+
+  
+  <link href='tailwind.css?instanceId=9a24feb3-1402-43d7-9ce7-e3d94a379675' rel='stylesheet' type='text/css' />
+
+  <!-- Heist error element -->
+  <style type='text/css'>
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'MavenPro';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'MavenPro', sans-serif;
+    /* font-variation-settings: 'wght'300; */
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght'500;
+  }
+
+  strong {
+    font-variation-settings: 'wght'500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'MavenPro', sans-serif;
+  }
+</style>
+
+  <head-main></head-main>
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto'>
+
+      <nav id='breadcrumbs' class='w-full text-gray-700 md:hidden'>
+  <div class='flex justify-left'>
+    <div class='w-full px-2 py-2 bg-gray-50'>
+      <ul class='flex flex-wrap text-lg'>
+        <li class='inline-flex items-center'>
+          
+            
+              <img style='width: 1rem;' src='logo.png' />
+            
+          
+        </li>
+        
+          
+            <li class='inline-flex items-center'>
+              <a class='px-1 font-bold' href=''>
+                Plutonomicon
+              </a>
+              <svg fill='currentColor' viewBox='0 0 20 20' class='w-auto h-5 text-gray-400'>
+                <path fill-rule='evenodd' d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z' clip-rule='evenodd'></path>
+              </svg>
+            </li>
+          
+        
+      </ul>
+    </div>
+    <button class='inline px-2 py-1 text-white bg-blue-600 outline-none cursor-pointer focus:outline-none' title='Toggle sidebar' type='button' onclick="toggleHidden('sidebar')">
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'></path>
+      </svg>
+    </button>
+    <script>
+      function toggleHidden(elemId) {
+        document.getElementById(elemId).classList.toggle("hidden");
+      }
+    </script>
+  </div>
+</nav>
+
+      <div id='container' class='flex flex-nowrap flex-col md:flex-row bg-gray-50 md:mt-8 md:shadow-2xl md:mb-8'>
+        <!-- Sidebar column -->
+        <nav id='sidebar' class='flex-shrink hidden leading-relaxed md:block md:sticky md:top-0 md:h-full md:w-48 xl:w-64'>
+          <div class='px-2 py-2 text-gray-800'>
+
+            <div id='indexing-links' class='flex flex-row float-right p-2 space-x-2 text-gray-500'>
+              <a href='-/tags' title='View tags'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+                  </path>
+                </svg>
+              </a>
+              <a href='-/all' title='Expand full tree'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+                  </path>
+                </svg>
+              </a>
+            </div>
+
+            <div id='site-logo' class='pl-2'>
+              <div class='flex items-center my-2 space-x-2 justify-left'>
+                <a href='' title='Go to Home'>
+                  
+                    
+                      <!-- The style width attribute here is to prevent huge
+                      icon from displaying at those rare occasions when Tailwind
+                      hasn't kicked in immediately on page load 
+                      -->
+                      <img style='width: 1rem;' class='transition transform hover:scale-110 hover:opacity-80' src='logo.png' />
+                    
+                  
+                </a>
+                <a class='font-bold truncate' title='Go to Home' href=''>
+                  Home
+                </a>
+              </div>
+            </div>
+
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='CnG PToken' href='cngproof'>
+      CnG PToken
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Common Plutus Vulnerabilities' href='vulnerabilities'>
+      Common Plutus Vulnerabilities
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Consistency' href='consistency'>
+      Consistency
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Distributed Map' href='DistributedMap'>
+      Distributed Map
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='FLLocked' href='forwarding2'>
+      <em>FLLocked</em>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Forwarding Minting Policy' href='forwarding1'>
+      Forwarding Minting Policy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Fundamentals of Plutus' href='fundamentals'>
+      Fundamentals of Plutus
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+  
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'>
+        </path>
+      </svg>
+      
+  
+    <a class='font-bold text-blue-600 hover:underline truncate' title='How Stake Validators Actually Work' href='stake-scripts'>
+      How Stake Validators Actually Work
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='On-Chain Association List With Constant Time Insert-Removal' href='assoc'>
+      On-Chain Association List With Constant Time Insert-Removal
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Optimizations to reduce CPU and Mem consumption' href='scriptmem'>
+      Optimizations to reduce CPU and Mem consumption
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Plutus Core Builtin Functions Reference' href='builtin-functions'>
+      Plutus Core Builtin Functions Reference
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Plutus Numeric Hierarchy' href='numeric'>
+      Plutus Numeric Hierarchy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='README' href='README'>
+      README
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Script optimisations' href='optimisations'>
+      Script optimisations
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Sketch: Protocol Categories' href='protocol-category'>
+      Sketch: Protocol Categories
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='State Thread Token Pattern' href='statethread'>
+      State Thread Token Pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Staying In Bounds' href='size-test'>
+      Staying In Bounds
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Stick Breaking Set' href='stick-breaking-set'>
+      Stick Breaking Set
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The MIT License (MIT)' href='LICENSE'>
+      The MIT License (MIT)
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The TxTP Architecture' href='transaction-token-protocol'>
+      The TxTP Architecture
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Untyped Plutus Core' href='uplc'>
+      Untyped Plutus Core
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='User guide for plutus-numeric' href='user-guide-numeric'>
+      User guide for <code>plutus-numeric</code>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='What is Data/BuiltinData?' href='builtin-data'>
+      What is Data/BuiltinData?
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Lists' href='builtin-lists'>
+      Working with Builtin Lists
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Pairs' href='builtin-pairs'>
+      Working with Builtin Pairs
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-perspective' href='transaction-perspective'>
+      transaction-perspective
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-token-pattern' href='transaction-token-pattern'>
+      transaction-token-pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+
+          </div>
+        </nav>
+
+        <!-- Main body column -->
+        <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <main class='px-4 py-4'>
+            <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    How Stake Validators Actually Work
+  </a>
+</h1>
+            <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>🔧 work in progress</code>. - This is largely interpretative of the ledger specs, and has not been confirmed to work on a real node yet - since plutus-ledger-api’s support of Stake Validators is pretty sparse at the moment.
+    </p>
+  
+    <p class='mb-3'>
+      Staking is an integral feature of Cardano that ought to play a part in how we design dApps. However, much of the exposition on Staking and how it works is from the perspective of wallet users and stake pool operators.
+    </p>
+  
+    <p class='mb-3'>
+      How staking <em>actually</em> works, on the level of individual transactions is considerably <em>folklore</em>, buried in the tangled web of hfc-to-hfc specs.
+    </p>
+  
+    <p class='mb-3'>
+      <strong>StakeValidators</strong>, a concept arising from the composition of two distinct eras - <em>Shelley</em> and <em>Alonzo</em> are particularly neglected, and the documentation of Staking related functionality in plutus is pretty poor. What is <a href='https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/DCert.hs' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>DCert</a> even for!?.
+    </p>
+  
+    <p class='mb-3'>
+      Referring to the <a href='https://github.com/input-output-hk/cardano-ledger' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>ledger specs</a>, this document hopes to provide enough explanation for a dApp developer to be sure of the role <em>StakeValidators</em> .
+    </p>
+  <h2 id='staking-addresses' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Staking Addresses</h2>
+    <p class='mb-3'>
+      To start, let’s consider how <em>Staking Addresses</em> work.
+    </p>
+  
+    <p class='mb-3'>
+      An <em>Address</em>, attached to each UTXO, takes the form:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          network + credential + staking_credential?
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Let’s ignore the network part, which is just a magic number identifying the network (testnet, mainnet, etc).
+    </p>
+  
+    <p class='mb-3'>
+      We can see that this corresponds to the Plutus <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Address</code> type, in <a href='https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Address.hs' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutus.V1.Ledger.Address</a> -
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data Address = 
+  Address 
+  { addressCredential :: Credential
+  , addressStakingCredential :: Maybe StakingCredential 
+  }</code></pre></div>
+    <p class='mb-3'>
+      We are familiar with <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Credential</code>, which may be a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>PubKeyHash</code> or a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ValidatorHash</code>, allowing us to lock UTXOs to a wallet or a script.
+    </p>
+  
+    <p class='mb-3'>
+      Let’s take a closer look at the optional <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>StakingCredential</code> field, in <a href='https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Credential.hs' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutus.V1.Ledger.Credential</a> -
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data StakingCredential
+    = StakingHash Credential
+    | StakingPtr Integer Integer Integer </code></pre></div>
+    <p class='mb-3'>
+      You may notice the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>StakingHash</code> constructor also uses <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Credential</code> - meaning that a <em>script</em> is a valid staking credential. This is our fabled <em>StakeValidator</em>.
+    </p>
+  
+    <p class='mb-3'>
+      When we look at delegations and withdrawals, let’s try to keep this in mind. In the same sense that we can guard spending of a UTXO behind a PubKeyHash or a ValidatorHash, we can also guard actions involving a StakingCredential.
+    </p>
+  
+    <p class='mb-3'>
+      This gives us a number of ways to construct an Address. The <a href='https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>specs</a> helpfully give names to the variants.
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <strong>Base</strong> -<code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'> addressStakingCredential = (Just (StakingHash _))</code>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Basically two <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Credentials</code> glued together
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          <strong>Enterprise</strong> - <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>addressStakingCredential = Nothing</code>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          This is the form most dApps will end up using…
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          <strong>Pointer</strong> - <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>addressStakingCredential = (Just (StakingPtr _ _ _))</code>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          More on this later
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      <strong>But what do Staking Addresses actually do/mean!?</strong>
+    </p>
+  
+    <p class='mb-3'>
+      From the <a href='https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>shelly specs</a>, page 9 (emphasis mine):
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      The staking credential controls the <strong>delegation decision</strong> for the Ada at this address (i.e. it is used for rewards, staking, etc.).
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      Essentially , as we will see later, the StakingCredential on a <em>UTXO</em> determines the <em>rewards account</em> which it is considered to ‘belong to’ on the epoch snapshot. The staking <em>credential</em> itself is used to guard certain actions involving a rewards account.
+    </p>
+  
+    <p class='mb-3'>
+      To recap:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The <strong>Address</strong> of a UTXO optionally includes a staking credential
+        </li>
+      
+        <li>
+          Staking credentials are regular <strong>Credentials</strong>, which can be either a <strong>PubKeyHash</strong> or a <strong>ValidatorHash</strong>.
+        </li>
+      
+    </ul>
+  <h2 id='dcerts---delegation-certificates' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>DCerts - Delegation Certificates</h2>
+    <p class='mb-3'>
+      What is <strong>StakingPtr</strong>? How does Delegation work? What is <em>DCert</em>!? Let’s take a look.
+    </p>
+  
+    <p class='mb-3'>
+      If a staking credential controls <em>delegation</em>, then how does delegation work?
+    </p>
+  
+    <p class='mb-3'>
+      Let’s take a look at <strong>TxInfo</strong>, in <a href='https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Contexts.hs' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutus.V1.Ledger.Contexts</a> -
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data TxInfo = TxInfo
+    { txInfoInputs      :: [TxInInfo] -- ^ Transaction inputs
+    , txInfoOutputs     :: [TxOut] -- ^ Transaction outputs
+    , txInfoFee         :: Value -- ^ The fee paid by this transaction.
+    , txInfoMint        :: Value -- ^ The 'Value' minted by this transaction.
+    , txInfoDCert       :: [DCert] -- ^ Digests of certificates included in this transaction
+    , txInfoWdrl        :: [(StakingCredential, Integer)] -- ^ Withdrawals
+    , txInfoValidRange  :: POSIXTimeRange -- ^ The valid range for the transaction.
+    , txInfoSignatories :: [PubKeyHash] -- ^ Signatures provided with the transaction, attested that they all signed the tx
+    , txInfoData        :: [(DatumHash, Datum)]
+    , txInfoId          :: TxId
+    -- ^ Hash of the pending transaction (excluding witnesses)
+    } deriving stock (Generic, Haskell.Show, Haskell.Eq)</code></pre></div>
+    <p class='mb-3'>
+      Notice the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>txInfoDCert</code> field. Transactions submitted with <em>DCerts</em> include special operations on the ledger’s <em>delegation state</em>.
+    </p>
+  
+    <p class='mb-3'>
+      Let’s also take a look at <strong>DCert</strong>, from <a href='https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/DCert.hs' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutus.V1.Ledger.DCert</a> (with the irrelevant-to-us constructors omitted) -
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data DCert
+  = DCertDelegRegKey StakingCredential
+  | DCertDelegDeRegKey StakingCredential
+  | DCertDelegDelegate
+      StakingCredential
+      -- ^ delegator
+      PubKeyHash
+      -- ^ delegatee
+  | ...</code></pre></div>
+    <p class='mb-3'>
+      So delegation is carried out by transactions containing a <strong>DCert</strong> with <strong>DCertDelegDelegate</strong>! But that’s not the whole picture…
+    </p>
+  
+    <p class='mb-3'>
+      The comments here don’t tell us very much… let’s circle back to the <a href='https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>shelly spec</a>, page 29 -
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Stake credentials are registered (or deregistered) through the use of registration (or deregistration) certificates. Registered stake credentials are delegated through the use of delegation certificates.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      So <strong>DCert</strong> stands for <strong>Delegation Certificate</strong>. Good to know.
+    </p>
+  <h3 id='registration---obtaining-a-stakingptr' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Registration - Obtaining a StakingPtr</h3>
+    <p class='mb-3'>
+      Let’s investigate <em>registration</em>. From the <a href='https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>shelly spec</a>, page 34 (emphasis mine):
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Stake credential delegation is handled by Equation (8). There is a precondition that the key has been registered
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      In other words, in order to submit a delegation to a Staking Pool with <strong>DCertDelegDelegate</strong>, the staking credential first has to be <em>registered</em> with <strong>DCertDelegRegKey</strong>.
+    </p>
+  
+    <p class='mb-3'>
+      Again from the <a href='https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>shelly spec</a>, page 34:
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Registration causes the following state transformation:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          A reward account is created for this key, with a starting balance of zero.
+        </li>
+      
+        <li>
+          The certificate pointer is mapped to the new stake credential.
+        </li>
+      
+    </ul>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      So registration creates a new rewards account, and a <strong>StakingPtr</strong> which can be used to refer to it later! To understand a little more clearly, let’s look at the definition of <strong>Ptr</strong> in the <a href='https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>shelly spec</a>, page 10:
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      (s, t, c)∈Ptr = Slot × Ix × Ix
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      It’s not so obvious what this means. It refers to the cert at the <em>c</em>th index of a <em>txInfoDCert</em> field of the <em>t</em>th transaction in the block at slot <em>s</em>. Not unlike <strong>TxOutRef</strong>. This is pretty nifty, as it allows us to refer to staking credentials with 3 (variable length, but decently small) Integers, rather than a 28-bit hash.
+    </p>
+  <h3 id='staking-credentials-and-rewards-accounts-are-one-to-one' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Staking Credentials and Rewards Accounts are One-to-One</h3>
+    <p class='mb-3'>
+      An important thing to note is a staking credential may only be registered once - giving a 1-to-1 relation between rewards accounts and staking credentials. This is a little unfortunate, as it means splitting delegation between N pools requires N UTXOs, with N staking credentials.
+    </p>
+  
+    <p class='mb-3'>
+      From the <a href='https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>shelly specs</a>, page 34 -
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      There is also a precondition on registration that the hashkey associated with the certificate witness of the certificate is not already found in the current reward accounts (which is the source of truth for which stake credentials are registered).
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      This wording is a little non-obvious in our context but the preconditions of the <em>DelegReg</em> rule on page 36 help to clarify -
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      c ∈ DCert<span xmlhtmlRaw><sub></span>regkey<span xmlhtmlRaw></sub></span>    hk := regCred c     hk /∈ dom reward
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      So the <strong>Credential</strong> in <strong>DCertDelegRegKey</strong> must not already have a reward account.
+    </p>
+  <h2 id='reward-withdrawals' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Reward Withdrawals</h2>
+    <p class='mb-3'>
+      Let’s investigate how reward withdrawals work, returning to <strong>TxInfo</strong> from <a href='https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Contexts.hs' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutus.V1.Ledger.Contexts</a>.
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data TxInfo = TxInfo
+  { ...
+    , txInfoWdrl        :: [(StakingCredential, Integer)] -- ^ Withdrawals
+    ...
+  }</code></pre></div>
+    <p class='mb-3'>
+      What is the <strong>Integer</strong> here? …The definition from <a href='https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>shelly spec</a>, page 15:
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      wdrl ∈ Wdrl = Addr<span xmlhtmlRaw><sub></span>rwd<span xmlhtmlRaw></sub></span> 7 → Coin
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      <em>Coin</em>: in other words a quantity of <strong>Lovelace</strong>.
+    </p>
+  
+    <p class='mb-3'>
+      So it seems like we can <em>withdraw</em> from a rewards account by making a transaction that sets a value in the <em>txInfoWdrl</em> field. What limits might this have?
+    </p>
+  
+    <p class='mb-3'>
+      <em>From the UTxO Transition rules in the <a href='https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>shelly spec</a>, page 21</em>
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      wbalance ∈ Wdrl → Coin withdrawal balance <span xmlhtmlRaw><br /></span> wbalance ws = ∑<span xmlhtmlRaw><sub></span>(_→c)∈ws<span xmlhtmlRaw></sub></span> c
+    </p>
+  
+    </blockquote>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      consumed ∈ PParams → UTxO → TxBody → Coin value consumed<span xmlhtmlRaw><br /></span> consumed pp utxotx = <span xmlhtmlRaw><br /></span>   ubalance (txins tx ◁ utxo) + wbalance (txwdrls tx)<span xmlhtmlRaw><br /></span>   + keyRefunds pp tx
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      We can see that the total value of withdrawals, sort of like an inverse of <em>fees</em>, can be used to balance the <strong>Value</strong> equation of a contract. This is pretty flexible, and can even be used to pay transaction fees!
+    </p>
+  
+    <p class='mb-3'>
+      A limitation to note is that a withdrawal must withdraw all of the rewards at once! So the <em>Integer</em> values in <em>txInfoWdrls</em> each have a single value that is valid.
+    </p>
+  
+    <p class='mb-3'>
+      <em>From the <a href='https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/shelleyLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>shelly spec</a>, page 14</em>
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      A mapping of reward account withdrawals. The type Wdrl is a finite map that maps a reward address to the coin value to be withdrawn. The coin value must be equal to the full value contained in the account.
+    </p>
+  
+    </blockquote>
+  <h2 id='stake-validators' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Stake Validators</h2>
+    <p class='mb-3'>
+      Now that we have some priors on staking credentials, delegation and withdrawals, we are ready to put the pieces together and understand <em>Stake Validators</em>.
+    </p>
+  
+    <p class='mb-3'>
+      We’ve seen <em>txInfoDCert</em> and <em>txInfoWdrls</em> in <strong>TxInfo</strong>, but what does a Stake Validator look like to Plutus?
+    </p>
+  
+    <p class='mb-3'>
+      In <a href='https://github.com/input-output-hk/plutus-apps/blob/e4d852ffcf6622e0c8359b73170a28b6e5cefc46/plutus-ledger/src/Ledger/Typed/Scripts/StakeValidators.hs' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Ledger.Typed.Scripts.StakeValidators</a>, we have -
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>wrapStakeValidator
+    :: UnsafeFromData r
+    =&gt; (r -&gt; Validation.ScriptContext -&gt; Bool)
+    -&gt; WrappedStakeValidatorType</code></pre></div>
+    <p class='mb-3'>
+      It’s similar to <em>Minting Policies</em> - we get a <strong>Redeemer</strong>, and the <strong>ScriptContext</strong>. <em>Infact - the types are the same, so it’s possible we could have a single script which can be used as a Minting Policy and a Stake Validator.</em>
+    </p>
+  
+    <p class='mb-3'>
+      Looking at <a href='https://github.com/input-output-hk/plutus/blob/3619837601af8288f79b211d053c0d2dead7cfc0/plutus-ledger-api/src/Plutus/V1/Ledger/Contexts.hs' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Plutus.V1.Ledger.Contexts</a> again, this time <strong>ScriptPurpose</strong> -
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data ScriptPurpose
+    = Minting CurrencySymbol
+    | Spending TxOutRef
+    | Rewarding StakingCredential
+    | Certifying DCert</code></pre></div>
+    <p class='mb-3'>
+      So there are two relevant constructors for <strong>StakeValidators</strong>.
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          
+    <p class='mb-3'>
+      <strong>Rewarding</strong> which gives us the <strong>StakingCredential</strong> index of the <em>txInfoWdrls</em> field.
+    </p>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      <strong>Certifying</strong>, which similarly gives us the relevant <strong>DCert</strong> from <em>txInfoDCert</em>.
+    </p>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Combining this with what we have learned about <em>withdrawals</em> and <em>delegation</em>, pattern matching on <strong>ScriptPurpose</strong>, there are 4 main actions which a stake validator authenticates -
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>stakeValidator :: Redeemer -&gt; ScriptContext -&gt; Bool
+stakeValidator r (ScriptContext _ purpose) =
+  case purpose of
+    (Rewarding ownCredential) 
+      -&gt; -- reward withdrawals
+    (Certifying (DCertDelegRegKey ownCredential)) 
+      -&gt; -- credential registration
+    (Certifying (DCertDelegDelegate ownCredential poolId) 
+      -&gt; -- staking pool delegation
+    (Certifying (DCertDeRegKey ownCredential)) 
+      -&gt; -- credential de-registration
+    _ -&gt; -- etc</code></pre></div>
+    <p class='mb-3'>
+      The rewards withdrawals, registration and delegation cases are always necessary for a Stake Validator to be useful. Withdrawal is obviously required, which necessitates registration and delegation as a pre-requisite.
+    </p>
+  
+    <p class='mb-3'>
+      De-registration is optional, but probably good form to include anyway - it can be used to de-activate existing <strong>StakingPtr</strong>s.
+    </p>
+  <h2 id='use-cases-of-stake-validators' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Use-Cases of Stake Validators</h2>
+    <p class='mb-3'>
+      We know what they are, and how they work? But what uses do Stake Validators have? Let’s speculate a little -
+    </p>
+  <h3 id='dao-use-case' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>DAO Use-Case</h3>
+    <p class='mb-3'>
+      An obvious case to consider is a DAO which owns a significant treasury of ADA - it would make sense for such a DAO to stake their ADA to collect staking rewards. Stake Validators allow them to manage delegation and rewards withdrawals on-chain, integrating it with their Treasury’s management.
+    </p>
+  
+    <p class='mb-3'>
+      Stake Validators allow a DAO to define:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The delegation of their ADA, via <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Certifying (DCertDelegDelegate ...)</code>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          For example, delegation could be determined by an on-chain witness of the result of a DAO vote.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          How staking rewards must be spent, via <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Rewarding ...</code>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Simply withdrawing rewards to the DAO treasury
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  <h3 id='other-use-cases' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Other Use-Cases</h3>
+    <p class='mb-3'>
+      There’s a lot of potentially use-cases, really any protocol which locks any significant amount of ADA ought to make use of stake validators in some capacity.
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Withdrawing to strengthen an ADA-backed stablecoin
+        </li>
+      
+        <li>
+          Compounding an ADA-based yield for a lending protocol
+        </li>
+      
+        <li>
+          Withdrawing to provide ADA liquidity of AMM pairs
+        </li>
+      
+        <li>
+          Additional yield for LP providers in ADA pairs
+        </li>
+      
+        <li>
+          Additional incentive component for <em>any</em> kind of yield, so long as the protocol locks ADA.
+        </li>
+      
+    </ul>
+  <div xmlhtmlRaw><hr />
+</div>
+    <p class='mb-3'>
+      Author: <a href='https://github.com/t1lde/' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Tilde Rose</a>
+    </p>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+            <div class='flex flex-col lg:flex-row lg:space-x-2'>
+              
+              
+  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
+    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
+    <ul class='space-y-1'>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='README'>
+            README
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><a href='stake-scripts' class='text-gray-600 font-bold hover:bg-gray-50'>How Stake Validators Actually Work</a>, which gives an explanation of ‘Stake Validators’.</div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+    </ul>
+  </div>
+
+            </div>
+            
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+  </section>
+
+            <!-- What goes in this file will at the very end of the main div -->
+          </main>
+        </div>
+      </div>
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.5.3.0'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tasks' title='View tasks'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+      </svg>
+    </a>
+  </div>
+</footer>
+    </div>
+  
+</body>
+
+</html>

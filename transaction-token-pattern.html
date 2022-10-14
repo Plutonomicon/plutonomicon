@@ -1,0 +1,1710 @@
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    transaction-token-pattern – Plutonomicon
+  </title>
+  
+    
+      <meta property='og:description' content />
+      <meta property='og:site_name' content='Plutonomicon' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='transaction-token-pattern' />
+    
+    
+      <base href='/plutonomicon/' />
+      <link href='logo.png' rel='icon' />
+    
+    <!-- Prism.js --><link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/themes/prism-tomorrow.min.css' rel='stylesheet' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/prism.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/autoloader/prism-autoloader.min.js'></script>
+
+<script>
+  window.MathJax = {
+    startup: {
+      ready: () => {
+        MathJax.startup.defaultReady();
+      }
+    }
+  };
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+
+  
+  <link href='tailwind.css?instanceId=9a24feb3-1402-43d7-9ce7-e3d94a379675' rel='stylesheet' type='text/css' />
+
+  <!-- Heist error element -->
+  <style type='text/css'>
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'MavenPro';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'MavenPro', sans-serif;
+    /* font-variation-settings: 'wght'300; */
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght'500;
+  }
+
+  strong {
+    font-variation-settings: 'wght'500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'MavenPro', sans-serif;
+  }
+</style>
+
+  <head-main></head-main>
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto'>
+
+      <nav id='breadcrumbs' class='w-full text-gray-700 md:hidden'>
+  <div class='flex justify-left'>
+    <div class='w-full px-2 py-2 bg-gray-50'>
+      <ul class='flex flex-wrap text-lg'>
+        <li class='inline-flex items-center'>
+          
+            
+              <img style='width: 1rem;' src='logo.png' />
+            
+          
+        </li>
+        
+          
+            <li class='inline-flex items-center'>
+              <a class='px-1 font-bold' href=''>
+                Plutonomicon
+              </a>
+              <svg fill='currentColor' viewBox='0 0 20 20' class='w-auto h-5 text-gray-400'>
+                <path fill-rule='evenodd' d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z' clip-rule='evenodd'></path>
+              </svg>
+            </li>
+          
+        
+      </ul>
+    </div>
+    <button class='inline px-2 py-1 text-white bg-blue-600 outline-none cursor-pointer focus:outline-none' title='Toggle sidebar' type='button' onclick="toggleHidden('sidebar')">
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'></path>
+      </svg>
+    </button>
+    <script>
+      function toggleHidden(elemId) {
+        document.getElementById(elemId).classList.toggle("hidden");
+      }
+    </script>
+  </div>
+</nav>
+
+      <div id='container' class='flex flex-nowrap flex-col md:flex-row bg-gray-50 md:mt-8 md:shadow-2xl md:mb-8'>
+        <!-- Sidebar column -->
+        <nav id='sidebar' class='flex-shrink hidden leading-relaxed md:block md:sticky md:top-0 md:h-full md:w-48 xl:w-64'>
+          <div class='px-2 py-2 text-gray-800'>
+
+            <div id='indexing-links' class='flex flex-row float-right p-2 space-x-2 text-gray-500'>
+              <a href='-/tags' title='View tags'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+                  </path>
+                </svg>
+              </a>
+              <a href='-/all' title='Expand full tree'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+                  </path>
+                </svg>
+              </a>
+            </div>
+
+            <div id='site-logo' class='pl-2'>
+              <div class='flex items-center my-2 space-x-2 justify-left'>
+                <a href='' title='Go to Home'>
+                  
+                    
+                      <!-- The style width attribute here is to prevent huge
+                      icon from displaying at those rare occasions when Tailwind
+                      hasn't kicked in immediately on page load 
+                      -->
+                      <img style='width: 1rem;' class='transition transform hover:scale-110 hover:opacity-80' src='logo.png' />
+                    
+                  
+                </a>
+                <a class='font-bold truncate' title='Go to Home' href=''>
+                  Home
+                </a>
+              </div>
+            </div>
+
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='CnG PToken' href='cngproof'>
+      CnG PToken
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Common Plutus Vulnerabilities' href='vulnerabilities'>
+      Common Plutus Vulnerabilities
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Consistency' href='consistency'>
+      Consistency
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Distributed Map' href='DistributedMap'>
+      Distributed Map
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='FLLocked' href='forwarding2'>
+      <em>FLLocked</em>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Forwarding Minting Policy' href='forwarding1'>
+      Forwarding Minting Policy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Fundamentals of Plutus' href='fundamentals'>
+      Fundamentals of Plutus
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='How Stake Validators Actually Work' href='stake-scripts'>
+      How Stake Validators Actually Work
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='On-Chain Association List With Constant Time Insert-Removal' href='assoc'>
+      On-Chain Association List With Constant Time Insert-Removal
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Optimizations to reduce CPU and Mem consumption' href='scriptmem'>
+      Optimizations to reduce CPU and Mem consumption
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Plutus Core Builtin Functions Reference' href='builtin-functions'>
+      Plutus Core Builtin Functions Reference
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Plutus Numeric Hierarchy' href='numeric'>
+      Plutus Numeric Hierarchy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='README' href='README'>
+      README
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Script optimisations' href='optimisations'>
+      Script optimisations
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Sketch: Protocol Categories' href='protocol-category'>
+      Sketch: Protocol Categories
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='State Thread Token Pattern' href='statethread'>
+      State Thread Token Pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Staying In Bounds' href='size-test'>
+      Staying In Bounds
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Stick Breaking Set' href='stick-breaking-set'>
+      Stick Breaking Set
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The MIT License (MIT)' href='LICENSE'>
+      The MIT License (MIT)
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The TxTP Architecture' href='transaction-token-protocol'>
+      The TxTP Architecture
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Untyped Plutus Core' href='uplc'>
+      Untyped Plutus Core
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='User guide for plutus-numeric' href='user-guide-numeric'>
+      User guide for <code>plutus-numeric</code>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='What is Data/BuiltinData?' href='builtin-data'>
+      What is Data/BuiltinData?
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Lists' href='builtin-lists'>
+      Working with Builtin Lists
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Pairs' href='builtin-pairs'>
+      Working with Builtin Pairs
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-perspective' href='transaction-perspective'>
+      transaction-perspective
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+  
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'>
+        </path>
+      </svg>
+      
+  
+    <a class='font-bold text-blue-600 hover:underline truncate' title='transaction-token-pattern' href='transaction-token-pattern'>
+      transaction-token-pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+
+          </div>
+        </nav>
+
+        <!-- Main body column -->
+        <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <main class='px-4 py-4'>
+            <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    transaction-token-pattern
+  </a>
+</h1>
+            <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      ﻿# Transaction Token Pattern
+    </p>
+  
+    <p class='mb-3'>
+      (credit to Peter Dragos, with input from Las Safin, Jack Hodgkinson, Emily Martins, Tilde Rose, Neil Rutledge, and Koz Ross.)
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      This post provides a <a href="https://en.wikipedia.org/wiki/George_H._Heilmeier#Heilmeier's_Catechism" class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Heilmeier's Catechism</a> for a development pattern hypothesized in discussions between myself and others.
+    </p>
+  
+    </blockquote>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      See <a href='transaction-token-protocol' class='text-blue-600 mavenLinkBold hover:underline'>Transaction Token Protocol</a> Architecture and <a href='protocol-category' class='text-blue-600 mavenLinkBold hover:underline'>Protocol Category Sketch</a> for an (opinionated) specification and implementation architecture derived from this pattern. Additionally, some stronger assumptions appear to make protocols defined in this way into a symmetric monoidal category (with a need for selecting and proving the appropriate formalisms). This enables protocols to be represented as wiring diagrams, which provide a graphical framework to reason about and prove properties of protocols that correspond directly to category-theoretic constructs, and should provide a straight-forward route to reification in Haskell/plutarch code.
+    </p>
+  
+    </blockquote>
+  <h2 id='what-are-you-trying-to-do-articulate-your-objectives-using-absolutely-no-jargon' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>What are you trying to do? Articulate your objectives using absolutely no jargon.</h2>
+    <p class='mb-3'>
+      This document proposes a different way of thinking about programming smart contract logic. At it's core, it aims to provide a new mental model for how <em>transactions</em> are validated as a whole, rather than individual UTxOs. We call it the "Transaction Token (or TxT) Pattern".
+    </p>
+  
+    <p class='mb-3'>
+      Using the TxT pattern requires viewing individual transactions as members of well-defined "families of transactions". A transaction family is a set of transactions that are all considered valid (N.B.: a "transaction is valid" when all the UTxOs that need to be unlocked and all the tokens that must be forged pass their individual validators/minting policies) for the same <em>semantic</em> criteria. These criteria are established in <em>Transaction Token Minting Policies</em> (or TxTMPs), each of which capture the reason why a particular transaction within a given transaction family is considered valid.
+    </p>
+  
+    <p class='mb-3'>
+      Transaction families come in three forms, each providing consecutively stronger guarantees about the transactions they validate.
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <em>Weak</em> families of transactions are described according to <em>any</em> TxTMP; any minting policy that is sufficient to mint a TxT, such as one that checks whether a given set of predicates hold, can be thought of as encoding a lax transaction family.
+        </li>
+      
+        <li>
+          <em>Strong</em> families of transactions treat transactions as functions from their inputs (i.e., UTxOs + Redeemer + parts of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ScriptContext</code>) to output UTxOs. Specifically, this means that for every redeemer and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ScriptContext</code> given to a <em>strong TxTMP,</em> there is <em>exactly one</em> valid output that is considered valid; all other outputs are rejected.
+        </li>
+      
+        <li>
+          <em>Strict</em> families of transactions also treat transactions as functions from their inputs to their outputs, but have the additional restriction that a given transaction family operates according to a fixed set of input and output UTxO types. Specifically, the difference between a <em>strong</em> family of transactions and a <em>strict</em> family is that a strong family could say "given <em>one or more</em> UTxOs at validator <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>A</code>, and one UTxO at validator <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>B</code>, this the output is <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>X</code>", while a <em>strict</em> family of transactions would say "given <em>exactly</em> one UTxO at each of validators <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>A</code> <em>and</em> <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>B</code>, the output is <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Y</code>". Strong transaction families permit more flexible parameterization than strict families.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The TxTMP associated with a given transaction family works as a "deferred validator" to which validators route for the validation of the UTxOs participating in a given transaction. It is the converse of the <a href='forwarding1' class='text-blue-600 mavenLinkBold hover:underline'>Forwarding Minting Policy</a> pattern; the given UTxOs only unlock is an authorized transaction token is minted as part of the transaction.
+    </p>
+  
+    <p class='mb-3'>
+      With this model in place, users now must <em>announce</em> their <em>semantic intention</em> when submitting a transaction by choosing a particular TxTMP to target. This unlocks a number of benefits for modularity, conceptual reasoning, ease of specification and development, and security.
+    </p>
+  <h2 id='how-is-it-done-today-and-what-are-the-limits-of-current-practice' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>How is it done today, and what are the limits of current practice?</h2>
+    <p class='mb-3'>
+      Today, UTxOs at a given validator address are generally burdened with capturing all the ways in which they may be consumed. Developers are generally tasked with determining a set of predicates that capture properties they believe should hold for a given validator, and the unlocking of a UTxO fails if any of those predicates do not hold. This has two downsides.
+    </p>
+  
+    <p class='mb-3'>
+      First, this can lead to a "blacklist" approach. Rather than taking a "default deny" approach where the types of <em>valid</em> transactions are established by passing a set of predicates, there is a tendency for contracts to be written where transactions are considered <em>invalid</em> if certain predicates hold, and any other transaction is valid. This is poor practice for the same reason as for internet firewalls: only blocking "bad actors" via firewall policy assumes that the entire attack surface can be enumerated, while authorizing network usage only in trusted ways ensures that security staff can focus their attention on hardening specific parts of the system. Further, whitelists, by providing an enumerable set of acceptable usages, are much more amenable to formal and informal specification.
+    </p>
+  
+    <p class='mb-3'>
+      Second, complex transactions require consuming UTxOs at multiple Validator addresses. If each Validator Script encodes the logic necessary to validate the conditions for unlocking their own UTxOs, we run into an issue: how do we determine the logic to unlock a group of UTxOs that can only be unlocked in a given context (quite literally: where do we place logic that requires validation on the entire <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ScriptContext</code>?)
+    </p>
+  
+    <p class='mb-3'>
+      If we choose to fragment the logic across all validators that lock UTxOs for a given transaction family, then we have to be confident that there are no <a href='https://math.mit.edu/~dspivak/teaching/sp18/C1-Cascade_effects.pdf' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>generative effects</em></a> (i.e., emergent behavior) caused by recombining the validation logic. This increases the attack surface considerably.
+    </p>
+  
+    <p class='mb-3'>
+      Further, the application logic, application parameters, and component data are fragmented across <em>all</em> Validators required to assemble the complex transaction. For each Validator <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V1, V2, V3</code>, that participates in a complex family of transactions <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T1</code>, a partial transitive closure of the application logic and application parameters necessary to implement any other complex families of transactions <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T2, T3, (...)</code> in which <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V1, V2,</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V3</code> participate is thus included in the Validator script of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V1, V2</code>, and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V3</code>, and hence in the on-chain representation of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T1</code>. This leads to three issues, all of which are characteristic of <a href='https://en.wikipedia.org/wiki/Dynamic_dispatch#Single_and_multiple_dispatch' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>single dispatch</em></a><em>.</em>
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          First, application logic that is <em>only</em> valid in a context where multiple validators participate is tied to an "owner". This is akin to a programming language requiring division to be implemented as either a method of the divisor or the dividend.
+        </li>
+      
+        <li>
+          Second, it leads to bloat on-chain. It is akin to requiring the addition of two Integers to first include a proof of how they participate in multiplication, or an unormalized database returning records with extraneous information.
+        </li>
+      
+        <li>
+          It is difficult to specify and implement such a system. There are not clear boundaries as to what data is "transaction context specific" or "validator/component" specific. Data and logic often needs to be duplicated, complex (and often circular) dependencies arise, and systems become fragile. Such a setup hampers modularity, composability, and extensibility.
+        </li>
+      
+    </ul>
+  <h2 id='what-is-new-in-your-approach-and-why-do-you-think-it-will-be-successful' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>What is new in your approach, and why do you think it will be successful?</h2>
+    <p class='mb-3'>
+      In the TxT model, we flip the perspective to become "transaction first." We essentially achieve multiple dispatch for validating transactions <em>as a whole</em>, rather than validating the unlocking of each UTxO individually.
+    </p>
+  
+    <p class='mb-3'>
+      Suppose that we have a set of validators (including, with some abuse of terminology, minting policies and user wallets) <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V = {V_1, V_2, V_3}</code> and a set of transaction families <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T = {T_1, T_2}</code>. Additionally, suppose that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_1</code> needs logic for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T_1</code>, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_2</code> needs logic for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T_2</code>, and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_3</code> needs logic for both <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T_1</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T_2</code>. We can think of this as <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_3</code> being a global state validator that needs to track changes to two subsystems, one of which is expressed by the logic of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_1</code> and the other by the logic of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_2</code>.
+    </p>
+  
+    <p class='mb-3'>
+      The old way of looking at this is as follows. First, we form a table like this:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_1 → {T_1}</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_2 → {T_2}</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_3 → {T_1, T_2}</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Then, we try to determine a set of predicates that would hold to say that a UTxO locked by a given <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_i</code> is consumed in a valid way. If we let the predicates required for a validator <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_i</code> to unlock its UTxO be called <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>P_i</code>, and then predicates required for transaction family <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T_j</code> to be semantically valid to be called <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>P'_j</code>, then we have to show that:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>P_1 && P_3 = P'_1</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>P_2 && P_3 = P'_2</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This is non-trivial in the general case, since we are logically working in two different contexts: <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>P_i</code> is capturing individual UTxO validation, while <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>P'_j</code> is capturing transaction validation.
+    </p>
+  
+    <p class='mb-3'>
+      Implementing this same situation via the TxT pattern means having a TxTMP associated with each of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T1</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T2</code> . The TxTMPs encode the complete logic necessary to validate the respective family of transactions. Our table looks like this:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T_1 → {V_1, V_3}</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>T_2 → {V_2, V_3}</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The Validation logic for <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_i</code> now works as follows:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_i</code> carrys information about an authorized set of TxTMPs (i.e., in our first table where <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_1 → {T_1}</code>, etc.). The <em>only</em> logic contained in the actual validator script is routing logic on how to "dispatch" to a given authorized TxTMP
+        </li>
+      
+        <li>
+          To determine whether or not to unlock it's UTxO, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V_i</code> checks for the minting of a token with the correct asset class (i.e., the currency symbol of an authorized TxTMP, perhaps with a specific token name) as part of the transaction. If not, the UTxO remains locked.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      In effect, instead of having the Validator scripts themselves encode the application logic, they store <em>references</em> (and delegate the validation logic) to the TxTMPs.
+    </p>
+  
+    <p class='mb-3'>
+      Checking that the TxTMP of a particular transaction is in the set of authorized TxTMPs can be facilitated by a State Thread token, hard-coded in the Validator itself, passed in via a continuing Datum, or via any other method that allows for access control over the stored reference. The reference itself must be highly secure, as the Validators will not have additional checks; it is essentially a privilege escalation, and mechanisms (or unintentional code paths) that allow for changing such a reference should be carefully scrutinized. Such scrutiny is made easier by the fact that the attack surface can be narrowed with careful modeling and design, and invariants now become easier to prove at the <em>transaction level</em> rather than the <em>validator level.</em>
+    </p>
+  
+    <p class='mb-3'>
+      Approaches similar to the TxT pattern have already been implemented or theorized in Cardano. The "Governance Authority Token," specified by Emily Martins from Liqwid, has a similar flavor and takes the appearance of a "dynamic" one-time authorization of a TxTMP via an act of DAO governance. Tilde Rose's escrow system for Liqwid also has a similar flavor, using a pattern delegating validation to any validator within a given set.
+    </p>
+  
+    <p class='mb-3'>
+      Finally, as mentioned above, the TxT model is essentially the converse of the "forwarded minting policy" pattern and very similiar to multiple dispatch.
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Two notes:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          We use a TxTMP rather than a validator to reduce contention. This circumvents the requirement of introducing additional UTxOs to a transaction to enable the TxT pattern.
+        </li>
+      
+        <li>
+          However, this is not ideal. The minting of a TxT is essentially the lightest-weight way to provide a proof witness that a certain script (the TxTMP) as successfully run, but we don't necessarily need nor want the token itself. A better option would be allowing for something like a "Transaction Scripts" field to be add to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ScriptContext</code>, which would require that a given script is run as part of the transaction — regardless of it is actually unlocking a UTxO or minting a token. If the TxT pattern proves viable in practice, this will be worthwhile to write a CIP for.
+        </li>
+      
+    </ul>
+  
+    </blockquote>
+  <h2 id='who-cares-if-you-are-successful-what-difference-will-it-make' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Who cares? If you are successful, what difference will it make?</h2>
+    <p class='mb-3'>
+      If this pattern works as theorized, we immediately gain several advantages.
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Application logic becomes transaction-centric. It becomes easier to specify a protocol formally, especially when using <em>strong</em> or <em>strict</em> transaction families, since the transition functions are isomorphic to the logic contained in a particular TxTMP. Analysis techniques such as Petri nets may prove viable from this vantage point.
+        </li>
+      
+        <li>
+          Specification and implementation efforts can be more organized. The transaction token pattern gives a <em>model</em> for thinking about contracts that <s>is</s> should be equal in expressiveness to other models. Once the necessary data for a given component is specified, developers can design transactions to manipulate data according to a well-defined schema. Adding support for additional TxTMPs would not typically require adding additional fields to a Datum or parameters to a validator, as is currently the case.
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The benefits of the pattern are akin to adopting a relational data modeling approach. There are constraints, and it is not <em>in practice</em> the best approach to every domain, but is captures a wide swath of real-world use cases. Where the model is appropriate, the benefits are numerous.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          Validator logic can leverage centralized development and auditing. Because all validators in the TxT pattern implement essentially the same "authorized and delegate" pattern, this logic can be highly scrutinized and optimized.
+        </li>
+      
+        <li>
+          The set of authenticated TxTMPs for a given validator can be modified without redeploying the entire protocol. References need to be changed, rather than hard-coded logic.
+        </li>
+      
+        <li>
+          TxTMPs do not need to contain logic to parse, validate, or apply parameters for application logic. As a result, they can be highly specialized for a given protocol, reducing attack surface, script size, and cognitive burden.
+        </li>
+      
+        <li>
+          Theoretical advancements may follow; the TxT pattern has flavors of an effect system, and viewing strict transaction families as morphisms between validator objects lends itself to <a href='protocol-category' class='text-blue-600 mavenLinkBold hover:underline'>categorical analysis</a>.
+        </li>
+      
+        <li>
+          Composability and modularity: it becomes easier to integrate off-the-shelf components such as Agora. Implementing a governance system could become as simple as adding a TxTMP to all application components. Providing "open appliances" on-chain could become viable, where multiple projects use an identical TxTMP parameterized by application-specific authenticated parameters.
+        </li>
+      
+        <li>
+          Opinionated development can lead to cleaner code, highlight additional abstractions, and provide both cognitive and technical frameworks for advanced reasoning.
+        </li>
+      
+    </ul>
+  <h2 id='what-are-the-risks' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>What are the risks?</h2>
+    <p class='mb-3'>
+      The TxT pattern proposes that the converse of the (author's) current perspective of smart contract development in Cardano be pursued.
+    </p>
+  
+    <p class='mb-3'>
+      Utilizing a complex system such as Cardano in a manner that it was not intended to be used runs the risk of:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Vendor decisions obsoleting the techniques used
+        </li>
+      
+        <li>
+          An increased attack surface via invalid assumptions made about the underlying technology
+        </li>
+      
+        <li>
+          Incompatibility with legacy and future developments not utilizing the pattern
+        </li>
+      
+        <li>
+          Adding auditing, testing, specification, and cognitive ramp-up burden to existing projects that wish to adopt the pattern
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      In addition, forthcoming CIPs may simplify this development considerably, so tradeoffs must be weighed regarding the effort expended at a given point in time.
+    </p>
+  <h2 id='how-much-will-it-cost' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>How much will it cost?</h2>
+    <p class='mb-3'>
+      Given the above risks, it is difficult (for the author) to estimate what the cost will be. We can assume, in general,
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Research and labor to prepare a specification to the level of formality required for stakeholder (including auditor) approval
+        </li>
+      
+        <li>
+          Experimental development
+        </li>
+      
+        <li>
+          Library development
+        </li>
+      
+        <li>
+          Testing, auditing, and documentation
+        </li>
+      
+        <li>
+          Developer relations, internally and externally, to ensure that such a pattern is considered legitimate and will not become obsolete in a forthcoming update
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      These costs apply whether a single project adopts the pattern or if an organization-wide library is a goal, although the magnitude will change.
+    </p>
+  <h2 id='how-long-will-it-take' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>How long will it take?</h2>
+    <p class='mb-3'>
+      A proof-of-concept could be accomplished using existing technologies within a week of dedicated labor. However, full specification, audit, library development, and opinionated documentation are more challenging to estimate and will likely be ongoing as resources and demand allow.
+    </p>
+  <h2 id='what-are-the-mid-term-and-final-exams-to-check-for-success' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>What are the mid-term and final "exams" to check for success?</h2>
+    <p class='mb-3'>
+      The milestones sought, in order, for the general case are:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          A proof-of-concept
+        </li>
+      
+        <li>
+          A detailed specification, including documentation on how to adapt the pattern
+        </li>
+      
+        <li>
+          A library/framework
+        </li>
+      
+        <li>
+          Analysis and verification techniques (such as Petri nets or other state-transition models)
+        </li>
+      
+        <li>
+          Formal third-party audits
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The milestones are the same but more limited in scope for inclusion on a single project.
+    </p>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+            <div class='flex flex-col lg:flex-row lg:space-x-2'>
+              
+              
+  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
+    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
+    <ul class='space-y-1'>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='transaction-token-protocol'>
+            The TxTP Architecture
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><em>Strong</em> transaction families are those which can be described by <em>computing</em> the output UTxOs from the redeemer and <code>ScriptContext</code> (sans the <code>txInfoOutputs</code> field) passed to a <a href='transaction-token-pattern' class='text-gray-600 font-bold hover:bg-gray-50'>TxTMP</a>. This establishes the transaction family as a function with roughly the type signature <code>f : Redeemer -&gt; ScriptContext -&gt; [TxOut]</code>.</div>
+    </div>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><em>TxTMPs</em> (or <a href='transaction-token-pattern' class='text-gray-600 font-bold hover:bg-gray-50'><em>Transaction Token Minting Policies</em></a>): on-chain code to which otherwise "dumb" validators route UTxO validation. The set of transactions that are routed to a particular TxTMP are called the <em>TxTMP transactions</em>.</div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='protocol-category'>
+            Sketch: Protocol Categories
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>N.B.: This repo is private. If anyone without access makes it this far and wants a more detailed rundown of the protocol in question, reach out to <a href='https://mlabs.slab.com/users/hbo069o6' class='text-gray-600 hover:underline' target='_blank' rel='noopener'>Peter Dragos</a> . LiqwidX is a more featured version of the protocol described in <a href='transaction-token-pattern' class='text-gray-600 font-bold hover:bg-gray-50'>"Transaction Token Pattern"</a>.</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='README'>
+            README
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div>The <a href='transaction-token-pattern' class='text-gray-600 font-bold hover:bg-gray-50'>Transaction Token Pattern</a> document introduces the pattern.</div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+    </ul>
+  </div>
+
+            </div>
+            
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+  </section>
+
+            <!-- What goes in this file will at the very end of the main div -->
+          </main>
+        </div>
+      </div>
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.5.3.0'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tasks' title='View tasks'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+      </svg>
+    </a>
+  </div>
+</footer>
+    </div>
+  
+</body>
+
+</html>

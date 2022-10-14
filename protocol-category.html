@@ -1,0 +1,1911 @@
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Sketch: Protocol Categories – Plutonomicon
+  </title>
+  
+    
+      <meta property='og:description' content />
+      <meta property='og:site_name' content='Plutonomicon' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Sketch: Protocol Categories' />
+    
+    
+      <base href='/plutonomicon/' />
+      <link href='logo.png' rel='icon' />
+    
+    <!-- Prism.js --><link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/themes/prism-tomorrow.min.css' rel='stylesheet' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/prism.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/plugins/autoloader/prism-autoloader.min.js'></script>
+
+<script>
+  window.MathJax = {
+    startup: {
+      ready: () => {
+        MathJax.startup.defaultReady();
+      }
+    }
+  };
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+
+  
+  <link href='tailwind.css?instanceId=9a24feb3-1402-43d7-9ce7-e3d94a379675' rel='stylesheet' type='text/css' />
+
+  <!-- Heist error element -->
+  <style type='text/css'>
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'MavenPro';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'MavenPro', sans-serif;
+    /* font-variation-settings: 'wght'300; */
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght'500;
+  }
+
+  strong {
+    font-variation-settings: 'wght'500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'MavenPro', sans-serif;
+  }
+</style>
+
+  <head-main></head-main>
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto'>
+
+      <nav id='breadcrumbs' class='w-full text-gray-700 md:hidden'>
+  <div class='flex justify-left'>
+    <div class='w-full px-2 py-2 bg-gray-50'>
+      <ul class='flex flex-wrap text-lg'>
+        <li class='inline-flex items-center'>
+          
+            
+              <img style='width: 1rem;' src='logo.png' />
+            
+          
+        </li>
+        
+          
+            <li class='inline-flex items-center'>
+              <a class='px-1 font-bold' href=''>
+                Plutonomicon
+              </a>
+              <svg fill='currentColor' viewBox='0 0 20 20' class='w-auto h-5 text-gray-400'>
+                <path fill-rule='evenodd' d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z' clip-rule='evenodd'></path>
+              </svg>
+            </li>
+          
+        
+      </ul>
+    </div>
+    <button class='inline px-2 py-1 text-white bg-blue-600 outline-none cursor-pointer focus:outline-none' title='Toggle sidebar' type='button' onclick="toggleHidden('sidebar')">
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'></path>
+      </svg>
+    </button>
+    <script>
+      function toggleHidden(elemId) {
+        document.getElementById(elemId).classList.toggle("hidden");
+      }
+    </script>
+  </div>
+</nav>
+
+      <div id='container' class='flex flex-nowrap flex-col md:flex-row bg-gray-50 md:mt-8 md:shadow-2xl md:mb-8'>
+        <!-- Sidebar column -->
+        <nav id='sidebar' class='flex-shrink hidden leading-relaxed md:block md:sticky md:top-0 md:h-full md:w-48 xl:w-64'>
+          <div class='px-2 py-2 text-gray-800'>
+
+            <div id='indexing-links' class='flex flex-row float-right p-2 space-x-2 text-gray-500'>
+              <a href='-/tags' title='View tags'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+                  </path>
+                </svg>
+              </a>
+              <a href='-/all' title='Expand full tree'>
+                <svg style='width: 1rem;' class='hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+                  <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+                  </path>
+                </svg>
+              </a>
+            </div>
+
+            <div id='site-logo' class='pl-2'>
+              <div class='flex items-center my-2 space-x-2 justify-left'>
+                <a href='' title='Go to Home'>
+                  
+                    
+                      <!-- The style width attribute here is to prevent huge
+                      icon from displaying at those rare occasions when Tailwind
+                      hasn't kicked in immediately on page load 
+                      -->
+                      <img style='width: 1rem;' class='transition transform hover:scale-110 hover:opacity-80' src='logo.png' />
+                    
+                  
+                </a>
+                <a class='font-bold truncate' title='Go to Home' href=''>
+                  Home
+                </a>
+              </div>
+            </div>
+
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='CnG PToken' href='cngproof'>
+      CnG PToken
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Common Plutus Vulnerabilities' href='vulnerabilities'>
+      Common Plutus Vulnerabilities
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Consistency' href='consistency'>
+      Consistency
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Distributed Map' href='DistributedMap'>
+      Distributed Map
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='FLLocked' href='forwarding2'>
+      <em>FLLocked</em>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Forwarding Minting Policy' href='forwarding1'>
+      Forwarding Minting Policy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Fundamentals of Plutus' href='fundamentals'>
+      Fundamentals of Plutus
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='How Stake Validators Actually Work' href='stake-scripts'>
+      How Stake Validators Actually Work
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='On-Chain Association List With Constant Time Insert-Removal' href='assoc'>
+      On-Chain Association List With Constant Time Insert-Removal
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Optimizations to reduce CPU and Mem consumption' href='scriptmem'>
+      Optimizations to reduce CPU and Mem consumption
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Plutus Core Builtin Functions Reference' href='builtin-functions'>
+      Plutus Core Builtin Functions Reference
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Plutus Numeric Hierarchy' href='numeric'>
+      Plutus Numeric Hierarchy
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='README' href='README'>
+      README
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Script optimisations' href='optimisations'>
+      Script optimisations
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+  
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'>
+        </path>
+      </svg>
+      
+  
+    <a class='font-bold text-blue-600 hover:underline truncate' title='Sketch: Protocol Categories' href='protocol-category'>
+      Sketch: Protocol Categories
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='State Thread Token Pattern' href='statethread'>
+      State Thread Token Pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Staying In Bounds' href='size-test'>
+      Staying In Bounds
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Stick Breaking Set' href='stick-breaking-set'>
+      Stick Breaking Set
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The MIT License (MIT)' href='LICENSE'>
+      The MIT License (MIT)
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='The TxTP Architecture' href='transaction-token-protocol'>
+      The TxTP Architecture
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Untyped Plutus Core' href='uplc'>
+      Untyped Plutus Core
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='User guide for plutus-numeric' href='user-guide-numeric'>
+      User guide for <code>plutus-numeric</code>
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='What is Data/BuiltinData?' href='builtin-data'>
+      What is Data/BuiltinData?
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Lists' href='builtin-lists'>
+      Working with Builtin Lists
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='Working with Builtin Pairs' href='builtin-pairs'>
+      Working with Builtin Pairs
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-perspective' href='transaction-perspective'>
+      transaction-perspective
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+              <!-- Variable bindings for this tree-->
+  
+    
+      
+    
+    
+
+
+
+  
+
+
+<!-- Rendering of this tree -->
+<div class='pl-2'>
+  <!-- Node's rootLabel-->
+  <div class='flex items-center my-2 space-x-2 justify-left'>
+    
+    
+      <svg class='w-4 h-4 flex-shrink-0 inline' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'>
+        </path>
+      </svg>
+    
+  
+    <a class='hover:underline truncate' title='transaction-token-pattern' href='transaction-token-pattern'>
+      transaction-token-pattern
+    </a>
+    
+      
+  </div>
+
+  <!-- Node's children forest, displayed only on active trees
+    TODO: Use <details> to toggle visibility?
+  -->
+  
+    
+  
+</div>
+            
+
+          </div>
+        </nav>
+
+        <!-- Main body column -->
+        <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <main class='px-4 py-4'>
+            <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Sketch: Protocol Categories
+  </a>
+</h1>
+            <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      (credit Peter Dragos)
+    </p>
+  
+    <p class='mb-3'>
+      This document expands on the transaction token pattern and the transaction token protocol architecture. Both the pattern and the architecture were concieved with the ultimate goal of providing a practical grounding for the theory introduced in this document.
+    </p>
+  
+    <p class='mb-3'>
+      We present a loose mathematical formalization of the subject at hand, followed by a worked example. The first section assumes some knowledge of category theory, while the examples provided should be intuitive regardless. Readers unfamiliar with category theory are encouraged to skim the first section and jump to the second, referring back to the first as they grow more comfortable with the primary goal of applying the theory.
+    </p>
+  
+    <p class='mb-3'>
+      The goal of this sketch is to lay out the framework for thinking of protocols as categories. This provides a formalization that may prove useful to formal verification, provide insight into the design and implementation of Cardano dApps, and provide inspiration from development frameworks for smart contracts that reify the abstractions presented within.
+    </p>
+  
+    <p class='mb-3'>
+      However, the key initial goal of this sketch is to translate protocols into a symmetric monoidal categories, or SMCs. SMCs have a pleasant representation as <em>wiring diagrams</em>, which make use of a graphical iconography amenable to equational reasoning, modularity, and composition. The laws required by SMCs are exactly those that are necessary to make such an iconography formal, and is the justification for approaching protocol design in this manner.
+    </p>
+  <h2 id='protocols-partitioned-into-strict-transaction-families-form-categories-that-can-be-presented-via-wiring-diagrams' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Protocols Partitioned into Strict Transaction Families form Categories that can be Presented via Wiring Diagrams</h2>
+    <p class='mb-3'>
+      If we constrain ourselves to a <a href='transaction-token-protocol' class='text-blue-600 mavenLinkBold hover:underline'>strict</a> partitioning of a protocol, the protocol seems to become a Symmetric Monoidal Category (or SMC). This allows a <em>formal</em> graphical presentation via wiring diagrams. If you are completely unfamiliar with wiring diagrams, we refer you to chapter 2 of <a href='https://arxiv.org/pdf/1803.05316.pdf' class='text-blue-600 hover:underline' target='_blank' rel='noopener'><em>Seven Sketches</em></a> __ (chapter one may be useful for background, but is not strictly necessary to gain an intuition if one is comfortable with basic set theory, algebra, and order theory.)
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      N.B.: different types of diagrams have different mathematical properties. "Wiring diagrams" (proper) are suitable for SMCs, but an alternate formalization may be more sutiable. See <a href='#aditional-material' class='text-blue-600 mavenLinkBold hover:underline'>additional materials</a> for links to papers and videos on what might prove useful. In particular, <a href='https://math.mit.edu/~dspivak/informatics/DirectedWiringDiagrams.pdf' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>this paper</a> on the operad of temporal wiring diagrams seems promising; in allows for the notion of "types" and temporality.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      This category has the following constituents:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Objects are indexed sets formed from a generating set <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>G_c</code> of "component addresses". This set corresponds exactly to the validators and minting policies <em>introduced</em> by the protocol. While not strictly necessary for the formalization to make sense, we can think of Minting Policies in the following way:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Minting Policies are thought of as locking an infinite number of UTxOs, each with an arbitrary number of tokens of their currency symbol.
+        </li>
+      
+        <li>
+          Minting is thought of as consuming one of those UTxOs at the minting policy address.
+        </li>
+      
+        <li>
+          Burning is thought of as paying those tokens to an "Always fail" validator.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          We add to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>G_c</code> a set <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>W_c</code> that represents any address that is a validator or minting policy <em>not</em> introduced by the protocol. <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>W_c</code> contains “everything else” that we may need a semantic understanding of: user wallets, third-party validators or minting policies involved in our transaction families, and so forth. (N.B.: We choose <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>W_c</code> for “wallet components”, since most protocols will need to define a component representing pubkey addresses).
+        </li>
+      
+        <li>
+          Morphisms are formed from a generating set, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>G_tf</code>, that is in bijection with the transaction families of the protocol. A morphism exists between two objects if there exists a valid transaction between the source and the target.
+        </li>
+      
+        <li>
+          The identity morphism can be interpreted as "no valid transaction was submitted involving these objects".
+        </li>
+      
+        <li>
+          The monoidal product is the disjoint union of objects. I.e., "x⊗y" constitutes an object that can be consumed by a morphism consuming UTxOs at validators <em>x</em> and <em>y.</em>
+        </li>
+      
+        <li>
+          The monoidal identity <em>I</em> is the empty indexed set. It is represented in the wiring diagram by the absence of a wire.
+        </li>
+      
+        <li>
+          The monoidal product forms parallel transactions with morphisms. I.e., "f⊗g" means that transactions <em>f</em> and <em>g</em> are executed in the same block. The monoidal product of morphisms <em>does not</em> assume a proof that such a scenario exists in practice, only that such a scenario is possible.
+        </li>
+      
+    </ul>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      N.B.: the definition of the category above omits details about what is meant by “indexed set” and “disjoint union” for the definition of objects and monoidal product, respectively. There is a common construction in category theory to formalize these, but the details are not necessary to built intuition and have thus been left out.
+    </p>
+  
+    <p class='mb-3'>
+      The simplest intuition is as follows. Objects are essentially a mathematical object sufficient to give an uncurried type signature, such as saying that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f</code> take a tuple of objects of a particular type and produces a tuple of objects of a particular type. The monoidal product can then be interpreted as “if we have two functions <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>g</code>, to run both we need objects of the types from the domain of both.”
+    </p>
+  
+    </blockquote>
+  <h2 id='protocol-boundaries' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Protocol Boundaries</h2><h3 id='zero-morphisms' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Zero Morphisms</h3>
+    <p class='mb-3'>
+      A "zero morphism" is any morphism that takes the form <em>zero_x : I → x</em>. The monoidal unit is represented in wiring diagrams as the absence of a wire, so a zero morphism has the appearance of "<em>x</em> coming from nothing".
+    </p>
+  
+    <p class='mb-3'>
+      Objects with zero morphisms establish one boundary of the protocol. It captures the notion that in Cardano we cannot <em>prevent</em> a UTxO from "appearing out of thin air" since validation logic only applies to spending a UTxO and not creating one.
+    </p>
+  
+    <p class='mb-3'>
+      Category theory tends to view objects from the perspective of the morphisms between them. From this perspective, certain objects do have a notion of being "non-zero". The example is an object tied to a state token that requires certain initial conditions to be met for the state token to be minted; if properly implemented, these UTxOs cannot just "pop into existence" in a manner that permits them to participate in <em>any</em> transaction. We can always track their existence back to state token initialization policy, and a combination of such a policy along with well-written validators can greatly narrow the scope of UTxOs that will validate.
+    </p>
+  <h3 id='discard-morphisms' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Discard Morphisms</h3>
+    <p class='mb-3'>
+      We also have a notion of a morphism <em>discard_x : x → I.</em> We do not say that <em>every</em> object has a discard morphism, but for those that do we make the following claim:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          For every morphism <em>discard_z</em> and morphism <em>F</em> : x ⊗ z → y ⊗ z, there exists a morphism <em>H</em> such that the following diagram commutes:
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/BKDnmj2xtrIaqQpm6rP1-_H3.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      This establishes the intuition that certain objects can "cease to exist" from the view-point of the protocol, and the discarding of such objects <em>after</em> a transaction is indistinguishable from the discarding <em>within</em> the transaction. This is especially important when considering balancing a transaction: leftover funds may or may not exist, but requiring a separate transaction family for either case is more burdensome than considering such funds to have "disappeared".
+    </p>
+  
+    <p class='mb-3'>
+      In certain cases, it is useful to note whether a given object is discardable. For instance, UTxOs that are tied to state tokens may only be discardable under certain conditions, and must be represented as <em>continuing UTxOs</em> otherwise.
+    </p>
+  <h2 id='transaction-families-the-monoidal-product-and-composition' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Transaction Families, the Monoidal Product, and Composition</h2>
+    <p class='mb-3'>
+      If we wish to think of component addresses as the objects of a symmetric monoidal category, we have to think of the monoidal product of component addresses as objects, too. This is fairly straight forward.
+    </p>
+  
+    <p class='mb-3'>
+      Suppose we have an object <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x = {V1, V1, V2}</code> and an object <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>y =  {V2, V3}</code> (where the brackets denote indexed sets rather than sets). Then we also have an object called <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x⊗y = {V1, V1, V2, V2, V3}</code>. But since monoidal products are given as functors <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>C x C → C</code>, if we have morphisms <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f : x → a, g : y → b</code>, we also need the morphism <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f ⊗ g : x ⊗ y → a ⊗ b.</code>
+    </p>
+  
+    <p class='mb-3'>
+      Since <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f ⊗ g</code> is a morphism, it is built up from Transaction Family from our morphism generating set <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>G_tf</code>. In terms of the correspondence of the protocol category to the actual on-chain representation of transactions, this would be interpreted as a multiple transactions running in parallel. That is, if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>g</code> are members of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>G_tf</code> (i.e. transaction families proper), then <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f ⊗ g</code> represents a situation where both a transaction in the family <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f</code> and a transaction in the family <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>g</code> were validated in the same block.
+    </p>
+  
+    <p class='mb-3'>
+      In addition, the composition of morphisms is also a morphism. That is, if <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f : a → b</code> and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>g : b → c</code> are morphisms, then there exists a morphism <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>h : a → c</code> such that <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>h = f ; g</code>. This is interpreted as the outputs of one transaction being fed unmodified as the inputs to another.
+    </p>
+  
+    <p class='mb-3'>
+      At this level, Transaction Flows are equivalence classes of morphisms, with the equivalence again being semantic. This will become more apparent below.
+    </p>
+  <h3 id='symmetry-of-the-monoidal-product' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Symmetry of the Monoidal Product</h3>
+    <p class='mb-3'>
+      Since our monoidal product is symmetric, it is important to make some additional clarifications. Again using our example above, we have (by the symmetry law) that:
+    </p>
+  
+    <p class='mb-3'>
+      <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>x⊗y = {V1, V1, V2, V2, V3} = y⊗x = {V2, V3, V1, V1, V2}</code>
+    </p>
+  
+    <p class='mb-3'>
+      and
+    </p>
+  
+    <p class='mb-3'>
+      <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f ⊗ g : x ⊗ y → a ⊗ b == g ⊗ f : y ⊗ x → b ⊗ a</code>
+    </p>
+  
+    <p class='mb-3'>
+      From the perspective of reification into the architecture, this means that, when passed a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>txInfoInputs scriptContext :: [TxInInfo]</code>, we may need some additional logic to give the semantic meaning of "which inputs go where". Such logic can be captured, for instance, by passing in a mapping as a datum to the transaction that maps the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>[TxInInfo]</code>of the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>txInfoInputs</code> field of the <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>ScriptContext</code> to the correct ordering as needed by the TxTMP. The key point for readers to be aware of is this: although our monoidal product is symmetric, there is nothing preventing us from choosing a canonical ordering of inputs and outputs provided that we retain a mechanism to permit reordering when we need it.
+    </p>
+  
+    <p class='mb-3'>
+      This is the "wiring" part of the wiring diagrams that will be shown below; the "reordering" of inputs and outputs becomes identified with the crossing of wires.
+    </p>
+  <h2 id='worked-example-liqwidx-action-queue-basic-borrowing-flow' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Worked Example: LiqwidX Action Queue; Basic Borrowing Flow</h2>
+    <p class='mb-3'>
+      In this section, we’ll build up our first wiring diagrams. Some of the formalisms we presented above are still loose, but readers should gain an intuition as to why they are usefuland what a full formalization would look like regardless.
+    </p>
+  
+    <p class='mb-3'>
+      We take the <a href='https://github.com/mlabs-haskell/liqwidx-specs/blob/381cf35fcaaf149746bff38125c79fe93bb7ea43/liqwidx/architecture/action-queue.md' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>LiqwidX Action Queue model</a> as an example with 3 supply and 3 demand queue lanes. We'll first work through the wiring diagrams of the basic action queue that only permits borrowing actions, and then we'll see how we can add batched collateral seizure while re-using some components and augmenting others.
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      N.B.: This repo is private. If anyone without access makes it this far and wants a more detailed rundown of the protocol in question, reach out to <a href='https://mlabs.slab.com/users/hbo069o6' class='text-blue-600 hover:underline' target='_blank' rel='noopener'>Peter Dragos</a> . LiqwidX is a more featured version of the protocol described in <a href='transaction-token-pattern' class='text-blue-600 mavenLinkBold hover:underline'>"Transaction Token Pattern"</a>.
+    </p>
+  
+    </blockquote>
+  <h3 id='basic-borrowing-flow' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Basic Borrowing Flow</h3>
+    <p class='mb-3'>
+      The basic idea is to separate possible actions into "supply" actions which make the system <em>less</em> constrained (such as adding collateral or repaying debts; these actions always succeed) and "demand" actions which make the system <em>more</em> constrained (such as removing collateral or originating more debt; these actions may not succeed if they push the system too far "into the red".)
+    </p>
+  
+    <p class='mb-3'>
+      Supply and demand actions are first "queued" by consuming one of a fixed number of "Queue UTxOs" via a "Queuing Family Transaction", which registers the intent to interact with the system in the Datum of the output Queue UTxOs. The number of Queue UTxOs that the system can handle is referred to as the number of "Queue Lanes". There are separate lanes for Supply and Demand queues.
+    </p>
+  
+    <p class='mb-3'>
+      Once a number of actions are queued, they are consumed by a "Settling Family Transaction". Transactions in this family consume the Queue Lanes and the Vault Manager (which tracks global debt and collateral balances), and apply any updates to the Vault Manager. The output produces fresh Queue UTxOs, an updated Vault Manager UTxO, and in the case of the Demand Queue only, executes permissible transfers from Vaults to User Wallets.
+    </p>
+  
+    <p class='mb-3'>
+      As described, our partitioning looks something like this (ignoring bootstrapping transactions, for now):
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/7_6dCVRsu6YGB6Q8cCu7quDI.png' alt />
+    </p>
+  <h3 id='the-supply-queuing-and-settling-families' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>The Supply Queuing and Settling Families</h3>
+    <p class='mb-3'>
+      With the proposed setup, we can present a transaction family as a box with lines going into and out of it. The lines on either side of outer box represent components from our generating set <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>G_c</code>. Parallel horizontal lines represent the monoidal product of objects.
+    </p>
+  
+    <p class='mb-3'>
+      The outer box represents the boundaries of the system (in a way that will become more apparent shortly). The inner box represents a morphism that is either a transsaction family (a morphism from the set <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>G_tf</code>) or is built up from multiple transaction families using composition or the monoidal product.
+    </p>
+  
+    <p class='mb-3'>
+      Our first example is the Supply Queuing Family. This family contains transactions that take a Vault UTxO, a Supply Queue UTxO, and a <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>w</code> UTxO, and produce Vault and Supply Queue UTxOs. Here, <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>w</code> is a polymorphic component that is not introduced by our protocol that can be <em>a priori</em> consumed in a Supply Queueing transaction; we are essentially saying “we need to add funds to the system as part of this transaction, but we don’t really care where they come from as long as we can unlock them”.
+    </p>
+  
+    <p class='mb-3'>
+      Semantically, the operation being represented is as follows:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Funds are taken from <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>w</code> and added to the Vault, either increasing the collateral balance or repaying debt. Any leftover funds from <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>w</code> are paid back to <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>w</code>. We don’t care about <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>w</code> after this (there’s nothing our protocol enforces about the leftover funds), so we don’t represent <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>w</code> on the right hand side of the diagram; we’ve <em>discarded</em> <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>w</code>.
+        </li>
+      
+        <li>
+          An "empty" supply queue UTxO is consumed as input, and the supply queue UTxO is "filled" at the output. This registers an action that is suitable to be batch-processed into the Vault Manager to update global state.
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Note that we don’t have any <em>a priori</em> notion that the supply queue will be empty. We can either establish such a notion at the “type” level by distinguishing between empty and full supply queues, or we can simply enforce it as part of the TxTMP of this transaction family.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Our wiring diagram is below. It represents a morphism from the set <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>G_tf</code> from the object <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Vault ⊗ SupplyQueue ⊗ w</code> to the object <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Vault ⊗ SupplyQueue</code>:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/E8foP4PwWJIchy78rAr2jsC3.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      Next, the Supply Settling Family consumes three Supply Queue lane UTxOs and the Vault Manager UTxO, and produces the same. This has the effect of updating the global state of the Vault Manager according to the contents of the Datum of the Supply Queue UTxO, which carry information about queued adjustments to individual Vault debt and collateral balances.
+    </p>
+  
+    <p class='mb-3'>
+      The diagram below represents an endomorphism from the set <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>G_tf</code> from the object <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>VaultManager ⊗ SupplyQueue ⊗ SupplyQueue ⊗ SupplyQueue</code> to itself.
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/bqnxIkCJ9uwydPkUT5Cuk7z4.jpg' alt />
+    </p>
+  <h3 id='the-supplying-flow' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>The Supplying Flow</h3>
+    <p class='mb-3'>
+      Now we can think of our first transaction flow, the "Supplying Flow". What we want is to consume 3 Vaults, 3 empty Supply Queue Lanes, 3 Wallets, and the Vault Manager, and produce 3 updated Vaults, an updated Vault Manager, and 3 fresh Supply Queue Lanes.
+    </p>
+  
+    <p class='mb-3'>
+      This level of "black box" reasoning can be represented as below. Note that we’ll use <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>Wallet</code> instead of <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>w</code> from now on, to aid the reasoning process a bit.
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/Uhl8WwdEAvDP0BNH-ZXXvGdS.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      Note that, in category theoretic terms, what we're doing is declaring the existence of a morphism from the objects on the left to the objects on the right. This morphism isn't inherently "special" in any category theoretic sense, except that it can be built up from morphisms in the generating set <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>G_tf</code>.
+    </p>
+  
+    <p class='mb-3'>
+      Using the two transaction families we already have, we can give <em>one</em> possible morphism as:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/ck48ODSyMw8xX7wkIW6_TmyW.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      Recall that the vertical stacking of boxes in the monoidal product on morphisms, an empty line represents the identity morphism, and the horizontal arrangement of boxes is composition. Thus, if we adopt the following conventions:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>f</code> the Supply Queuing Family morphism,
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>g</code> is the Supply Settling Family morphism,
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>id_c</code> is the identity morphism on component <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>c</code>, and
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V, SQ, w</code>, and <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>VM</code> are components with the obvious initials
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      we have the diagram above representing a morphism
+    </p>
+  
+    <p class='mb-3'>
+      <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>(f ⊗ f ⊗ f ⊗ id_VM) ; (id_V ⊗ id_V ⊗ id_V ⊗ g)</code>
+    </p>
+  
+    <p class='mb-3'>
+      from the object
+    </p>
+  
+    <p class='mb-3'>
+      <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V ⊗ SQ ⊗ W ⊗ V ⊗ SQ ⊗ W ⊗ V ⊗ SQ ⊗ W ⊗ VM</code>
+    </p>
+  
+    <p class='mb-3'>
+      to the object
+    </p>
+  
+    <p class='mb-3'>
+      <code class='py-0.5 px-1 rounded bg-gray-700 text-sm text-white'>V ⊗ V ⊗ V ⊗ VM ⊗ SQ ⊗ SQ ⊗ SQ</code>.
+    </p>
+  
+    <p class='mb-3'>
+      In this case, all three Supply Queue Lanes are filled in the same block, followed immediately by a Supply Settling Family transaction at some later time.
+    </p>
+  
+    <p class='mb-3'>
+      But this is not the only way to fill in the black box:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/0Bxvakqo0DWc0PMAaFe_pN6N.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      In this case, two supply lanes are consumed in one block; the last supply lane is consumed in a later block; and finally, all three lanes and the Vault Manager are consumed in a Settling Transaction.
+    </p>
+  
+    <p class='mb-3'>
+      This highlights that Flows are <em>semantic equivalence classes</em> of morphisms. When we present as Flow as a wiring diagram, we are saying "this morphism is an example of a morphism in the given Transaction Flow". In category theoretic terms, we can declare the equivalence of morphisms if we wish.
+    </p>
+  <h3 id='the-demand-families-and-demanding-flow' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>The Demand Families and Demanding Flow</h3>
+    <p class='mb-3'>
+      On the demand side, we have the Demand Queuing Family. The details are deliberately light, because (hopefully) a picture is worth a thousand words. See if you can understand what this does, using only the above description and the wiring diagram:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/2wvlS2CDrliaKch7yvXA0Upv.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      Same for the Demand Settling Family:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/fTLm9JIzALmPcm1VUEQoOlst.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      And finally the a Demand Transaction Flow morphism:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/-MWuHWHqjEicS9rvRVb52kab.jpg' alt />
+    </p>
+  <h3 id='the-full-borrowing-flow' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>The full Borrowing Flow</h3>
+    <p class='mb-3'>
+      This is where things get interesting: composing the Supplying Flow with the Demanding Flow gives the Borrowing Flow. But since we already know what the Supplying Flow and Demanding Flow look like, we don't have to include the details of the Supply/Demand Queueing/Settling components to make sense of the following diagram:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/XfqTIsjCV9QLFZhd0YzGHXD4.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      The Borrowing Flow diagram represents a significant portion of the protocol's logic in an intuitive yet formal way that is highly amenable to both specification and implementation.
+    </p>
+  
+    <p class='mb-3'>
+      The Transaction Token Pattern gives a way to implement the building blocks (the morphisms, identified with the bijection between simplex Transaction Families, TxTMPs, and Contracts).
+    </p>
+  
+    <p class='mb-3'>
+      Wiring the blocks up is equivalent to the "routing logic" of the Validators. It may require (for instance) distinguishing between the "Supply Phase Vault Manager" on the boundaries of the Borrowing Flow and the "Demand Vault Manager" internal to the Borrowing Flow (ready to be consumed by the Demand Flow). This could be done either by carrying a flag in the Datum of the Vault Manager UTxO and adding some routing logic to authorize forwarding to the appropriate TxTMP, or by creating separate Validators for each Phase that only unlock for their specific flow.
+    </p>
+  
+    <p class='mb-3'>
+      Such capabilities could easily be abstracted into frameworks that mostly handle the wiring for you.
+    </p>
+  
+    <p class='mb-3'>
+      Finally, these types of diagrams make three situations extremely apparent:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Transactions that "initialize" a component (such as bootstrapping the Vault Manager or opening a Vault for the first time) will always take the form of having an output on the right that does not appear on the left.
+        </li>
+      
+        <li>
+          Transactions that "continue" a component will have at least one of the same inputs on the left as an output on the right
+        </li>
+      
+        <li>
+          Transactions that "discard" a component will have an input that doesn't appear at the output.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This means that a transaction family or transaction flow can be analyzed in terms of the progeny of it's components. For example, the Demand Queueing Family requires the existence of a Vault and a Demand Queue UTxO. None of the wiring diagrams above "initialize" a Vault or Demand Queue UTxO, so we know that we need to specify them. Further, we know that there exists some other transaction flow that could compose the Initializing Flows with the Borrowing Flows.
+    </p>
+  <h2 id='worked-example-extending-the-borrowing-flow-with-collateral-seizure' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Worked Example: Extending the Borrowing Flow with Collateral Seizure</h2>
+    <p class='mb-3'>
+      The Protocol Category concept and TxTP Architecture lends itself to cleanly delineated boundaries of data and logic and promotes modularity and extensibility.
+    </p>
+  
+    <p class='mb-3'>
+      Suppose that we wanted to add a feature to the above flow, such as collateral seizure (for pull-based redistribution/liquidation of under collateralized Vaults). To do so, we can <em>reuse</em> transaction families that we've already specified, add semantics to other transaction families, and add some additional data to our Validator Datums.
+    </p>
+  
+    <p class='mb-3'>
+      In the event that we have already launched the protocol above, we would need to swap out TxTMPs with the new application logic and force a datum update where components require. Implementation wise, this would be dependent on the routing logic and would need to be carefully authenticated for most use-cases (and a good usage of governance).
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      This part is still a bit shaky, but from the category theory side such an upgrade seems to take the appearance of a functor between protocol categories: old objects are mapped to new objects, and old morphisms are mapped to new morphisms. Spivak and Fong represent database migrations with Adjunctions in Seven Sketches; this is probably the level of formality we're looking for, but I'm hazy on the details.
+    </p>
+  
+    </blockquote>
+  <h3 id='overview' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Overview</h3>
+    <p class='mb-3'>
+      The basic idea of collateral seizure in LiqwidX is as follows:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Borrowers must maintain an "Individual Collateral Ratio (ICR)" above a certain threshold (say, 120%). This means that the dollar value of ADA locked in their Vault divided by the dollar value of their outstanding debt must be no lower than 120%. Changes in the USD-price of ADA can cause a Vault's ICR to dip below this threshold.
+        </li>
+      
+        <li>
+          Vault's with collateral ratios below this threshold are said to be <em>in default</em>. They are subject to <em>collateral seizure,</em> which means that their debt is forgiven and their collateral is seized by the protocol. Since the ICR threshold is above 100%, this is a loss for the borrower.
+        </li>
+      
+        <li>
+          Once a defaulting Vault is seized, it is either <em>liquidated, redistributed,</em> or both.
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Liquidation means that preregistered parties can purchase the collateral at a discount. The <em>Stability Pool</em> is a way to preregister interest in purchasing collateral by staking LQUSD. When a Vault is seized, the collateral is first offered to the Stability Pool, which automatically offsets the outstanding debt by burning the LQUSD it holds. Then, an amount of seized collateral proportional to the amount of LQUSD burned is held in the Stability Pool as a clearing house. The seized collateral can be withdrawn by Stability Providers (i.e., LQUSD stakers), who typically receive a net gain by purchasing at a discount (with the spread being the difference between the Vault's ICR at the time of seizure (usually close to 120%) and 100%.
+        </li>
+      
+        <li>
+          Redistribution happens when the Stability Pool does not contain enough LQUSD to fully offset the debt of the seized Vault. In this case, the seized collateral is sent to the Vault Manager as a clearing house, and is subsequently redistributed across other Vaults along with a proportional amount of the outstanding debt. This typically represents a net gain for the targeted Vaults, which benefit from the same spread as the Stability Providers.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Both liquidation and redistribution are <em>pull-based</em>, meaning that the actual funds are held in a clearinghouses (Stability Pool for liquidation, the Vault Manager for redistribution). Each time a Stability Provider updates their stake, their outstanding collateral rewards are pulled into the their wallet. Each time a Borrower updates their Vault, any outstanding debt and collateral allocated to their Vault for redistribution is moved from the Vault Manager to their Vault.
+    </p>
+  <h3 id='updated-wiring-diagrams' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Updated Wiring Diagrams</h3>
+    <p class='mb-3'>
+      Since we need to potentially push debt and collateral from a defaulting Vault into either or both of the Vault Manager and Stability Pool, we know we'll need to have these validators in the domain of some transaction family. However, since we already have two transaction families where the Vault Manager is updated (the Supply Settling and Demand Settling Families), let's add the Seizing Logic into those as a first approach.
+    </p>
+  
+    <p class='mb-3'>
+      First, we'll queue up any of our seizures using the Seizure Queue. We do this to make sure that all queue lanes are consumed each time each time that a batch of Seizures is processed, so that a transaction cannot be submitted which maliciously leaves out a Vault that should be seized. Implementation-wise, what this will look like is as follows:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The first step in a Seizing Transaction Flow will be consuming a Vault along with with a Seizure Queue UTxO. The Vault's debt will be recorded and all collateral will be transferred to a new Seizure Queue UTxO, which prepares it for transfer into the Vault Manager/Stability Pool clearinghouses.
+        </li>
+      
+        <li>
+          The second step will be to process the Seizures. We've decided in the first approach to try adding this logic to the Supply/Demand Settling, so we'll just add the outputs of the Seizure Queuing into each of those.
+        </li>
+      
+    </ul>
+  <h3 id='adding-the-seizure-queuing-family' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Adding the Seizure Queuing Family</h3>
+    <p class='mb-3'>
+      First, we make a new transaction family:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/bpzKQJjAf93F3CQlx8elELIb.jpg' alt />
+    </p>
+  <h3 id='updating-the-settling-families' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Updating the Settling Families</h3>
+    <p class='mb-3'>
+      Next, we update our Settling Families. We simply consume three Seizure Queue Lanes, perform the Seizure (moving seized collateral and debt to the appropriate entity, if applicable) and produce three new Seizing Queue Lanes:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/dMMe8uN4UfyFlLsFXLij2MCX.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/mH823zbtiAAM7O1FcGwcpDAP.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      Implementing this would require writing the new logic, and the swapping out the old Settling Family TxTMPs for the new.
+    </p>
+  <h3 id='updating-the-supplying-and-demanding-flows' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Updating the Supplying and Demanding Flows</h3>
+    <p class='mb-3'>
+      Both of these families form part of their respective Supplying and Demanding Transaction Flows. Let's take a look at what the new Flows look like:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/e8QaP_h-wwrWCHERJAYGjiKe.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/WIqDtML6_oJy1OWp0xo09NFJ.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      So far so good. Notice we didn't have to modify the Supply/Demand Queuing Families <em>at all.</em> In practice, we <em>may</em> be required to make minor adjustments, since the routing logic may change or new data may need to be added to the Vault and Queue datums. But this still exhibits nice compositional properties, and presents a very intuitive graphical representation of the new protocol state.
+    </p>
+  
+    <p class='mb-3'>
+      Also notice that we described the Flow as taking in a Seizure Queue (that is presumably already filled), but we didn't specify that a Seizure Queuing Family transaction occurs in the same block as the Demand Queuing Family. This highlights that the wiring diagram representation of a Transaction Flow only represents a <em>single permissible composition</em> <em>of Transaction Families</em>, and does <em>not</em> capture every permissible composition. An alternate Flow could be represented, for example, as:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/LOER6GgpEgkducA-vLML_e-I.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      Both of these are permissible compositions. We'll use the first version for now.
+    </p>
+  <h3 id='updating-the-borrowing-flow' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Updating the Borrowing Flow</h3>
+    <p class='mb-3'>
+      Finally, we can update the Borrowing Flow.
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://static.slab.com/prod/uploads/pigzq8jp/posts/images/m7YaOGavnAw5PQYqR6gAaKq3.jpg' alt />
+    </p>
+  
+    <p class='mb-3'>
+      And that's it. We've just added an entirely new feature to our protocol specification, and should have a clear idea of what we need to update in terms of TxTMPs, Contracts, Validator Datum types, and Validator routing logic. Additional, since clear boundaries were drawn from the start, the development should be easily distributed across a team; we can specify solid interfaces, prove invariants, and implement accordingly.
+    </p>
+  
+    <p class='mb-3'>
+      We could use a similar process to then add fees to the protocol or a DAO/governance. Another transaction flow can be designed for Stability Providers, including Staking and Rewarding. We have clear entry points to implement special protocol modes like "Emergency Shutdown" or "Recovery"; decide whether this needs a new Transaction Family or can be bolted onto an existing one, decide whether we need new application or component-level data, and update accordingly. Transaction Families and Flows could be modeled for protocol updates and modifications, or could be designed to dynamically configure the protocol according to some metalogic.
+    </p>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+            <div class='flex flex-col lg:flex-row lg:space-x-2'>
+              
+              
+  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
+    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
+    <ul class='space-y-1'>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='transaction-token-pattern'>
+            transaction-token-pattern
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div>Theoretical advancements may follow; the TxT pattern has flavors of an effect system, and viewing strict transaction families as morphisms between validator objects lends itself to <a href='protocol-category' class='text-gray-600 font-bold hover:bg-gray-50'>categorical analysis</a>.</div>
+    </div>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>See <a href='transaction-token-protocol' class='text-gray-600 font-bold hover:bg-gray-50'>Transaction Token Protocol</a> Architecture and <a href='protocol-category' class='text-gray-600 font-bold hover:bg-gray-50'>Protocol Category Sketch</a> for an (opinionated) specification and implementation architecture derived from this pattern. Additionally, some stronger assumptions appear to make protocols defined in this way into a symmetric monoidal category (with a need for selecting and proving the appropriate formalisms). This enables protocols to be represented as wiring diagrams, which provide a graphical framework to reason about and prove properties of protocols that correspond directly to category-theoretic constructs, and should provide a straight-forward route to reification in Haskell/plutarch code.</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='README'>
+            README
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div>The <a href='protocol-category' class='text-gray-600 font-bold hover:bg-gray-50'>Protocol Category Sketch</a> document sketches a formalism to establish a formalism that places protocols described according the the Architecture into the language of symmetric monoidal categories, and works through some examples of how wiring diagrams and aid specification and implementation.</div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+    </ul>
+  </div>
+
+            </div>
+            
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+  </section>
+
+            <!-- What goes in this file will at the very end of the main div -->
+          </main>
+        </div>
+      </div>
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.5.3.0'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tasks' title='View tasks'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+      </svg>
+    </a>
+  </div>
+</footer>
+    </div>
+  
+</body>
+
+</html>
