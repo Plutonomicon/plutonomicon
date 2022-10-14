@@ -12,7 +12,7 @@ Credit - Koz Ross
 
 Numbers are a concept that is at the same time familiar in its generalities, 
 but aggravating in its detail. This is mostly because mathematicians typically 
-operate in the real line, which we, as computer scientists, cannot; 
+operate in the real life, which we, as computer scientists, cannot; 
 additionally, as Haskell developers, we are more concerned with _capabilities_ 
 than _theorems._ Therefore, working with numbers on a computer is, in basically 
 every language, some degree of unsatisfactory.
