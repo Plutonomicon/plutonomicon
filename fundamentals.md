@@ -8,7 +8,7 @@ There are two big parts to Cardano: The consensus algorithm and ledger model. Wh
 
 NB: We are currently in Alonzo.
 
-1. [https://staging.plutus.iohkdev.io/doc/haddock/plutus-ledger-api/html/Plutus-V2-Ledger-Contexts.html#t:TxInfo](https://staging.plutus.iohkdev.io/doc/haddock/plutus-ledger-api/html/Plutus-V2-Ledger-Contexts.html#t:TxInfo)
+1. [https://playground.plutus.iohkdev.io/doc/haddock/plutus-ledger-api/html/Plutus-V2-Ledger-Contexts.html#t:TxInfo](https://playground.plutus.iohkdev.io/doc/haddock/plutus-ledger-api/html/Plutus-V2-Ledger-Contexts.html#t:TxInfo)
 1. [https://iohk.io/en/research/library/papers/native-custom-tokens-in-the-extended-utxo-model/](https://iohk.io/en/research/library/papers/native-custom-tokens-in-the-extended-utxo-model/)
 1. [https://github.com/input-output-hk/cardano-ledger/tree/master/eras/alonzo/test-suite/cddl-files](https://github.com/input-output-hk/cardano-ledger/tree/master/eras/alonzo/test-suite/cddl-files)
 1. [https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/specs.alonzo-ledger/latest/download-by-type/doc-pdf/alonzo-changes](https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/specs.alonzo-ledger/latest/download-by-type/doc-pdf/alonzo-changes)
@@ -16,7 +16,7 @@ NB: We are currently in Alonzo.
 1. [https://plutus-apps.readthedocs.io/en/latest/](https://plutus-apps.readthedocs.io/en/latest/)
 1. [https://github.com/input-output-hk/plutus/blob/master/plutus-core/cost-model/CostModelGeneration.md](https://github.com/input-output-hk/plutus/blob/master/plutus-core/cost-model/CostModelGeneration.md)
 1. [https://github.com/input-output-hk/plutus/blob/master/plutus-core/cost-model/data/builtinCostModel.json](https://github.com/input-output-hk/plutus/blob/master/plutus-core/cost-model/data/builtinCostModel.json)
-1. [https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-Builtins-Internal.html](https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-Builtins-Internal.html)
+1. [https://playground.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-Builtins-Internal.html](https://playground.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-Builtins-Internal.html)
 
 ## Overview
 

@@ -1,9 +1,9 @@
 # Plutus Core Builtin Functions Reference
-This document serves as a reference to the Plutus Core builtin functions, aka [`DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun). It is primarily meant for Pluto users and Plutarch developers/contributors. As such, it contains information about *forcing*. That is, how many times each of these builtins need to be forced to actually use them.
+This document serves as a reference to the Plutus Core builtin functions, aka [`DefaultFun`](https://playground.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun). It is primarily meant for Pluto users and Plutarch developers/contributors. As such, it contains information about *forcing*. That is, how many times each of these builtins need to be forced to actually use them.
 
 > Note: If you spot any mistakes/have any related questions that this guide lacks the answer to, please don't hesitate to raise an issue. The goal is to have high quality documentation for Pluto and Plutarch users!
 
-[Cross Reference](https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-Builtins-Internal.html)
+[Cross Reference](https://playground.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx-Builtins-Internal.html)
 
 > Note: The "Type" column of the table below is primarily for documentation reasons. After all, it's all *Untyped* Plutus Core. However, most of these types *do* need to be adhered to. There are a few cases where some flexibility allowed. These cases will be noted on the table itself.
 
@@ -77,6 +77,6 @@ This document serves as a reference to the Plutus Core builtin functions, aka [`
 * [Builtin pairs](builtin-pairs.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 * [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
-* [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
-* [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
-* [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)
+* [Plutus builtin functions and types](https://playground.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
+* [Plutus Core builtin function identifiers, aka `DefaultFun`](https://playground.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
+* [Plutus Core types, aka `DefaultUni`](https://playground.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)

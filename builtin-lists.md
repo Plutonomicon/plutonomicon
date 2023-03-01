@@ -164,7 +164,7 @@ Where `xs` is of type `PBuiltinList a`, and `a` and `b` are the two branches of 
 ## `MkNilData`
 You're probably wondering, "All those functions above take in builtin lists. That's cool, but where can I get me one of these builtin lists you speak of?". Good question! Here's the first of several ways to obtain a builtin list.
 
-`MkNilData` takes in a `BuiltinUnit` and returns an empty list (`nil`) of [`BuiltinData`/`Data`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx.html#t:Data). So, its return type is like `BuiltinList Data`.
+`MkNilData` takes in a `BuiltinUnit` and returns an empty list (`nil`) of [`BuiltinData`/`Data`](https://playground.plutus.iohkdev.io/doc/haddock/plutus-tx/html/PlutusTx.html#t:Data). So, its return type is like `BuiltinList Data`.
 
 More often than not, you'll actually be working on builtin lists of `Data`. You rarely need to use builtin lists with elements of other type (except `BuiltinPair`). Convenient!
 
@@ -229,6 +229,6 @@ There is no truly polymorphic `nil` in Plutus Core. When you create a `nil` cons
 * [Builtin functions](builtin-functions.md)
 * [Pluto guide](https://github.com/Plutonomicon/pluto/blob/main/GUIDE.md)
 * [Plutarch guide](https://github.com/Plutonomicon/plutarch/blob/master/docs/GUIDE.md)
-* [Plutus builtin functions and types](https://staging.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
-* [Plutus Core builtin function identifiers, aka `DefaultFun`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
-* [Plutus Core types, aka `DefaultUni`](https://staging.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)
+* [Plutus builtin functions and types](https://playground.plutus.iohkdev.io/doc/haddock//plutus-tx/html/PlutusTx-Builtins-Internal.html)
+* [Plutus Core builtin function identifiers, aka `DefaultFun`](https://playground.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultFun)
+* [Plutus Core types, aka `DefaultUni`](https://playground.plutus.iohkdev.io/doc/haddock/plutus-core/html/PlutusCore.html#t:DefaultUni)
