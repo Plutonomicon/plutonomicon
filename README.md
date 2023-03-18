@@ -78,3 +78,10 @@ Please note the Markdown writing conventions:
 - All other headings must be level 2 or greater.
 
 [^ed]: Try [Obsidian](https://obsidian.md) or VSCode with [vscode-memo](https://github.com/svsool/vscode-memo) for editing.
+
+### Available support channels info
+
+You can find help, more information and ongoing discusion about the project here:
+- [link] - short description
+- [link] - short description
+
