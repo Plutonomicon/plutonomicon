@@ -32,7 +32,7 @@ The functionality you want is then expressed through what kind of transactions y
 
 In a distributed ledger, size is an expensive resource. As such, transactions are limited in size based on the `max_tx_size` protocol parameter. The current limit is 16 KiB, but this is subject to change.
 
-Previously, any validator that needed to run in a transaction had to be stored in taht transaction, meaning that scripts could quickly cause the transaction to go over the size limit.
+Previously, any validator that needed to run in a transaction had to be stored in that transaction, meaning that scripts could quickly cause the transaction to go over the size limit.
 
 This is no longer the case, with the introduction of **Reference Scripts** which were proposed in [CIP-33](https://cips.cardano.org/cip/CIP-33). Now, scripts can be stored in a UTxO, and that UTxO can be referenced by a transaction, greatly decreasing transaction size.
 
@@ -88,11 +88,11 @@ There are rules for whether a transaction can consume a UTxO.
 
 Each UTxO is associated with either a script (validator) or a public key hash.
 
-If it's a public key hash, then a transaction can only consume the UTxO if it contains a signature by the public key in question.
+If its a public key hash, then a transaction can only consume the UTxO if it contains a signature by the public key in question.
 
 If it is a validator, then the validator will be run with three arguments, in the following order:
 
-- The datum, which either has it's hash or the full datum attched to the UTxO.
+- The datum, which either has its hash or the full datum attached to the UTxO.
 - The redeemer, which is attached to the **consuming** transaction.
 - The script context, which contains the consuming transaction itself in addition to some auxiliary information.
 
