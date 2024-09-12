@@ -23,6 +23,30 @@ _the Datum of too much size_ - similarly, Datum on a UTXO which is of an inappro
 Make sure not to use infinitely sized data types,
 or take and infinitely sized one and limit it in some way.
 
+## Double Satisfaction
+
+If a spending contract only looks at the outputs for its input, it could lead to
+allowing multiple UTxOs to be spent in a single transaction, as long as at least
+one of them produces the expected outputs.
+
+As an example, if a trade contract validates the sale of an NFT by only checking
+that its seller is receiving the asked price in the minimum, a transaction can
+be built such that multiple NFTs of this particular seller are spent, but seller
+only gets the asked price for the most expensive of the spent NFTs.
+
+### Solution
+
+The simplest solution is to validate that only a single UTxO is spent from the
+contract's address. Meaning the contract has to filter the inputs based on their
+addresses, and make sure that a single input remains such that its address is
+the same as the UTxO currently getting spent.
+
+Another solution that allows for multiple UTxOs to be spent in a single
+transaction, is to uniquely "tag" the outputs for their corresponding inputs.
+For example, the contract can expect the output to carry the transaction ID of
+its associated input in the datum, and therefore ensure only one UTxO has been
+spent for it.
+
 ## Lack of staking control
 
 Protocols must ensure that staking is determined by the protocol for
@@ -43,19 +67,19 @@ Mitigations:
 
 ## PAB denial of service
 
-this covers known exploits of the plutus application backend that may result in successful DoS attacks
+This covers known exploits of the plutus application backend that may result in successful DoS attacks
 
 - Plutus relies on `aeson`, which has a known DoS exploit listed here: [https://github.com/haskell/aeson/issues/864](https://github.com/haskell/aeson/issues/864)  
 
 ## Unauthorized Data modification
 
-this often comes from missing a signature or transaction validation in onchain code,    mitigation is to keep a test suite where each actor fails to validate the transaction, such that this code cannot be missing.
+This often comes from missing a signature or transaction validation in onchain code,    mitigation is to keep a test suite where each actor fails to validate the transaction, such that this code cannot be missing.
 
 ## Oracle Attacks
 
 ## Offchain Oracle Data chain-of-information Attacks
 
-this deals more with an offchain server, some mitigations
+This deals more with an offchain server, some mitigations
 
 - building production data integrations that connect with IP (mitigating DNS attacks)
 - using Trusted Private Modules for transaction signatures (keeps private keys entirely within a single cpu core,  helps prevent data leakage)
@@ -85,11 +109,11 @@ Mitigations:
 
 This is an attack vector where an attacker finds unexpected ways to mint all kinds of tokens without the correct authorization. Below describes just one potential attack:
 
-1) we have a forwarding minting policy which requires `MyState` datum/token from the `MyValidator` Validator in order to perform a mint. this policy mints `$TOK` - this can be any fungible token/ token with a consistent currencysymbol.
+1) We have a forwarding minting policy which requires `MyState` datum/token from the `MyValidator` Validator in order to perform a mint. This policy mints `$TOK` - this can be any fungible token/ token with a consistent currencysymbol.
 
-2) we _Intend_ for users to mint using the `MintTOK` Redeemer in `MyValidator`, however, for other integrations we have a `WitnessMyState` Redeemer, which lets you consume `MyState` for any arbitrary purpose so long as you don't change it.
+2) We _Intend_ for users to mint using the `MintTOK` Redeemer in `MyValidator`, however, for other integrations we have a `WitnessMyState` Redeemer, which lets you consume `MyState` for any arbitrary purpose so long as you don't change it.
 
-3) if `WitnessMyState` does not check for minting actions, then we can mint infinite `$TOK`, inflating it's value and potentially other catastrophic ruin-your-day kinds of exploits.
+3) If `WitnessMyState` does not check for minting actions, then we can mint infinite `$TOK`, inflating its value and potentially other catastrophic ruin-your-day kinds of exploits.
 
 ## Parameterization
 
@@ -106,4 +130,10 @@ then the RHS is the parameter itself.
 Use technique described above (i.e. manually constructing the term) for off-chain purposes.
 If you need to witness it on-chain, use a ZKP or don't parameterize your script.
 
-In egnera
+Another solution is to store the "parameters" of your contract in an
+authenticated (and potentially unique) UTxO. However, note that this approach
+leads to identical addresses for different parameters.
+
+In general, keep in mind that _assuming_ a contract is instantiated properly, is
+equivalent to supporting arbitrary contracts, since this kind of validation is
+not yet possible.
