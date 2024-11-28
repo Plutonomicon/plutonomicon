@@ -54,7 +54,8 @@ We currently provide the following resources, broadly organized by topic.
 * [Optimizations to reduce CPU and Mem consumption](scriptmem.md)
 * [Shrinker](https://github.com/Plutonomicon/Shrinker) (shrinker is currently unmaintained)
 
-### Plutus Vulnerabilities:
+### Known Issues:
+* [Troubleshooting](troubleshooting.md)
 * [Common Plutus Vulnerabilities](vulnerabilities.md)
 
 ## Discussion 
